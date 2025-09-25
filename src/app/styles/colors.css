@@ -4,6 +4,85 @@
   Base light theme values
   Each maps directly to a semantic token
 */
+@theme {
+
+  /* Constant */
+  --color-constant-default: var(--color-constant-default);
+  --color-constant-inverse: var(--color-constant-inverse);
+
+  /* Text */
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-tertiary: var(--color-text-tertiary);
+  --color-text-quaternary: var(--color-text-quaternary);
+
+  /* Fill */
+  --color-fill-primary: var(--color-fill-primary);
+  --color-fill-secondary: var(--color-fill-secondary);
+  --color-fill-tertiary: var(--color-fill-tertiary);
+  --color-fill-quaternary: var(--color-fill-quaternary);
+
+  /* Stroke */
+  --color-stroke-primary: var(--color-stroke-primary);
+  --color-stroke-secondary: var(--color-stroke-secondary);
+
+  /* Background */
+  --color-background-b0: var(--color-background-b0);
+  --color-background-b1: var(--color-background-b1);
+  --color-background-b2: var(--color-background-b2);
+  --color-background-b3: var(--color-background-b3);
+
+  /* Brand */
+  --color-brand-default: var(--color-brand-default);
+  --color-brand-contrast: var(--color-brand-contrast);
+  --color-brand-hover: var(--color-brand-hover);
+  --color-brand-active: var(--color-brand-active);
+  --color-brand-stroke: var(--color-brand-stroke);
+  --color-brand-fill: var(--color-brand-fill);
+
+  /* Blue */
+  --color-blue-default: var(--color-blue-default);
+  --color-blue-hover: var(--color-blue-hover);
+  --color-blue-active: var(--color-blue-active);
+  --color-blue-stroke: var(--color-blue-stroke);
+  --color-blue-fill: var(--color-blue-fill);
+
+  /* Green */
+  --color-green-default: var(--color-green-default);
+  --color-green-hover: var(--color-green-hover);
+  --color-green-active: var(--color-green-active);
+  --color-green-stroke: var(--color-green-stroke);
+  --color-green-fill: var(--color-green-fill);
+
+  /* Yellow */
+  --color-yellow-default: var(--color-yellow-default);
+  --color-yellow-hover: var(--color-yellow-hover);
+  --color-yellow-active: var(--color-yellow-active);
+  --color-yellow-stroke: var(--color-yellow-stroke);
+  --color-yellow-fill: var(--color-yellow-fill);
+
+  /* Orange */
+  --color-orange-default: var(--color-orange-default);
+  --color-orange-hover: var(--color-orange-hover);
+  --color-orange-active: var(--color-orange-active);
+  --color-orange-stroke: var(--color-orange-stroke);
+  --color-orange-fill: var(--color-orange-fill);
+
+  /* Red */
+  --color-red-default: var(--color-red-default);
+  --color-red-hover: var(--color-red-hover);
+  --color-red-active: var(--color-red-active);
+  --color-red-stroke: var(--color-red-stroke);
+  --color-red-fill: var(--color-red-fill);
+
+  /* Pink */
+  --color-pink-default: var(--color-pink-default);
+  --color-pink-hover: var(--color-pink-hover);
+  --color-pink-active: var(--color-pink-active);
+  --color-pink-stroke: var(--color-pink-stroke);
+  --color-pink-fill: var(--color-pink-fill);
+}
+
 :root {
   /* Constant */
   --color-constant-default: #18181b;
@@ -83,8 +162,7 @@
 }
 
 /* Dark mode overrides */
-@media (prefers-color-scheme: dark) {
-  :root {
+.dark {
     /* Constant */
     --color-constant-default: #ffffff;
     --color-constant-inverse: #18181b;
@@ -159,5 +237,5 @@
     --color-pink-active: #db2777;
     --color-pink-stroke: #f9a8d4;
     --color-pink-fill: #831843;
-  }
+
 }
