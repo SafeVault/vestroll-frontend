@@ -1,26 +1,29 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "./styles/colors.css";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--color-constant-default);
+  --color-foreground: var(--color-constant-inverse);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --color-background: var(--color-background-b0);
+  --color-foreground: var(--color-text-primary);
+}
+
+[data-theme="light"] {
+  --color-background: var(--color-background-b0);
+  --color-foreground: var(--color-text-primary);
+}
+
+[data-theme="dark"] {
+  --color-background: #0a0a0a;
+  --color-foreground: #ededed;
+  /* You can override more variables for dark mode here if needed */
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
