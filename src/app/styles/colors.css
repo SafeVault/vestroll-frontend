@@ -1,0 +1,169 @@
+/* -- LIGHT MODE -- */
+:root {
+  /* CONSTANT */
+  --color-constant-default: #000000;
+  --color-constant-inverse: #ffffff;
+
+  /* TEXT */
+  --color-text-primary: #171717;
+  --color-text-secondary: #525252;
+  --color-text-tertiary: #a3a3a3;
+  --color-text-quaternary: #d4d4d4;
+
+  /* GRAY */
+  --color-gray-primary: #262626;
+  --color-gray-secondary: #404040;
+  --color-gray-tertiary: #737373;
+  --color-gray-quaternary: #d4d4d4;
+
+  /* FILL */
+  --color-fill-primary: #f5f5f5;
+  --color-fill-secondary: #fafafa;
+  --color-fill-tertiary: #f9fafb;
+  --color-fill-quaternary: #fefefe;
+
+  /* STROKE */
+  --color-stroke-primary: #e5e5e5;
+  --color-stroke-secondary: #f0f0f0;
+
+  /* BACKGROUND */
+  --color-background-b0: #f5f5f5;
+  --color-background-b1: #ffffff;
+  --color-background-b2: #fafafa;
+  --color-background-b3: #fefefe;
+
+  /* BRAND */
+  --color-brand-default: #6b21a8;
+  --color-brand-contrast: #581c87;
+  --color-brand-hover: #7c3aed;
+  --color-brand-active: #5b21b6;
+  --color-brand-stroke: #c084fc;
+  --color-brand-fill: #f3e8ff;
+
+  /* BLUE */
+  --color-blue-default: #2563eb;
+  --color-blue-hover: #3b82f6;
+  --color-blue-active: #1d4ed8;
+  --color-blue-stroke: #60a5fa;
+  --color-blue-fill: #dbeafe;
+
+  /* GREEN */
+  --color-green-default: #16a34a;
+  --color-green-hover: #22c55e;
+  --color-green-active: #15803d;
+  --color-green-stroke: #4ade80;
+  --color-green-fill: #dcfce7;
+
+  /* YELLOW */
+  --color-yellow-default: #facc15;
+  --color-yellow-hover: #fde047;
+  --color-yellow-active: #eab308;
+  --color-yellow-stroke: #facc15;
+  --color-yellow-fill: #fef9c3;
+
+  /* ORANGE */
+  --color-orange-default: #f97316;
+  --color-orange-hover: #fb923c;
+  --color-orange-active: #ea580c;
+  --color-orange-stroke: #fdba74;
+  --color-orange-fill: #ffedd5;
+
+  /* RED */
+  --color-red-default: #dc2626;
+  --color-red-hover: #ef4444;
+  --color-red-active: #b91c1c;
+  --color-red-stroke: #f87171;
+  --color-red-fill: #fee2e2;
+
+  /* PINK */
+  --color-pink-default: #ec4899;
+  --color-pink-hover: #f472b6;
+  --color-pink-active: #db2777;
+  --color-pink-stroke: #f9a8d4;
+  --color-pink-fill: #fce7f3;
+}
+
+/* -- DARK MODE -- */
+[data-theme="dark"] {
+  /* CONSTANT */
+  --color-constant-default: #ffffff;
+  --color-constant-inverse: #000000;
+
+  /* TEXT */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a3a3a3;
+  --color-text-tertiary: #737373;
+  --color-text-quaternary: #404040;
+
+  /* GRAY */
+  --color-gray-primary: #f5f5f5;
+  --color-gray-secondary: #d4d4d4;
+  --color-gray-tertiary: #a3a3a3;
+  --color-gray-quaternary: #737373;
+
+  /* FILL */
+  --color-fill-primary: #171717;
+  --color-fill-secondary: #262626;
+  --color-fill-tertiary: #404040;
+  --color-fill-quaternary: #525252;
+
+  /* STROKE */
+  --color-stroke-primary: #262626;
+  --color-stroke-secondary: #404040;
+
+  /* BACKGROUND */
+  --color-background-b0: #0a0a0a;
+  --color-background-b1: #171717;
+  --color-background-b2: #262626;
+  --color-background-b3: #404040;
+
+  /* BRAND */
+  --color-brand-default: #a855f7;
+  --color-brand-contrast: #7e22ce;
+  --color-brand-hover: #9333ea;
+  --color-brand-active: #6d28d9;
+  --color-brand-stroke: #c084fc;
+  --color-brand-fill: #ede9fe;
+
+  /* BLUE */
+  --color-blue-default: #3b82f6;
+  --color-blue-hover: #60a5fa;
+  --color-blue-active: #2563eb;
+  --color-blue-stroke: #93c5fd;
+  --color-blue-fill: #1e3a8a;
+
+  /* GREEN */
+  --color-green-default: #22c55e;
+  --color-green-hover: #4ade80;
+  --color-green-active: #16a34a;
+  --color-green-stroke: #86efac;
+  --color-green-fill: #064e3b;
+
+  /* YELLOW */
+  --color-yellow-default: #eab308;
+  --color-yellow-hover: #facc15;
+  --color-yellow-active: #ca8a04;
+  --color-yellow-stroke: #fde047;
+  --color-yellow-fill: #713f12;
+
+  /* ORANGE */
+  --color-orange-default: #fb923c;
+  --color-orange-hover: #fdba74;
+  --color-orange-active: #f97316;
+  --color-orange-stroke: #fed7aa;
+  --color-orange-fill: #7c2d12;
+
+  /* RED */
+  --color-red-default: #ef4444;
+  --color-red-hover: #f87171;
+  --color-red-active: #dc2626;
+  --color-red-stroke: #fca5a5;
+  --color-red-fill: #7f1d1d;
+
+  /* PINK */
+  --color-pink-default: #f472b6;
+  --color-pink-hover: #f9a8d4;
+  --color-pink-active: #ec4899;
+  --color-pink-stroke: #fbcfe8;
+  --color-pink-fill: #831843;
+}
