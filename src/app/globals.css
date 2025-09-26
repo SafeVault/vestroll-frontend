@@ -24,6 +24,125 @@
   /* You can override more variables for dark mode here if needed */
 }
 
+@font-face {
+  font-family: "HK Grotesk";
+  src: url("/fonts/HKGrotesk/HankenGrotesk-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "HK Grotesk";
+  src: url("/fonts/HKGrotesk/HankenGrotesk-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "HK Grotesk";
+  src: url("/fonts/HKGrotesk/HankenGrotesk-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "HK Grotesk";
+  src: url("/fonts/HKGrotesk/HankenGrotesk-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "HK Grotesk", sans-serif;
+}
+
+.display {
+  font-family: "HK Grotesk", sans-serif;
+  font-size: 48px;
+  line-height: auto;
+  font-weight: 700;
+}
+.display-1 {
+  font-family: "HK Grotesk", sans-serif;
+  font-size: 40px;
+  line-height: auto;
+  font-weight: 700;
+}
+
+.header {
+  font-family: "HK Grotesk", sans-serif;
+  font-size: 32px;
+  line-height: auto;
+  font-weight: 700;
+}
+
+.header-1 {
+  font-family: "HK Grotesk", sans-serif;
+  font-size: 28px;
+  line-height: auto;
+  font-weight: 700;
+}
+
+.header-2 {
+  font-family: "HK Grotesk", sans-serif;
+  font-size: 24px;
+  line-height: auto;
+  font-weight: 700;
+}
+
+.header-3 {
+  font-family: "HK Grotesk", sans-serif;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+}
+
+.subheader {
+  font-family: "HK Grotesk", sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.subheader-1 {
+  font-family: "HK Grotesk", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.subheader-2 {
+  font-family: "HK Grotesk", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+}
+.body-1 {
+  font-family: "HK Grotesk", sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+}
+.body-2 {
+  font-family: "HK Grotesk", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.body-3 {
+  font-family: "HK Grotesk", sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+.body-4 {
+  font-family: "HK Grotesk", sans-serif;
+  font-size: 10px;
+  line-height: 14px;
+  font-weight: 500;
 }
