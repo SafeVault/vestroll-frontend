@@ -1,29 +1,12 @@
 import VestRollAccountSelection from "@/components/accountType";
-import ThemeToggle from "@/components/themeToggler";
-import Image from "next/image";
+import { redirect } from "next/navigation";
 
 export default function Home() {
   return (
     <div>
-      {/* <ThemeToggle /> */}
       <VestRollAccountSelection />
-      {/* <footer className="flex h-24 w-full items-center justify-center border-t mt-8">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer> */}
+<!--       redirect("/onboarding"); -->
+
     </div>
   );
 }
