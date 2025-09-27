@@ -1,9 +1,5 @@
-import BusinessDetails from "../components/business-details"
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return (
-    <div className="flex min-h-screen">
-      <BusinessDetails />
-    </div>
-  );
+  redirect("/onboarding");
 }
