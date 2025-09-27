@@ -79,8 +79,8 @@ function FieldRow({ label, value, right }: FieldRowProps) {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-2 sm:gap-6 px-3 sm:px-4 py-3 rounded-lg bg-[#f8fafc]">
             <div className="text-sm text-[#6b7280]">{label}</div>
-            <div className="sm:col-span-2 flex items-center justify-between gap-3">
-                <div className="text-sm sm:text-base text-[#111827]">{value ?? <span className="text-[#9ca3af]">--</span>}</div>
+            <div className="sm:col-span-2 flex items-center justify-end gap-3">
+                <div className="text-sm sm:text-base text-[#111827] text-right">{value ?? <span className="text-[#9ca3af]">--</span>}</div>
                 {right}
             </div>
         </div>
@@ -141,7 +141,7 @@ export default function Page() {
                         title="Company information"
                         action={
                             <button
-                                className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium text-[var(--violet-base)] border-[var(--violet-base)] hover:bg-[var(--violet-hover)] hover:text-white active:bg-[var(--violet-active)] transition-colors"
+                                className="inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm font-medium text-[var(--violet-base)] border-[var(--violet-base)] hover:bg-[var(--violet-hover)] hover:text-white active:bg-[var(--violet-active)] transition-colors"
                                 type="button"
                                 aria-label="Edit company information"
                             >
@@ -188,7 +188,7 @@ export default function Page() {
                         <div className="space-y-4">
                             <div>
                                 <div className="text-sm text-[#6b7280] mb-2">Billing address</div>
-                                <div className="flex items-center gap-3 rounded-xl border border-gray-300 px-4 py-4 text-[#92400e]">
+                                <div className="flex items-center gap-3 rounded-xl border border-gray-300 px-4 py-4">
                                     <Image src="/warning.svg" width={20} height={20} alt="Warning" />
                                     <div className="text-sm">
                                         Please{" "}
@@ -204,7 +204,7 @@ export default function Page() {
                             </div>
                             <div>
                                 <div className="text-sm text-[#6b7280] mb-2">Registered address</div>
-                                <div className="flex items-center gap-3 rounded-xl border border-gray-300 px-4 py-4 text-[#92400e]">
+                                <div className="flex items-center gap-3 rounded-xl border border-gray-300 px-4 py-4">
                                     <Image src="/warning.svg" width={20} height={20} alt="Warning" />
                                     <div className="text-sm">
                                         Please{" "}
