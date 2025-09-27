@@ -13,6 +13,7 @@ import {
   ReceiptText,
   Settings,
   LogOut,
+  X,
 } from "lucide-react";
 
 type NavItem = {
@@ -58,10 +59,19 @@ export default function Sidebar({ mobileOpen = false, onCloseMobile }: SidebarPr
 
   const content = (
     <div className="flex h-full flex-col px-4 py-6">
-      <Link href="/" className="flex items-center gap-3 px-2" aria-label="VestRoll home">
-        <Image src="/Logo.svg" alt="VestRoll" width={32} height={32} />
-        <span className="text-xl font-semibold tracking-tight">VestRoll</span>
-      </Link>
+      <div className="flex items-center justify-between px-2">
+        <Link href="/" className="flex items-center gap-3" aria-label="VestRoll home">
+          <Image src="/Logo.svg" alt="VestRoll" width={100} height={100} />
+        </Link>
+        <button
+          type="button"
+          aria-label="Close menu"
+          onClick={onCloseMobile}
+          className="lg:hidden rounded-lg p-2 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6d28d9]"
+        >
+          <X className="h-5 w-5" />
+        </button>
+      </div>
 
       <div className="mt-8 px-2 text-xs font-semibold tracking-wider text-[#6b7280]">MENU</div>
 
@@ -134,7 +144,7 @@ export default function Sidebar({ mobileOpen = false, onCloseMobile }: SidebarPr
       />
       <aside
         className={classNames(
-          "fixed inset-y-0 left-0 z-50 w-72 translate-x-[-100%] border-r border-[#e5e7eb] bg-white shadow-xl transition-transform lg:hidden",
+          "fixed inset-y-0 left-0 z-50 w-72 -translate-x-full border-r border-[#e5e7eb] bg-white shadow-xl transition-transform lg:hidden",
           mobileOpen && "translate-x-0"
         )}
         aria-label="Mobile sidebar"
