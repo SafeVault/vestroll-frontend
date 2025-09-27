@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 import { UsersIcon, GlobeAltIcon, ShieldCheckIcon } from "@heroicons/react/24/outline";
 
 const violet = {
@@ -10,52 +11,54 @@ const violet = {
     active: "#4c1d95",
 };
 
-function Tab({ label, href, active }: { label: string; href: string; active?: boolean }) {
-  return (
-    <Link
-      href={href}
-      className={`-mb-px border-b-2 px-3 sm:px-4 py-3 text-sm sm:text-base transition-colors ${
-        active ? "font-semibold" : "text-[#6b7280] hover:text-[#4b5563]"
-      }`}
-      style={{ borderColor: active ? violet.base : "transparent", color: active ? violet.base : undefined }}
-      aria-current={active ? "page" : undefined}
-    >
-      {label}
-    </Link>
-  );
+interface TabProps {
+    label: string;
+    href: string;
+    active?: boolean;
 }
 
-function Stat({
-  Icon,
-  label,
-  value,
-}: {
-  Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-  label: string;
-  value: string;
-}) {
-  return (
-    <div className="flex items-center gap-3">
-      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f5f3ff]">
-        <Icon className={`h-5 w-5 text-[${violet.base}]`} />
-      </div>
-      <div className="leading-tight">
-        <div className="text-sm text-[#6b7280]">{label}</div>
-        <div className="text-base sm:text-lg font-semibold text-[#111827]">{value}</div>
-      </div>
-    </div>
-  );
+function Tab({ label, href, active = false }: TabProps) {
+    return (
+        <Link
+            href={href}
+            className={`-mb-px border-b-2 px-3 sm:px-4 py-3 text-sm sm:text-base transition-colors ${
+                active ? "font-semibold" : "text-[#6b7280] hover:text-[#4b5563]"
+            }`}
+            style={{ borderColor: active ? violet.base : "transparent", color: active ? violet.base : undefined }}
+            aria-current={active ? "page" : undefined}
+        >
+            {label}
+        </Link>
+    );
 }
 
-function SectionCard({
-    title,
-    action,
-    children,
-}: {
+interface StatProps {
+    Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+    label: string;
+    value: string;
+}
+
+function Stat({ Icon, label, value }: StatProps) {
+    return (
+        <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f5f3ff]">
+                <Icon className="h-5 w-5 text-[var(--violet-base)]" />
+            </div>
+            <div className="leading-tight">
+                <div className="text-sm text-[#6b7280]">{label}</div>
+                <div className="text-base sm:text-lg font-semibold text-[#111827]">{value}</div>
+            </div>
+        </div>
+    );
+}
+
+interface SectionCardProps {
     title: string;
     action?: React.ReactNode;
     children: React.ReactNode;
-}) {
+}
+
+function SectionCard({ title, action, children }: SectionCardProps) {
     return (
         <section className="rounded-xl border border-[#e5e7eb] bg-white shadow-sm">
             <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-[#eef2f7]">
@@ -67,7 +70,13 @@ function SectionCard({
     );
 }
 
-function FieldRow({ label, value, right }: { label: string; value?: React.ReactNode; right?: React.ReactNode }) {
+interface FieldRowProps {
+    label: string;
+    value?: React.ReactNode;
+    right?: React.ReactNode;
+}
+
+function FieldRow({ label, value, right }: FieldRowProps) {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-2 sm:gap-6 px-3 sm:px-4 py-3 rounded-lg bg-[#f8fafc]">
             <div className="text-sm text-[#6b7280]">{label}</div>
@@ -79,10 +88,16 @@ function FieldRow({ label, value, right }: { label: string; value?: React.ReactN
     );
 }
 
-function WarningBox({ children }: { children: React.ReactNode }) {
+interface WarningBoxProps {
+    children: React.ReactNode;
+}
+
+function WarningBox({ children }: WarningBoxProps) {
     return (
         <div className="flex items-center gap-3 rounded-xl border border-[#fef08a] bg-[#fffbeb] px-4 py-4 text-[#92400e]">
-            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#fef3c7] text-[#ca8a04]">!</span>
+            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#fef3c7] text-[#ca8a04]" aria-hidden="true">
+                !
+            </span>
             <div className="text-sm">
                 {children}
             </div>
@@ -90,16 +105,21 @@ function WarningBox({ children }: { children: React.ReactNode }) {
     );
 }
 
-export default function SettingsPage() {
+export default function Page() {
+    const themeVars = {
+        "--violet-base": violet.base,
+        "--violet-hover": violet.hover,
+        "--violet-active": violet.active,
+    } as React.CSSProperties;
+
     return (
-        <div className="min-h-screen w-full bg-[#f3f4f6]">
+        <div className="min-h-screen w-full bg-[#f3f4f6]" style={themeVars}>
             <div className="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-10">
                 <div className="flex items-center justify-between">
                     <h1 className="text-2xl sm:text-3xl font-semibold text-[#111827]">Settings</h1>
-                    <div className="hidden sm:block" />
                 </div>
 
-                <nav className="mt-6 flex items-center gap-2 border-b border-[#e5e7eb]">
+                <nav className="mt-6 flex items-center gap-2 border-b border-[#e5e7eb]" role="navigation" aria-label="Settings navigation">
                     <Tab label="Company" href="#" active />
                     <Tab label="Permissions" href="#" />
                     <Tab label="Hiring templates" href="#" />
@@ -107,25 +127,25 @@ export default function SettingsPage() {
                 </nav>
 
                 {/* Company Header */}
-        <div className="mt-6 rounded-xl border border-[#e5e7eb] bg-white p-4 sm:p-6 shadow-sm">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-            <div className="flex items-center gap-4">
-              <div className="relative h-20 w-20 sm:h-24 sm:w-24 rounded-full bg-[#ef4444] flex items-center justify-center shadow">
-                <span className="text-white text-5xl leading-none">A</span>
-              </div>
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-semibold text-[#111827]">Touchpoint 360</h2>
-              </div>
-            </div>
-            <div className="flex items-center gap-6 sm:gap-10">
-              <Stat Icon={UsersIcon} label="Active members" value="20" />
-              <div className="hidden sm:block h-10 w-px bg-[#e5e7eb]" />
-              <Stat Icon={GlobeAltIcon} label="Countries" value="04" />
-              <div className="hidden sm:block h-10 w-px bg-[#e5e7eb]" />
-              <Stat Icon={ShieldCheckIcon} label="Administrators" value="02" />
-            </div>
-          </div>
-        </div>
+                <div className="mt-6 rounded-xl border border-[#e5e7eb] bg-white p-4 sm:p-6 shadow-sm">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+                        <div className="flex items-center gap-4">
+                            <div className="relative h-20 w-20 sm:h-24 sm:w-24 rounded-full bg-[#ef4444] flex items-center justify-center shadow">
+                                <span className="text-white text-5xl leading-none" aria-hidden="true">A</span>
+                            </div>
+                            <div>
+                                <h2 className="text-2xl sm:text-3xl font-semibold text-[#111827]">Touchpoint 360</h2>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-6 sm:gap-10">
+                            <Stat Icon={UsersIcon} label="Active members" value="20" />
+                            <div className="hidden sm:block h-10 w-px bg-[#e5e7eb]" aria-hidden="true" />
+                            <Stat Icon={GlobeAltIcon} label="Countries" value="04" />
+                            <div className="hidden sm:block h-10 w-px bg-[#e5e7eb]" aria-hidden="true" />
+                            <Stat Icon={ShieldCheckIcon} label="Administrators" value="02" />
+                        </div>
+                    </div>
+                </div>
 
                 {/* Company information */}
                 <div className="mt-6">
@@ -133,9 +153,11 @@ export default function SettingsPage() {
                         title="Company information"
                         action={
                             <button
-                                className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium text-[${violet.base}] border-[${violet.base}] hover:bg-[${violet.hover}] hover:text-white active:bg-[${violet.active}] transition-colors`}
+                                className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium text-[var(--violet-base)] border-[var(--violet-base)] hover:bg-[var(--violet-hover)] hover:text-white active:bg-[var(--violet-active)] transition-colors"
+                                type="button"
+                                aria-label="Edit company information"
                             >
-                                <Image src="/edit.svg" width={16} height={16} alt="Edit" />
+                                <Image src="/edit.svg" width={16} height={16} alt="" />
                                 Edit
                             </button>
                         }
@@ -148,7 +170,7 @@ export default function SettingsPage() {
                                 label="Country of incorporation"
                                 value={
                                     <div className="flex items-center gap-2">
-                                        <Image src="/nigeria.svg" width={20} height={14} alt="Nigeria" />
+                                        <Image src="/nigeria.svg" width={20} height={14} alt="Nigeria flag" />
                                         <span>Nigeria</span>
                                     </div>
                                 }
@@ -158,7 +180,14 @@ export default function SettingsPage() {
                             <FieldRow
                                 label="Company public website URL"
                                 value={
-                                    <Link href="https://www.touchpoint360.com/" className={`text-[${violet.base}] hover:underline`}>https://www.touchpoint360.com/</Link>
+                                    <Link 
+                                        href="https://www.touchpoint360.com/" 
+                                        className="text-[var(--violet-base)] hover:underline"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        https://www.touchpoint360.com/
+                                    </Link>
                                 }
                             />
                         </div>
@@ -173,7 +202,14 @@ export default function SettingsPage() {
                                 <div className="text-sm text-[#6b7280] mb-2">Billing address</div>
                                 <WarningBox>
                                     <span>
-                                        Please <a className={`underline decoration-[${violet.base}] text-[${violet.base}] hover:no-underline`} href="#">add</a> your company billing address
+                                        Please{" "}
+                                        <Link 
+                                            className="underline decoration-[var(--violet-base)] text-[var(--violet-base)] hover:no-underline" 
+                                            href="#"
+                                        >
+                                            add
+                                        </Link>{" "}
+                                        your company billing address
                                     </span>
                                 </WarningBox>
                             </div>
@@ -181,7 +217,14 @@ export default function SettingsPage() {
                                 <div className="text-sm text-[#6b7280] mb-2">Registered address</div>
                                 <WarningBox>
                                     <span>
-                                        Please <a className={`underline decoration-[${violet.base}] text-[${violet.base}] hover:no-underline`} href="#">add</a> your a registered address
+                                        Please{" "}
+                                        <Link 
+                                            className="underline decoration-[var(--violet-base)] text-[var(--violet-base)] hover:no-underline" 
+                                            href="#"
+                                        >
+                                            add
+                                        </Link>{" "}
+                                        your registered address
                                     </span>
                                 </WarningBox>
                             </div>
@@ -192,5 +235,3 @@ export default function SettingsPage() {
         </div>
     );
 }
-
-
