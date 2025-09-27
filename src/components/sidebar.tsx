@@ -14,13 +14,13 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
-  { name: "Dashboard", href: "/dashboard", iconSrc: "/dashboard.svg" },
-  { name: "Contracts", href: "/contracts", iconSrc: "/contracts.svg" },
-  { name: "Team management", href: "/team-management", iconSrc: "/team.svg" },
-  { name: "Finance", href: "/finance", iconSrc: "/wallet.svg" },
-  { name: "Payroll", href: "/payroll", iconSrc: "/payroll.svg" },
-  { name: "Invoices", href: "/invoices", iconSrc: "/invoice.svg" },
-  { name: "Settings", href: "/settings", Icon: Settings },
+  { name: "Dashboard", href: "/app/dashboard", iconSrc: "/dashboard.svg" },
+  { name: "Contracts", href: "/app/contracts", iconSrc: "/contracts.svg" },
+  { name: "Team management", href: "/app/team-management", iconSrc: "/team.svg" },
+  { name: "Finance", href: "/app/finance", iconSrc: "/wallet.svg" },
+  { name: "Payroll", href: "/app/payroll", iconSrc: "/payroll.svg" },
+  { name: "Invoices", href: "/app/invoices", iconSrc: "/invoice.svg" },
+  { name: "Settings", href: "/app/settings", Icon: Settings },
 ];
 
 function classNames(...classes: Array<string | false | undefined>) {
@@ -89,7 +89,10 @@ export default function Sidebar({ mobileOpen = false, onCloseMobile }: SidebarPr
                       alt=""
                       width={20}
                       height={20}
-                      className="shrink-0"
+                      className={classNames(
+                        "shrink-0 transition",
+                        active ? "brightness-0 invert" : "opacity-70 group-hover:opacity-100"
+                      )}
                       aria-hidden="true"
                     />
                   ) : Icon ? (
