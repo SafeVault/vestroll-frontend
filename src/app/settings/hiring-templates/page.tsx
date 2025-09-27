@@ -1,18 +1,10 @@
-import Link from "next/link";
 export default function SettingsHiringTemplatesPage() {
   return (
     <div className="rounded-xl border border-[#e5e7eb] bg-white p-6 shadow-sm">
-      <h1 className="text-2xl font-semibold text-[#111827]">
-        Settings · Hiring templates
-      </h1>
+      <h1 className="text-2xl font-semibold text-[#111827]">Settings · Hiring templates</h1>
       <p className="mt-2 text-[#6b7280]">Placeholder page.</p>
-      <Link
-        href="/components/create-templates"
-        className="text-blue-500 underline"
-      >
-        <button>Create template</button>
-      </Link>
-      <br />
     </div>
   );
 }
+
+
