@@ -44,7 +44,7 @@ function Stat({ Icon, label, value }: StatProps) {
                 <Icon className="h-5 w-5 text-[var(--violet-base)]" />
             </div>
             <div className="leading-tight">
-                <div className="text-sm text-[#6b7280]">{label}</div>
+                <div className="text-xs sm:text-sm text-[#6b7280]">{label}</div>
                 <div className="text-base sm:text-lg font-semibold text-[#111827]">{value}</div>
             </div>
         </div>
@@ -60,7 +60,7 @@ interface SectionCardProps {
 function SectionCard({ title, action, children }: SectionCardProps) {
     return (
         <section className="rounded-xl border border-[#e5e7eb] bg-white shadow-sm">
-            <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-[#eef2f7]">
+            <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-4 border-b border-[#eef2f7]">
                 <h2 className="text-lg font-semibold text-[#1f2937]">{title}</h2>
                 {action}
             </div>
@@ -112,24 +112,21 @@ export default function Page() {
 
                 {/* Company Header */}
                 <div className="mt-6 rounded-xl border border-[#e5e7eb] bg-white p-4 sm:p-6 shadow-sm">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-                        <div>
-                            <div className="flex items-center gap-4">
-                                <Image src="/touchpoint360.png" alt="Touchpoint 360" width={100} height={100} />
-                                <div>
-                                    <h2 className="text-2xl sm:text-3xl font-semibold text-[#111827]">Touchpoint 360</h2>
+                    <div className="flex flex-col items-center text-center gap-4 md:block sm:items-center sm:justify-start sm:text-left">
+                        <div className="md:flex gap-8 items-center">
+                            <Image src="/touchpoint360.png" alt="Touchpoint 360" width={96} height={96} className="mx-auto md:mx-0 sm:h-[112px] sm:w-[112px] h-[96px] w-[96px]" />
 
-                                    <div className="flex items-center gap-6 sm:gap-10 pt-4">
-                                        <Stat Icon={UsersIcon} label="Active members" value="20" />
-                                        <div className="hidden sm:block h-10 w-px bg-[#e5e7eb]" aria-hidden="true" />
-                                        <Stat Icon={GlobeAltIcon} label="Countries" value="04" />
-                                        <div className="hidden sm:block h-10 w-px bg-[#e5e7eb]" aria-hidden="true" />
-                                        <Stat Icon={ShieldCheckIcon} label="Administrators" value="02" />
-                                    </div>
+                            <div>
+                                <h2 className="text-3xl sm:text-3xl font-semibold text-[#111827]">Touchpoint 360</h2>
+
+                                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-10 pt-4">
+                                    <Stat Icon={UsersIcon} label="Active members" value="20" />
+                                    <div className="hidden sm:block h-10 w-px bg-[#e5e7eb]" aria-hidden="true" />
+                                    <Stat Icon={GlobeAltIcon} label="Countries" value="04" />
+                                    <div className="hidden sm:block h-10 w-px bg-[#e5e7eb]" aria-hidden="true" />
+                                    <Stat Icon={ShieldCheckIcon} label="Administrators" value="02" />
                                 </div>
                             </div>
-
-
                         </div>
 
                     </div>
@@ -141,7 +138,7 @@ export default function Page() {
                         title="Company information"
                         action={
                             <button
-                                className="inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm font-medium text-[var(--violet-base)] border-[var(--violet-base)] hover:bg-[var(--violet-hover)] hover:text-white active:bg-[var(--violet-active)] transition-colors"
+                                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium text-[var(--violet-base)] border-[var(--violet-base)] hover:bg-[var(--violet-hover)] hover:text-white active:bg-[var(--violet-active)] transition-colors"
                                 type="button"
                                 aria-label="Edit company information"
                             >
