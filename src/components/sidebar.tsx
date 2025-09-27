@@ -1,0 +1,148 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import {
+  LayoutDashboard,
+  FileSignature,
+  Users,
+  Wallet,
+  Banknote,
+  ReceiptText,
+  Settings,
+  LogOut,
+} from "lucide-react";
+
+type NavItem = {
+  name: string;
+  href: string;
+  Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+};
+
+const navItems: NavItem[] = [
+  { name: "Dashboard", href: "/dashboard", Icon: LayoutDashboard },
+  { name: "Contracts", href: "/contracts", Icon: FileSignature },
+  { name: "Team management", href: "/team-management", Icon: Users },
+  { name: "Finance", href: "/finance", Icon: Wallet },
+  { name: "Payroll", href: "/payroll", Icon: Banknote },
+  { name: "Invoices", href: "/invoices", Icon: ReceiptText },
+  { name: "Settings", href: "/settings", Icon: Settings },
+];
+
+function classNames(...classes: Array<string | false | undefined>) {
+  return classes.filter(Boolean).join(" ");
+}
+
+interface SidebarProps {
+  mobileOpen?: boolean;
+  onCloseMobile?: () => void;
+}
+
+export default function Sidebar({ mobileOpen = false, onCloseMobile }: SidebarProps) {
+  const pathname = usePathname();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => setIsClient(true), []);
+
+  const isActive = useMemo(
+    () =>
+      (href: string) => {
+        if (!isClient) return false;
+        if (pathname === href) return true;
+        return pathname?.startsWith(href + "/") ?? false;
+      },
+    [pathname, isClient]
+  );
+
+  const content = (
+    <div className="flex h-full flex-col px-4 py-6">
+      <Link href="/" className="flex items-center gap-3 px-2" aria-label="VestRoll home">
+        <Image src="/Logo.svg" alt="VestRoll" width={32} height={32} />
+        <span className="text-xl font-semibold tracking-tight">VestRoll</span>
+      </Link>
+
+      <div className="mt-8 px-2 text-xs font-semibold tracking-wider text-[#6b7280]">MENU</div>
+
+      <nav className="mt-3 flex-1" aria-label="Primary">
+        <ul className="flex flex-col gap-1">
+          {navItems.map(({ name, href, Icon }) => {
+            const active = isActive(href);
+            const isSettings = href === "/settings";
+            return (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className={classNames(
+                    "group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm outline-none transition-all focus-visible:ring-2 focus-visible:ring-[#6d28d9]",
+                    active
+                      ? isSettings
+                        ? "bg-[#5b21b6] text-white shadow"
+                        : "bg-[#ede9fe] text-[#4c1d95]"
+                      : "text-[#111827]/80 hover:bg-[#f5f3ff] hover:text-[#4c1d95]"
+                  )}
+                  aria-current={active ? "page" : undefined}
+                >
+                  <Icon
+                    className={classNames(
+                      "h-5 w-5 transition-colors",
+                      active
+                        ? isSettings
+                          ? "text-white"
+                          : "text-[#4c1d95]"
+                        : "text-[#6b7280] group-hover:text-[#4c1d95]"
+                    )}
+                    aria-hidden="true"
+                  />
+                  <span className="truncate">{name}</span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+
+      <div className="mt-auto px-2">
+        <Link
+          href="#"
+          className="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-[#b91c1c] hover:bg-red-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+          aria-label="Sign out"
+        >
+          <LogOut className="h-5 w-5" aria-hidden="true" />
+          <span>Sign out</span>
+        </Link>
+      </div>
+    </div>
+  );
+
+  // Desktop sidebar
+  return (
+    <>
+      <aside className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-72 lg:flex-col lg:border-r lg:border-[#e5e7eb] lg:bg-white">
+        {content}
+      </aside>
+
+      {/* Mobile overlay drawer */}
+      <div
+        className={classNames(
+          "fixed inset-0 z-40 bg-black/30 transition-opacity lg:hidden",
+          mobileOpen ? "opacity-100" : "pointer-events-none opacity-0"
+        )}
+        onClick={onCloseMobile}
+        aria-hidden={!mobileOpen}
+      />
+      <aside
+        className={classNames(
+          "fixed inset-y-0 left-0 z-50 w-72 translate-x-[-100%] border-r border-[#e5e7eb] bg-white shadow-xl transition-transform lg:hidden",
+          mobileOpen && "translate-x-0"
+        )}
+        aria-label="Mobile sidebar"
+      >
+        {content}
+      </aside>
+    </>
+  );
+}
+
+
