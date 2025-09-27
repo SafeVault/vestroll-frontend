@@ -4,31 +4,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import {
-  LayoutDashboard,
-  FileSignature,
-  Users,
-  Wallet,
-  Banknote,
-  ReceiptText,
-  Settings,
-  LogOut,
-  X,
-} from "lucide-react";
+import { Settings, LogOut, X } from "lucide-react";
 
 type NavItem = {
   name: string;
   href: string;
-  Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  iconSrc?: string;
 };
 
 const navItems: NavItem[] = [
-  { name: "Dashboard", href: "/dashboard", Icon: LayoutDashboard },
-  { name: "Contracts", href: "/contracts", Icon: FileSignature },
-  { name: "Team management", href: "/team-management", Icon: Users },
-  { name: "Finance", href: "/finance", Icon: Wallet },
-  { name: "Payroll", href: "/payroll", Icon: Banknote },
-  { name: "Invoices", href: "/invoices", Icon: ReceiptText },
+  { name: "Dashboard", href: "/dashboard", iconSrc: "/dashboard.svg" },
+  { name: "Contracts", href: "/contracts", iconSrc: "/contracts.svg" },
+  { name: "Team management", href: "/team-management", iconSrc: "/team.svg" },
+  { name: "Finance", href: "/finance", iconSrc: "/wallet.svg" },
+  { name: "Payroll", href: "/payroll", iconSrc: "/payroll.svg" },
+  { name: "Invoices", href: "/invoices", iconSrc: "/invoice.svg" },
   { name: "Settings", href: "/settings", Icon: Settings },
 ];
 
@@ -77,7 +68,7 @@ export default function Sidebar({ mobileOpen = false, onCloseMobile }: SidebarPr
 
       <nav className="mt-3 flex-1" aria-label="Primary">
         <ul className="flex flex-col gap-1">
-          {navItems.map(({ name, href, Icon }) => {
+          {navItems.map(({ name, href, Icon, iconSrc }) => {
             const active = isActive(href);
             const isSettings = href === "/settings";
             return (
@@ -88,23 +79,34 @@ export default function Sidebar({ mobileOpen = false, onCloseMobile }: SidebarPr
                     "group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm outline-none transition-all focus-visible:ring-2 focus-visible:ring-[#6d28d9]",
                     active
                       ? isSettings
-                        ? "bg-[#5b21b6] text-white shadow"
+                        ? "bg-[#5E2A8C] text-white shadow"
                         : "bg-[#ede9fe] text-[#4c1d95]"
                       : "text-[#111827]/80 hover:bg-[#f5f3ff] hover:text-[#4c1d95]"
                   )}
                   aria-current={active ? "page" : undefined}
                 >
-                  <Icon
-                    className={classNames(
-                      "h-5 w-5 transition-colors",
-                      active
-                        ? isSettings
-                          ? "text-white"
-                          : "text-[#4c1d95]"
-                        : "text-[#6b7280] group-hover:text-[#4c1d95]"
-                    )}
-                    aria-hidden="true"
-                  />
+                  {iconSrc ? (
+                    <Image
+                      src={iconSrc}
+                      alt=""
+                      width={20}
+                      height={20}
+                      className="shrink-0"
+                      aria-hidden="true"
+                    />
+                  ) : Icon ? (
+                    <Icon
+                      className={classNames(
+                        "h-5 w-5 transition-colors",
+                        active
+                          ? isSettings
+                            ? "text-white"
+                            : "text-[#4c1d95]"
+                          : "text-[#6b7280] group-hover:text-[#4c1d95]"
+                      )}
+                      aria-hidden="true"
+                    />
+                  ) : null}
                   <span className="truncate">{name}</span>
                 </Link>
               </li>
