@@ -21,9 +21,8 @@ function Tab({ label, href, active = false }: TabProps) {
     return (
         <Link
             href={href}
-            className={`-mb-px border-b-2 px-3 sm:px-4 py-3 text-sm sm:text-base transition-colors ${
-                active ? "font-semibold" : "text-[#6b7280] hover:text-[#4b5563]"
-            }`}
+            className={`-mb-px border-b-2 px-3 sm:px-4 py-3 text-sm sm:text-base transition-colors ${active ? "font-semibold" : "text-[#6b7280] hover:text-[#4b5563]"
+                }`}
             style={{ borderColor: active ? violet.base : "transparent", color: active ? violet.base : undefined }}
             aria-current={active ? "page" : undefined}
         >
@@ -88,22 +87,7 @@ function FieldRow({ label, value, right }: FieldRowProps) {
     );
 }
 
-interface WarningBoxProps {
-    children: React.ReactNode;
-}
-
-function WarningBox({ children }: WarningBoxProps) {
-    return (
-        <div className="flex items-center gap-3 rounded-xl border border-[#fef08a] bg-[#fffbeb] px-4 py-4 text-[#92400e]">
-            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#fef3c7] text-[#ca8a04]" aria-hidden="true">
-                !
-            </span>
-            <div className="text-sm">
-                {children}
-            </div>
-        </div>
-    );
-}
+// WarningBox removed in favor of inline warning row with /warning.svg icon
 
 export default function Page() {
     const themeVars = {
@@ -129,21 +113,25 @@ export default function Page() {
                 {/* Company Header */}
                 <div className="mt-6 rounded-xl border border-[#e5e7eb] bg-white p-4 sm:p-6 shadow-sm">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-                        <div className="flex items-center gap-4">
-                            <div className="relative h-20 w-20 sm:h-24 sm:w-24 rounded-full bg-[#ef4444] flex items-center justify-center shadow">
-                                <span className="text-white text-5xl leading-none" aria-hidden="true">A</span>
+                        <div>
+                            <div className="flex items-center gap-4">
+                                <Image src="/touchpoint360.png" alt="Touchpoint 360" width={100} height={100} />
+                                <div>
+                                    <h2 className="text-2xl sm:text-3xl font-semibold text-[#111827]">Touchpoint 360</h2>
+
+                                    <div className="flex items-center gap-6 sm:gap-10 pt-4">
+                                        <Stat Icon={UsersIcon} label="Active members" value="20" />
+                                        <div className="hidden sm:block h-10 w-px bg-[#e5e7eb]" aria-hidden="true" />
+                                        <Stat Icon={GlobeAltIcon} label="Countries" value="04" />
+                                        <div className="hidden sm:block h-10 w-px bg-[#e5e7eb]" aria-hidden="true" />
+                                        <Stat Icon={ShieldCheckIcon} label="Administrators" value="02" />
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <h2 className="text-2xl sm:text-3xl font-semibold text-[#111827]">Touchpoint 360</h2>
-                            </div>
+
+
                         </div>
-                        <div className="flex items-center gap-6 sm:gap-10">
-                            <Stat Icon={UsersIcon} label="Active members" value="20" />
-                            <div className="hidden sm:block h-10 w-px bg-[#e5e7eb]" aria-hidden="true" />
-                            <Stat Icon={GlobeAltIcon} label="Countries" value="04" />
-                            <div className="hidden sm:block h-10 w-px bg-[#e5e7eb]" aria-hidden="true" />
-                            <Stat Icon={ShieldCheckIcon} label="Administrators" value="02" />
-                        </div>
+
                     </div>
                 </div>
 
@@ -180,8 +168,8 @@ export default function Page() {
                             <FieldRow
                                 label="Company public website URL"
                                 value={
-                                    <Link 
-                                        href="https://www.touchpoint360.com/" 
+                                    <Link
+                                        href="https://www.touchpoint360.com/"
                                         className="text-[var(--violet-base)] hover:underline"
                                         target="_blank"
                                         rel="noopener noreferrer"
@@ -200,33 +188,35 @@ export default function Page() {
                         <div className="space-y-4">
                             <div>
                                 <div className="text-sm text-[#6b7280] mb-2">Billing address</div>
-                                <WarningBox>
-                                    <span>
+                                <div className="flex items-center gap-3 rounded-xl border border-gray-300 px-4 py-4 text-[#92400e]">
+                                    <Image src="/warning.svg" width={20} height={20} alt="Warning" />
+                                    <div className="text-sm">
                                         Please{" "}
-                                        <Link 
-                                            className="underline decoration-[var(--violet-base)] text-[var(--violet-base)] hover:no-underline" 
+                                        <Link
+                                            className="underline decoration-[var(--violet-base)] text-[var(--violet-base)] hover:no-underline"
                                             href="#"
                                         >
                                             add
                                         </Link>{" "}
                                         your company billing address
-                                    </span>
-                                </WarningBox>
+                                    </div>
+                                </div>
                             </div>
                             <div>
                                 <div className="text-sm text-[#6b7280] mb-2">Registered address</div>
-                                <WarningBox>
-                                    <span>
+                                <div className="flex items-center gap-3 rounded-xl border border-gray-300 px-4 py-4 text-[#92400e]">
+                                    <Image src="/warning.svg" width={20} height={20} alt="Warning" />
+                                    <div className="text-sm">
                                         Please{" "}
-                                        <Link 
-                                            className="underline decoration-[var(--violet-base)] text-[var(--violet-base)] hover:no-underline" 
+                                        <Link
+                                            className="underline decoration-[var(--violet-base)] text-[var(--violet-base)] hover:no-underline"
                                             href="#"
                                         >
                                             add
                                         </Link>{" "}
                                         your registered address
-                                    </span>
-                                </WarningBox>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </SectionCard>
