@@ -5,32 +5,6 @@ import Link from "next/link";
 import React from "react";
 import { UsersIcon, GlobeAltIcon, ShieldCheckIcon } from "@heroicons/react/24/outline";
 
-const violet = {
-    base: "#6d28d9",
-    hover: "#5b21b6",
-    active: "#4c1d95",
-};
-
-interface TabProps {
-    label: string;
-    href: string;
-    active?: boolean;
-}
-
-function Tab({ label, href, active = false }: TabProps) {
-    return (
-        <Link
-            href={href}
-            className={`-mb-px border-b-2 px-3 sm:px-4 py-3 text-sm sm:text-base transition-colors ${active ? "font-semibold" : "text-[#6b7280] hover:text-[#4b5563]"
-                }`}
-            style={{ borderColor: active ? violet.base : "transparent", color: active ? violet.base : undefined }}
-            aria-current={active ? "page" : undefined}
-        >
-            {label}
-        </Link>
-    );
-}
-
 interface StatProps {
     Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
     label: string;
@@ -60,7 +34,7 @@ interface SectionCardProps {
 function SectionCard({ title, action, children }: SectionCardProps) {
     return (
         <section className="rounded-xl border border-[#e5e7eb] bg-white shadow-sm">
-            <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-4 border-b border-[#eef2f7]">
+            <div className="group flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-4 border-b border-[#eef2f7]">
                 <h2 className="text-lg font-semibold text-[#1f2937]">{title}</h2>
                 {action}
             </div>
@@ -90,28 +64,10 @@ function FieldRow({ label, value, right }: FieldRowProps) {
 // WarningBox removed in favor of inline warning row with /warning.svg icon
 
 export default function Page() {
-    const themeVars = {
-        "--violet-base": violet.base,
-        "--violet-hover": violet.hover,
-        "--violet-active": violet.active,
-    } as React.CSSProperties;
-
     return (
-        <div className="min-h-screen w-full bg-[#f3f4f6]" style={themeVars}>
-            <div className="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-10">
-                <div className="flex items-center justify-between">
-                    <h1 className="text-2xl sm:text-3xl font-semibold text-[#111827]">Settings</h1>
-                </div>
-
-                <nav className="mt-6 flex items-center gap-2 border-b border-[#e5e7eb]" role="navigation" aria-label="Settings navigation">
-                    <Tab label="Company" href="#" active />
-                    <Tab label="Permissions" href="#" />
-                    <Tab label="Hiring templates" href="#" />
-                    <Tab label="Address book" href="#" />
-                </nav>
-
-                {/* Company Header */}
-                <div className="mt-6 rounded-xl border border-[#e5e7eb] bg-white p-4 sm:p-6 shadow-sm">
+        <>
+            {/* Company Header */}
+            <div className="rounded-xl border border-[#e5e7eb] bg-white p-4 sm:p-6 shadow-sm">
                     <div className="flex flex-col items-center text-center gap-4 md:block sm:items-center sm:justify-start sm:text-left">
                         <div className="md:flex gap-8 items-center">
                             <Image src="/touchpoint360.png" alt="Touchpoint 360" width={96} height={96} className="mx-auto md:mx-0 sm:h-[112px] sm:w-[112px] h-[96px] w-[96px]" />
@@ -132,8 +88,8 @@ export default function Page() {
                     </div>
                 </div>
 
-                {/* Company information */}
-                <div className="mt-6">
+            {/* Company information */}
+            <div className="mt-6">
                     <SectionCard
                         title="Company information"
                         action={
@@ -142,7 +98,7 @@ export default function Page() {
                                 type="button"
                                 aria-label="Edit company information"
                             >
-                                <Image src="/edit.svg" width={16} height={16} alt="" />
+                                <Image src="/edit.svg" width={16} height={16} alt="" aria-hidden className="transition group-hover:invert group-hover:brightness-0" />
                                 Edit
                             </button>
                         }
@@ -177,10 +133,10 @@ export default function Page() {
                             />
                         </div>
                     </SectionCard>
-                </div>
+            </div>
 
-                {/* Addresses */}
-                <div className="mt-6">
+            {/* Addresses */}
+            <div className="mt-6">
                     <SectionCard title="Addresses">
                         <div className="space-y-4">
                             <div>
@@ -217,8 +173,7 @@ export default function Page() {
                             </div>
                         </div>
                     </SectionCard>
-                </div>
             </div>
-        </div>
+        </>
     );
 }
