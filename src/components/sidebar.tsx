@@ -78,9 +78,7 @@ export default function Sidebar({ mobileOpen = false, onCloseMobile }: SidebarPr
                   className={classNames(
                     "group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm outline-none transition-all focus-visible:ring-2 focus-visible:ring-[#6d28d9]",
                     active
-                      ? isSettings
-                        ? "bg-[#5E2A8C] text-white shadow"
-                        : "bg-[#ede9fe] text-[#4c1d95]"
+                      ? "bg-[#5E2A8C] text-white shadow"
                       : "text-[#111827]/80 hover:bg-[#f5f3ff] hover:text-[#4c1d95]"
                   )}
                   aria-current={active ? "page" : undefined}
@@ -98,11 +96,7 @@ export default function Sidebar({ mobileOpen = false, onCloseMobile }: SidebarPr
                     <Icon
                       className={classNames(
                         "h-5 w-5 transition-colors",
-                        active
-                          ? isSettings
-                            ? "text-white"
-                            : "text-[#4c1d95]"
-                          : "text-[#6b7280] group-hover:text-[#4c1d95]"
+                      active ? "text-white" : "text-[#6b7280] group-hover:text-[#4c1d95]"
                       )}
                       aria-hidden="true"
                     />
