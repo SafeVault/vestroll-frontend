@@ -9,7 +9,7 @@ export function Logo({ isMobile = false }: LogoProps) {
     return (
       <div className="flex items-center justify-start space-x-2">
         <Image
-          src="/logo.svg"
+          src="/vestroll-logo.svg"
           alt="VestRoll Logo"
           width={32}
           height={32}
@@ -22,7 +22,7 @@ export function Logo({ isMobile = false }: LogoProps) {
   return (
     <div className="flex items-center space-x-3 bg-white p-1.5 rounded-lg w-fit">
       <Image
-        src="/logo.svg"
+        src="vestroll-logo.svg"
         alt="VestRoll Logo"
         width={40}
         height={40}

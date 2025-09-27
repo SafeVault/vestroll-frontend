@@ -91,7 +91,7 @@ export default function EmailVerificationPage({
       <div className="flex min-h-screen">
         {/* Desktop Left Panel */}
         <div className="hidden lg:flex lg:w-1/2">
-          <div className="flex flex-col justify-between bg-purple-800 text-white w-full p-8 relative overflow-hidden">
+          <div className="flex flex-col justify-between bg-purple-900 text-white w-full p-8 relative overflow-hidden">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
               <div className="absolute top-20 left-10 w-32 h-32 border border-white/20 rounded-full"></div>
@@ -105,7 +105,7 @@ export default function EmailVerificationPage({
               <div className="mt-12 flex justify-center">
                 <div className="relative">
                   <Image
-                    src="/assets/globe-illustration.png"
+                    src="/globe-illustration.png"
                     alt="Global Payments Illustration"
                     width={350}
                     height={350}
