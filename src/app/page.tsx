@@ -4,9 +4,9 @@ import { redirect } from "next/navigation";
 export default function Home() {
   return (
     <div>
-      <VestRollAccountSelection />
-<!--       redirect("/onboarding"); -->
+  <VestRollAccountSelection />
+  {/* redirect("/onboarding"); */}
 
-    </div>
+</div>
   );
 }
