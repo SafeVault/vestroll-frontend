@@ -61,12 +61,9 @@ function FieldRow({ label, value, right }: FieldRowProps) {
     );
 }
 
-// WarningBox removed in favor of inline warning row with /warning.svg icon
-
 export default function Page() {
     return (
         <>
-            {/* Company Header */}
             <div className="rounded-xl border border-[#e5e7eb] bg-white p-4 sm:p-6 shadow-sm">
                     <div className="flex flex-col items-center text-center gap-4 md:block sm:items-center sm:justify-start sm:text-left">
                         <div className="md:flex gap-8 items-center">
@@ -88,7 +85,6 @@ export default function Page() {
                     </div>
                 </div>
 
-            {/* Company information */}
             <div className="mt-6">
                     <SectionCard
                         title="Company information"
@@ -135,7 +131,6 @@ export default function Page() {
                     </SectionCard>
             </div>
 
-            {/* Addresses */}
             <div className="mt-6">
                     <SectionCard title="Addresses">
                         <div className="space-y-4">
@@ -177,3 +172,6 @@ export default function Page() {
         </>
     );
 }
+
+
+

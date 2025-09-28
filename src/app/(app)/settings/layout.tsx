@@ -46,15 +46,16 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
       </div>
 
       <nav className="mt-6 flex items-center gap-2 border-b border-[#e5e7eb] overflow-x-auto overflow-y-hidden flex-nowrap whitespace-nowrap" role="navigation" aria-label="Settings navigation">
-        <Tab label="Company" href="/settings" />
-        <Tab label="Permissions" href="/settings/permissions" />
-        <Tab label="Hiring templates" href="/settings/hiring-templates" />
-        <Tab label="Address book" href="/settings/address-book" />
+        <Tab label="Company" href="/app/settings" />
+        <Tab label="Permissions" href="/app/settings/permissions" />
+        <Tab label="Hiring templates" href="/app/settings/hiring-templates" />
+        <Tab label="Address book" href="/app/settings/address-book" />
       </nav>
 
       <div className="mt-6">{children}</div>
     </div>
   );
 }
+
 
 
