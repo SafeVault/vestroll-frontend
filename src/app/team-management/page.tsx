@@ -101,7 +101,7 @@ const TeamManagementPage: React.FC = () => {
     lg:left-[18rem] lg:w-[calc(100%-18rem)] 
       py-4  z-10 "
       >
-        <div className="flex items-center justify-between px-7  pb-3 ">
+        <div className="flex items-center justify-between px-7 border-b  pb-3 border-b-stroke-primary">
           {/* Search Bar */}
           <div className="flex-1 max-w-md hidden md:block">
             <div className="relative">
