@@ -33,7 +33,7 @@ export default function AppShell({ children }: AppShellProps) {
       <Sidebar mobileOpen={mobileOpen} onCloseMobile={() => setMobileOpen(false)} />
 
       <div className="lg:pl-72">
-        <main className="px-4 py-6 lg:px-8">{children}</main>
+        <main className="">{children}</main>
       </div>
     </div>
   );

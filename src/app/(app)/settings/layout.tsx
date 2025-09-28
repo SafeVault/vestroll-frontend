@@ -24,7 +24,10 @@ function Tab({ label, href }: { label: string; href: string }) {
         "-mb-px whitespace-nowrap border-b-2 px-3 sm:px-4 py-3 text-sm sm:text-base transition-colors",
         active ? "font-semibold" : "text-[#6b7280] hover:text-[#4b5563]"
       )}
-      style={{ borderColor: active ? violet.base : "transparent", color: active ? violet.base : undefined }}
+      style={{
+        borderColor: active ? violet.base : "transparent",
+        color: active ? violet.base : undefined,
+      }}
       aria-current={active ? "page" : undefined}
     >
       {label}
@@ -32,20 +35,49 @@ function Tab({ label, href }: { label: string; href: string }) {
   );
 }
 
-export default function SettingsLayout({ children }: { children: React.ReactNode }) {
+export default function SettingsLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const themeVars = {
     "--violet-base": violet.base,
     "--violet-hover": violet.hover,
     "--violet-active": violet.active,
   } as React.CSSProperties;
 
+  const pathname = usePathname();
+  console.log(pathname);
+  const isNestedPage =
+    pathname.includes("address")
+
+  if (isNestedPage) {
+    return (
+      <div
+        className=""
+        style={themeVars}
+      >
+        {children}
+      </div>
+    );
+  }
+
   return (
-    <div className="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-10" style={themeVars}>
+    <div
+      className="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-10"
+      style={themeVars}
+    >
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl sm:text-3xl font-semibold text-[#111827]">Settings</h1>
+        <h1 className="text-2xl sm:text-3xl font-semibold text-[#111827]">
+          Settings
+        </h1>
       </div>
 
-      <nav className="mt-6 flex items-center gap-2 border-b border-[#e5e7eb] overflow-x-auto overflow-y-hidden flex-nowrap whitespace-nowrap" role="navigation" aria-label="Settings navigation">
+      <nav
+        className="mt-6 flex items-center gap-2 border-b border-[#e5e7eb] overflow-x-auto overflow-y-hidden flex-nowrap whitespace-nowrap"
+        role="navigation"
+        aria-label="Settings navigation"
+      >
         <Tab label="Company" href="/app/settings" />
         <Tab label="Permissions" href="/app/settings/permissions" />
         <Tab label="Hiring templates" href="/app/settings/hiring-templates" />
@@ -56,6 +88,3 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
     </div>
   );
 }
-
-
-
