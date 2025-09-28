@@ -2,10 +2,11 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search, Bell, ChevronDown, MoveLeft } from "lucide-react";
+import { Search, Bell, ChevronDown, MoveLeft, Menu } from "lucide-react";
 import EmployeeProfileHeader from "./components/profile";
 import ContractCard from "./components/contractCard";
 import Image from "next/image";
+import Sidebar from "@/components/sidebar";
 
 interface Employee {
   id: string;
@@ -24,6 +25,7 @@ interface Admin {
 
 const TeamManagementPage: React.FC = () => {
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const router = useRouter();
   // Default employee data if none is provided
   const defaultEmployee: Employee = {
@@ -94,12 +96,12 @@ const TeamManagementPage: React.FC = () => {
     <div className="flex flex-col min-h-screen   ">
       {/* Header */}
       <header
-        className="bg-background-b0  fixed top-14 lg:top-0 left-0  
+        className="bg-background-b0  fixed top-0 md:top-14 lg:top-0 left-0  
     w-full              
     lg:left-[18rem] lg:w-[calc(100%-18rem)] 
-    z-50  py-4 "
+      py-4  z-10 "
       >
-        <div className="flex items-center justify-between px-7 border-b  pb-3 border-b-stroke-primary">
+        <div className="flex items-center justify-between px-7  pb-3 ">
           {/* Search Bar */}
           <div className="flex-1 max-w-md hidden md:block">
             <div className="relative">
@@ -107,22 +109,40 @@ const TeamManagementPage: React.FC = () => {
               <input
                 type="text"
                 placeholder="Search..."
-                className=" w-full pl-10 pr-4 py-2 bg-background-b0 border border-stroke-primary rounded-lg text-text-primary placeholder-text-tertiary focus:outline-none focus:border-brand-default focus:ring-1 focus:ring-brand-default transition-colors"
+                className=" w-80 pl-10 pr-4 py-2 bg-background-b0 border border-stroke-primary rounded-lg text-text-primary placeholder-text-tertiary focus:outline-none focus:border-brand-default focus:ring-1 focus:ring-brand-default transition-colors"
               />
             </div>
           </div>
 
           {/* Right Side */}
-          <div className="flex items-center  gap-2 sm:gap-4 md:justify-between ml-auto">
-            <Search className="  text-text-tertiary md:hidden block w-4 h-4" />
-            {/* Notifications */}
-            <button className="p-2 hover:bg-fill-primary rounded-lg transition-colors relative">
-              <Bell className="w-5 h-5 text-text-secondary" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-default rounded-full"></span>
+        <div className="flex items-center w-full">
+            {/* Mobile menu button */}
+            <button
+              type="button"
+              aria-label="Open menu"
+              className="rounded-lg p-2 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6d28d9] md:hidden"
+              onClick={() => setMobileOpen(true)}
+            >
+              <Menu className="h-5 w-5" />
             </button>
 
-            {/* User Dropdown */}
-            <UserDropdown />
+            {/* Right side content */}
+            <div className="flex items-center gap-2 sm:gap-4 ml-auto">
+              <Search className="text-text-tertiary md:hidden block w-4 h-4" />
+              <button className="p-2 hover:bg-fill-primary rounded-lg transition-colors relative">
+                <Bell className="w-5 h-5 text-text-secondary" />
+                <span className="absolute top-1 right-1 w-2 h-2 bg-red-default rounded-full"></span>
+              </button>
+              <UserDropdown />
+            </div>
+
+            {/* Sidebar (only rendered when mobileOpen = true) */}
+            {mobileOpen && (
+              <Sidebar
+                mobileOpen={mobileOpen}
+                onCloseMobile={() => setMobileOpen(false)}
+              />
+            )}
           </div>
         </div>
         <div className="px-7 space-y-3 pt-2">
@@ -130,7 +150,7 @@ const TeamManagementPage: React.FC = () => {
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => router.back()}
           >
-            {" "}
+            
             <MoveLeft className="w-4 h-4" /> Back
           </p>
           <p className="text-lg font-semibold">{defaultEmployee.name}</p>
@@ -138,7 +158,7 @@ const TeamManagementPage: React.FC = () => {
       </header>
 
       {/* Main Content */}
-      <main className="px-6 sm:p-6 bg-background-b0 md:mt-40 mt-36">
+      <main className="px-6 sm:p-6 bg-background-b0 md:mt-40 mt-24">
         {/* Page Title */}
         <div className="">
           <p className="text-text-primary text-sm">Personal Information</p>
