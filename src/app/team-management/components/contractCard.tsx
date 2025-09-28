@@ -63,7 +63,12 @@ export default function ContractGrid() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-      {contractsData.map((contract) => (
+    {contractsData.length === 0 ? (
+      <div className="col-span-full text-center py-10 text-text-secondary">
+        No contracts available
+      </div>
+    ) : (
+      contractsData.map((contract) => (
         <div
           key={contract.id}
           className="bg-background-b1 border border-stroke-primary rounded-lg py-4 px-4 hover:shadow-lg transition-shadow duration-200"
@@ -114,13 +119,16 @@ export default function ContractGrid() {
               {contract.rateType}
             </span>
             <span
-              className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusStyles(contract.status)}`}
+              className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusStyles(
+                contract.status
+              )}`}
             >
               {contract.status}
             </span>
           </div>
         </div>
-      ))}
-    </div>
-  );
+      ))
+    )}
+  </div>
+);
 }
