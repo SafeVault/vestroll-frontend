@@ -14,23 +14,22 @@ interface Employee {
 
 interface EmployeeProfileHeaderProps {
   employee?: Employee;
+  defaultEmployee?:Employee;
 }
 
 const EmployeeProfileHeader: React.FC<EmployeeProfileHeaderProps> = ({
-  employee,
+  employee,defaultEmployee
 }) => {
-  // Default employee data if none provided
-  const defaultEmployee: Employee = {
-    id: "1",
-    name: "James Akinbiola",
-    email: "mailjames@gmail.com",
-    phone: "+234 904 364 2019",
-    address:
-      "No 5 James Robertson Stedu/Oguntana Drive, Surulere, Nigeria | 145241",
-   
-  };
+  
 
-  const employeeData = employee || defaultEmployee;
+  const employeeData = employee || defaultEmployee || {
+    id: "0",
+    name: "Unknown Employee",
+    email: "N/A",
+    phone: "N/A",
+    address: "N/A",
+    avatar: "/profileImage.png",
+  };;
 
   return (
     <div className=" p-4 sm:p-6 mb-6">
@@ -57,7 +56,7 @@ const EmployeeProfileHeader: React.FC<EmployeeProfileHeaderProps> = ({
 
           {/* Contact Details */}
           <div className="space-y-2">
-            <div className="flex gap-3">
+            <div className="block md:flex gap-3 space-y-3">
  <div className="flex items-center gap-2 text-text-secondary px-3 text-sm bg-background-b1 py-1 rounded-lg">
               <Mail className="w-4 h-4" />
               <span>{employeeData.email}</span>
@@ -68,9 +67,9 @@ const EmployeeProfileHeader: React.FC<EmployeeProfileHeaderProps> = ({
             </div>
             </div>
            
-            <div className="flex items-start gap-2 text-text-secondary px-3 w-fit text-sm bg-background-b1  py-1 rounded-lg">
+            <div className="flex items-start gap-2 text-text-secondary px-1 md:px-3 w-fit text-sm bg-background-b1  py-1 rounded-lg">
               <MapPin className="w-4 h-4 mt-0.5" />
-              <span className="leading-relaxed">{employeeData.address}</span>
+              <span className="leading-relaxed text-sm">{employeeData.address}</span>
             </div>
           </div>
         </div>
