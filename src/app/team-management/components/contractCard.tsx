@@ -1,7 +1,6 @@
-"use client"
+"use client";
 
 import React from "react";
-import { Calendar } from "lucide-react";
 import Image from "next/image";
 
 interface Contract {
@@ -65,29 +64,23 @@ export default function ContractGrid() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
       {contractsData.map((contract) => (
-        <div 
+        <div
           key={contract.id}
           className="bg-background-b1 border border-stroke-primary rounded-lg py-4 px-4 hover:shadow-lg transition-shadow duration-200"
         >
-          
           {/* Header: Icon + Amount */}
           <div className="flex items-center justify-between mb-6">
-            <div className="w-10 h-10 bg-[#F3EBF9] border border-stroke-secondary rounded-lg flex items-center justify-center">
-              <Image 
-                src="/note.svg"   
+            <div className="w-10 h-10 bg-fill-primary border border-stroke-secondary rounded-lg flex items-center justify-center">
+              <Image
+                src="/note.svg"
                 alt="Contract type"
-                width={20}          
-                height={20}         
+                width={20}
+                height={20}
               />
             </div>
-            
+
             <div className="flex items-center gap-2 bg-fill-primary rounded-xl px-3 py-1">
-              <Image 
-                src="/Tether.svg"   
-                alt="Currency"
-                width={15}          
-                height={15}         
-              />
+              <Image src="/Tether.svg" alt="Currency" width={15} height={15} />
               <span className="text-sm font-medium text-text-primary">
                 {contract.amount.toLocaleString()} {contract.currency}
               </span>
@@ -101,12 +94,12 @@ export default function ContractGrid() {
 
           {/* Date Range */}
           <div className="flex items-center gap-2 mb-6 text-text-tertiary">
-             <Image 
-                src="/calander.svg"   
-                alt="Calander type"
-                width={20}          
-                height={20}         
-              />
+            <Image
+              src="/calander.svg"
+              alt="Calander type"
+              width={20}
+              height={20}
+            />
             <span className="text-xs sm:text-sm">
               {contract.startDate} - {contract.endDate}
             </span>
@@ -120,7 +113,9 @@ export default function ContractGrid() {
             <span className="px-3 py-1 text-text-secondary text-xs">
               {contract.rateType}
             </span>
-            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusStyles(contract.status)}`}>
+            <span
+              className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusStyles(contract.status)}`}
+            >
               {contract.status}
             </span>
           </div>
