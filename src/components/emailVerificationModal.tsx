@@ -127,7 +127,7 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({
           Verify your email address
         </h1>
         <p className="text-[#414F62] text-sm font-medium">
-          Please enter the verification code sent to <br /> your email account
+          Please enter the verification code sent to <br /> your email address{' '}
           <span className="font-medium">{maskEmail(email)}</span>
         </p>
       </div>
