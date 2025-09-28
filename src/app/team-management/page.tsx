@@ -136,7 +136,7 @@ const TeamManagementPage: React.FC = () => {
               <UserDropdown />
             </div>
 
-            {/* Sidebar (only rendered when mobileOpen = true) */}
+            {/* Sidebar (only rendered mobileOpen = true) */}
             {mobileOpen && (
               <Sidebar
                 mobileOpen={mobileOpen}
