@@ -1,9 +1,12 @@
-import BusinessDetails from "../components/business-details"
+import VestRollAccountSelection from "@/components/accountType";
+import { redirect } from "next/navigation";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen">
-      <BusinessDetails />
-    </div>
+    <div>
+  <VestRollAccountSelection />
+  {/* redirect("/onboarding"); */}
+
+</div>
   );
 }
