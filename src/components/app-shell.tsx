@@ -38,8 +38,10 @@ export default function AppShell({
 
       {/* Main content */}
       <div className="lg:pl-72">
+
         <DesktopHeader user={user} onSearch={(val) => console.log("Search:", val)} />
         <main className="px-4 py-6 lg:px-8">{children}</main>
+
       </div>
     </div>
   );
