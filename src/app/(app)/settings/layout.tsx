@@ -46,6 +46,15 @@ export default function SettingsLayout({
   const pathname = usePathname() || "";
   const hiringTemplateRegex = /^\/settings\/hiring-templates\/.+/;
   const showBareLayout = hiringTemplateRegex.test(pathname);
+  const isAddressNestedPage = pathname.includes("address");
+
+  if (isAddressNestedPage) {
+    return (
+      <div className="" style={themeVars}>
+        {children}
+      </div>
+    );
+  }
 
   return (
     <div
