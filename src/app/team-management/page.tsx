@@ -115,7 +115,7 @@ const TeamManagementPage: React.FC = () => {
           </div>
 
           {/* Right Side */}
-        <div className="flex items-center w-full">
+          <div className="flex items-center w-full">
             {/* Mobile menu button */}
             <button
               type="button"
@@ -150,7 +150,6 @@ const TeamManagementPage: React.FC = () => {
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => router.back()}
           >
-            
             <MoveLeft className="w-4 h-4" /> Back
           </p>
           <p className="text-lg font-semibold">{defaultEmployee.name}</p>
