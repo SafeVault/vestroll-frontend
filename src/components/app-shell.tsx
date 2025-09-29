@@ -1,16 +1,33 @@
 "use client";
 
 import { useState } from "react";
+import avatar from "../../public/avatar/avatar.png";
+import Image, { StaticImageData } from "next/image";
+import MobileHeader from "./mobile-header";
 import Sidebar from "./sidebar";
-import { Menu } from "lucide-react";
+import DesktopHeader from "./desktop-header";
 import Link from "next/link";
-import Image from "next/image";
+import { Menu } from "lucide-react";
 
 interface AppShellProps {
   children: React.ReactNode;
+  user?: {
+    name: string;
+    email?: string;
+    userType?: string;
+    avatar?: string | StaticImageData;
+  };
 }
 
-export default function AppShell({ children }: AppShellProps) {
+export default function AppShell({
+  children,
+  user = {
+    name: "Peter",
+    email: "peter@vestroll.com",
+    userType: "Administrator",
+    avatar: avatar,
+  },
+}: AppShellProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
