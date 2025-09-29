@@ -11,15 +11,18 @@ const DidntGetEmailModal: React.FC<DidntGetEmailModalProps> = ({
     isOpen,
     onClose
 }) => {
-    if (!isOpen) return null;
-
+    // Move useEffect BEFORE the early return
     React.useEffect(() => {
+        if (!isOpen) return;
+
         const handleEsc = (e: KeyboardEvent) => {
             if (e.key === 'Escape') onClose();
         };
         window.addEventListener('keydown', handleEsc);
         return () => window.removeEventListener('keydown', handleEsc);
-    }, [onClose]);
+    }, [isOpen, onClose]);
+
+    if (!isOpen) return null;
 
     return (
         <div
@@ -51,12 +54,12 @@ const DidntGetEmailModal: React.FC<DidntGetEmailModalProps> = ({
 
                 <div className="flex justify-center mb-6">
                     <div className="w-20 h-20 rounded-full bg-[#5E2A8C] flex items-center justify-center">
-                        {/* <span className="text-4xl">🧐</span> */}
+                        <span className="text-4xl">🧐</span>
                     </div>
                 </div>
 
                 <h2 className="text-2xl font-bold text-center text-gray-900 mb-4">
-                    Didn't Get the Email?
+                    Didn&apos;t Get the Email?
                 </h2>
 
                 <ul className="space-y-3 mb-6 text-gray-600 text-sm md:text-base">

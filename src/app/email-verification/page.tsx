@@ -51,7 +51,7 @@ export default function EmailVerificationPage({
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
       console.log("Verification code:", code);
-    } catch (err) {
+    } catch {
       setError("Invalid code. Please try again.");
     } finally {
       setIsLoading(false);
@@ -65,7 +65,7 @@ export default function EmailVerificationPage({
       console.log("Code resent to:", userEmail);
       setOtp(Array(6).fill(""));
       setError(null);
-    } catch (err) {
+    } catch {
       setError("Failed to resend code. Please try again.");
     } finally {
       setIsLoading(false);
