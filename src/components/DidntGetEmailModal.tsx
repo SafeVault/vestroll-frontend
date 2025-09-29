@@ -25,8 +25,10 @@ const DidntGetEmailModal: React.FC<DidntGetEmailModalProps> = ({
 
     return (
         <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[radial-gradient(120%_120%_at_50%_20%,rgba(124,58,237,0.35)_0%,rgba(17,24,39,0.85)_60%,rgba(17,24,39,0.95)_100%)] backdrop-blur-[1.5px]"
             onClick={onClose}
+            role="dialog"
+            aria-modal="true"
         >
             <div
                 className="relative w-full max-w-md bg-white rounded-2xl p-6 md:p-8 shadow-xl"
@@ -54,19 +56,12 @@ const DidntGetEmailModal: React.FC<DidntGetEmailModalProps> = ({
 
                 {/* Icon with multi-layer glow effect */}
                 <div className="flex justify-center mb-6">
-                    <div className="relative flex items-center justify-center w-32 h-32">
-                        {/* Outermost glow - very light purple */}
-                        <div className="absolute w-32 h-32 rounded-full bg-purple-200 opacity-40 blur-2xl"></div>
-
-                        {/* Middle glow layer - medium purple/blue */}
-                        <div className="absolute w-24 h-24 rounded-full bg-[#6366f1] opacity-50 blur-xl"></div>
-
-                        {/* Inner glow - brighter purple */}
-                        <div className="absolute w-20 h-20 rounded-full bg-[#7c3aed] opacity-60 blur-lg"></div>
-
-                        {/* Solid center circle */}
-                        <div className="relative w-20 h-20 rounded-full bg-[#5E2A8C] flex items-center justify-center shadow-lg z-10">
-                            <span className="text-4xl">🧐</span>
+                    <div className="relative size-24 md:size-28">
+                        {/* Outer soft lavender ring */}
+                        <div className="absolute inset-0 rounded-full bg-[#E6E1FF] opacity-80" />
+                        {/* Inner purple gradient disc */}
+                        <div className="absolute inset-[10px] rounded-full bg-[radial-gradient(circle_at_45%_35%,#6D5AEC_0%,#3B32D0_75%)] shadow-[0_4px_10px_rgba(17,24,39,0.18)] flex items-center justify-center">
+                            <span className="text-4xl md:text-5xl">😕</span>
                         </div>
                     </div>
                 </div>
