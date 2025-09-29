@@ -3,16 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { classNames } from "@/utils/classNames";
 
 const violet = {
   base: "#6d28d9",
   hover: "#5b21b6",
   active: "#4c1d95",
 };
-
-function classNames(...classes: Array<string | false | undefined>) {
-  return classes.filter(Boolean).join(" ");
-}
 
 function Tab({ label, href }: { label: string; href: string }) {
   const pathname = usePathname();
@@ -46,17 +43,14 @@ export default function SettingsLayout({
     "--violet-active": violet.active,
   } as React.CSSProperties;
 
-  const pathname = usePathname();
-  console.log(pathname);
-  const isNestedPage =
-    pathname.includes("address")
+  const pathname = usePathname() || "";
+  const hiringTemplateRegex = /^\/settings\/hiring-templates\/.+/;
+  const showBareLayout = hiringTemplateRegex.test(pathname);
+  const isAddressNestedPage = pathname.includes("address");
 
-  if (isNestedPage) {
+  if (isAddressNestedPage) {
     return (
-      <div
-        className=""
-        style={themeVars}
-      >
+      <div className="" style={themeVars}>
         {children}
       </div>
     );
@@ -67,22 +61,26 @@ export default function SettingsLayout({
       className="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-10"
       style={themeVars}
     >
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl sm:text-3xl font-semibold text-[#111827]">
-          Settings
-        </h1>
-      </div>
+      {!showBareLayout && (
+        <>
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl sm:text-3xl font-semibold text-[#111827]">
+              Settings
+            </h1>
+          </div>
 
-      <nav
-        className="mt-6 flex items-center gap-2 border-b border-[#e5e7eb] overflow-x-auto overflow-y-hidden flex-nowrap whitespace-nowrap"
-        role="navigation"
-        aria-label="Settings navigation"
-      >
-        <Tab label="Company" href="/app/settings" />
-        <Tab label="Permissions" href="/app/settings/permissions" />
-        <Tab label="Hiring templates" href="/app/settings/hiring-templates" />
-        <Tab label="Address book" href="/app/settings/address-book" />
-      </nav>
+          <nav
+            className="mt-6 flex items-center gap-2 border-b border-[#e5e7eb] overflow-x-auto overflow-y-hidden flex-nowrap whitespace-nowrap"
+            role="navigation"
+            aria-label="Settings navigation"
+          >
+            <Tab label="Company" href="/settings" />
+            <Tab label="Permissions" href="/settings/permissions" />
+            <Tab label="Hiring templates" href="/settings/hiring-templates" />
+            <Tab label="Address book" href="/settings/address-book" />
+          </nav>
+        </>
+      )}
 
       <div className="mt-6">{children}</div>
     </div>

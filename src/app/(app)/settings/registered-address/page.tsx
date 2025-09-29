@@ -98,7 +98,7 @@ export default function BillingAddressPage() {
             <div className="pt-4">
               <Button
                 disabled={!isFormValid}
-                className={`w-full text-white px-8 py-3 rounded-lg text-base font-semibold ${
+                className={`w-full text-white px-8 py-6 rounded-lg text-base font-semibold ${
                   isFormValid
                     ? "bg-[#5E2A8C] hover:bg-[#4A1F73]"
                     : "bg-gray-500 cursor-not-allowed"
