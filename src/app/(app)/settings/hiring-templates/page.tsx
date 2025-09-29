@@ -155,14 +155,14 @@ const CreateTemplateModal: React.FC<CreateTemplateModalProps> = ({
 
   return (
     <div className="w-full fixed inset-0 z-50 overflow-y-auto">
-      <div className="relative h-screen w-full lg:ml-72 lg:w-[calc(100%-18rem)]">
+      <div className="relative h-screen w-full lg:ml-72 lg:w-[calc(100%-18rem)] mt-[50px] lg:mt-0">
         <div className="h-screen w-full bg-gray-50 overflow-y-auto">
           {/* Top Navigation Bar */}
           <div className="w-full bg-white border-b border-gray-200">
             <div className="mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between h-16">
                 {/* Search Bar */}
-                <div className="bg-gray-100 flex-1 flex flex-row justify-between items-center rounded-lg max-w-[272px]">
+                <div className="bg-gray-100 flex-1 flex flex-row justify-between items-center rounded-lg max-w-[272px] mr-4">
                   <input
                     type="text"
                     placeholder="Search..."

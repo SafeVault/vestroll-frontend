@@ -16,11 +16,7 @@ type NavItem = {
 const navItems: NavItem[] = [
   { name: "Dashboard", href: "/app/dashboard", iconSrc: "/dashboard.svg" },
   { name: "Contracts", href: "/app/contracts", iconSrc: "/contracts.svg" },
-  {
-    name: "Team management",
-    href: "/app/team-management",
-    iconSrc: "/team.svg",
-  },
+  { name: "Team management", href: "/app/team-management", iconSrc: "/team.svg" },
   { name: "Finance", href: "/app/finance", iconSrc: "/wallet.svg" },
   { name: "Payroll", href: "/app/payroll", iconSrc: "/payroll.svg" },
   { name: "Invoices", href: "/app/invoices", iconSrc: "/invoice.svg" },
@@ -36,32 +32,26 @@ interface SidebarProps {
   onCloseMobile?: () => void;
 }
 
-export default function Sidebar({
-  mobileOpen = false,
-  onCloseMobile,
-}: SidebarProps) {
+export default function Sidebar({ mobileOpen = false, onCloseMobile }: SidebarProps) {
   const pathname = usePathname();
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => setIsClient(true), []);
 
   const isActive = useMemo(
-    () => (href: string) => {
-      if (!isClient) return false;
-      if (pathname === href) return true;
-      return pathname?.startsWith(href + "/") ?? false;
-    },
+    () =>
+      (href: string) => {
+        if (!isClient) return false;
+        if (pathname === href) return true;
+        return pathname?.startsWith(href + "/") ?? false;
+      },
     [pathname, isClient]
   );
 
   const content = (
     <div className="flex h-full flex-col px-4 py-6">
       <div className="flex items-center justify-between px-2">
-        <Link
-          href="/"
-          className="flex items-center gap-3"
-          aria-label="VestRoll home"
-        >
+        <Link href="/" className="flex items-center gap-3" aria-label="VestRoll home">
           <Image src="/Logo.svg" alt="VestRoll" width={100} height={100} />
         </Link>
         <button
@@ -74,9 +64,7 @@ export default function Sidebar({
         </button>
       </div>
 
-      <div className="mt-8 px-2 text-xs font-semibold tracking-wider text-[#6b7280]">
-        MENU
-      </div>
+      <div className="mt-8 px-2 text-xs font-semibold tracking-wider text-[#6b7280]">MENU</div>
 
       <nav className="mt-3 flex-1" aria-label="Primary">
         <ul className="flex flex-col gap-1">
@@ -103,9 +91,7 @@ export default function Sidebar({
                       height={20}
                       className={classNames(
                         "shrink-0 transition",
-                        active
-                          ? "brightness-0 invert"
-                          : "opacity-70 group-hover:opacity-100"
+                        active ? "brightness-0 invert" : "opacity-70 group-hover:opacity-100"
                       )}
                       aria-hidden="true"
                     />
@@ -113,9 +99,7 @@ export default function Sidebar({
                     <Icon
                       className={classNames(
                         "h-5 w-5 transition-colors",
-                        active
-                          ? "text-white"
-                          : "text-[#6b7280] group-hover:text-[#4c1d95]"
+                      active ? "text-white" : "text-[#6b7280] group-hover:text-[#4c1d95]"
                       )}
                       aria-hidden="true"
                     />
@@ -169,3 +153,5 @@ export default function Sidebar({
     </>
   );
 }
+
+
