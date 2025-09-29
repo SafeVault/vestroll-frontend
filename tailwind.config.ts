@@ -75,6 +75,7 @@ const config: Config = {
           200: "#E5E7EB",
           400: "#99A1AF",
           600: "#4A5565",
+          700: "7F8C9F",
           800: "#0A0A0A",
         },
         neutral: {
