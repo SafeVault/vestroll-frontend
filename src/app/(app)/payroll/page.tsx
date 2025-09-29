@@ -1,4 +1,4 @@
-import EmptyState from "@/app/app/team-management/components/EmptyState";
+import EmptyState from "@/app/app/team-management/components/TeamManagementDashboard";
 import React from "react";
 
 export default function PayrollPage() {
