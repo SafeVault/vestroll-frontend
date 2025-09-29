@@ -9,7 +9,7 @@ const FreelancerIllustration = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_14_10363)">
+      <g clipPath="url(#clip0_14_10363)">
         <rect width="136" height="136" fill="#F3EBF9" />
         <path d="M136 0H0V136H136V0Z" fill="white" />
         <path
