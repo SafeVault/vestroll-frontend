@@ -216,7 +216,7 @@ export default function Page() {
                   Please{" "}
                   <Link
                     className="underline decoration-[var(--violet-base)] text-[var(--violet-base)] hover:no-underline"
-                    href="#"
+                    href="settings/registered-address"
                   >
                     add
                   </Link>{" "}
