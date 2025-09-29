@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ReduxProvider } from "../libs/provider";
+import Modal from "../components/modal/Modal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,8 +26,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} bg-background text-text-primary antialiased`}>
-        {children}
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} bg-background text-text-primary antialiased`}
+      >
+        <ReduxProvider>
+          {children}
+          <Modal />
+        </ReduxProvider>
       </body>
     </html>
   );
