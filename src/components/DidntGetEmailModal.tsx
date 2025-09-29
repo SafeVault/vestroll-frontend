@@ -61,7 +61,7 @@ const DidntGetEmailModal: React.FC<DidntGetEmailModalProps> = ({
                         <div className="absolute inset-0 rounded-full bg-[#E6E1FF] opacity-80" />
                         {/* Inner purple gradient disc */}
                         <div className="absolute inset-[10px] rounded-full bg-[radial-gradient(circle_at_45%_35%,#6D5AEC_0%,#3B32D0_75%)] shadow-[0_4px_10px_rgba(17,24,39,0.18)] flex items-center justify-center">
-                            <span className="text-4xl md:text-5xl">😕</span>
+                            <span className="text-4xl md:text-5xl">🧐</span>
                         </div>
                     </div>
                 </div>
