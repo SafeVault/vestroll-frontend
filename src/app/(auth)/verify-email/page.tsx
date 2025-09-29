@@ -1,35 +1,49 @@
-import AuthHeader from "@/components/auth/AuthHeader";
-import AuthLayer from "@/components/auth/AuthLayer";
-import OtpForm from "@/components/auth/OtpForm";
-import Stepper from "@/components/auth/Stepper";
-import Btn from "@/components/ui/Btn";
-import Link from "next/link";
+'use client';
+import AuthLayer from '@/components/auth/AuthLayer';
+import Stepper from '@/components/auth/Stepper';
+import EmailVerification from '@/components/emailVerificationModal';
+import { useRouter } from 'next/navigation';
 
 function VerifyEmailPage() {
+  const router = useRouter();
+  const mockEmail = 'zanab12ab@gmail.com';
+
+  const handleVerify = async (otp: string) => {
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    const isValid = otp === '123456';
+
+    if (isValid) {
+      router.push('/onboarding/complete');
+    }
+
+    return isValid;
+  };
+
+  const handleResend = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    console.log('Verification code resent!');
+  };
+
+  const handleGoBack = () => {
+    router.back();
+  };
+
   return (
     <AuthLayer>
-      <div className="max-w-md mx-auto  space-y-12">
+      <div className="max-w-md mx-auto space-y-12">
         <Stepper totalSteps={5} currentStep={3} />
-        <AuthHeader
-          title="Verify your email address"
-          description="Please enter the verification code sent to 
-your email account za**ab@gmail.com"
+        <EmailVerification
+          email={mockEmail}
+          onVerify={handleVerify}
+          onResend={handleResend}
+          onGoBack={handleGoBack}
+          resendCooldown={60}
+          className="mt-8"
         />
-        <OtpForm />
-
-        <div className="space-y-8">
-          <Btn variant="primary" text="Verify" />
-          <div className="flex items-center justify-center">
-            <Link
-              href={""}
-              className="text-primary-500 text-base font-medium text-center"
-            >
-              Didn’t get the code?
-            </Link>
-          </div>
-        </div>
       </div>
     </AuthLayer>
   );
 }
+
 export default VerifyEmailPage;

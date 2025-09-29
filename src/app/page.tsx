@@ -1,5 +1,11 @@
-import { redirect } from "next/navigation";
+import VestRollAccountSelection from '@/components/accountType';
+import { redirect } from 'next/navigation';
 
 export default function Home() {
-  redirect("/onboarding");
+  return (
+    <div>
+      <VestRollAccountSelection />
+      {/* redirect("/onboarding"); */}
+    </div>
+  );
 }

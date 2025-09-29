@@ -1,3 +1,3 @@
-export { default } from "../../(app)/team-management/page";
+export { default } from "../../team-management/page";
 
 
