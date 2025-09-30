@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ReduxProvider } from "@/libs/provider";
+import Modal from "@/components/modal/Modal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,14 +30,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} bg-background text-text-primary antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          // disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        <ReduxProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            // disableTransitionOnChange
+          >
+            <Modal />
+            {children}
+          </ThemeProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
