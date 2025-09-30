@@ -1,3 +1,3 @@
-export { default } from "../../team-management/page";
+export { default } from "../../(app)/payroll/page";
 
 
