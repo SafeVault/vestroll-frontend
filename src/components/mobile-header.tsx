@@ -56,7 +56,7 @@ export default function MobileHeader({ user, onOpenMenu }: MobileHeaderProps) {
           aria-label="Notifications"
         >
           <Image
-            src={notificationBell}
+            src={notificationBell ?? null}
             alt="Notice bell"
             width={20}
             height={20}
