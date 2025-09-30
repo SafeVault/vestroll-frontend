@@ -1,7 +1,6 @@
 export const RoutePaths = {
   // Invoice routes
   INVOICES: "/invoices",
-  INVOICE_DETAIL: "/invoices/[id]",
   
   // Other common routes
   DASHBOARD: "/dashboard",
