@@ -12,6 +12,7 @@ import {
   User,
   X,
 } from "lucide-react";
+import Link from "next/link";
 
 // ============================================
 // COMPONENT: EmptyState
@@ -121,7 +122,9 @@ const EmployeeGrid = ({
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
       {currentEmployees.map((employee) => (
-        <EmployeeCard key={employee.id} employee={employee} />
+        <Link key={employee.id} href={`/app/team-management/${employee.id}`}>
+          <EmployeeCard employee={employee} />
+        </Link>
       ))}
     </div>
   );
@@ -283,7 +286,12 @@ type FilterModalProps = {
   onApply: (filters: { status: string; type: string }) => void;
 };
 
-const FilterModal = ({ isOpen, onClose, filters, onApply }: FilterModalProps) => {
+const FilterModal = ({
+  isOpen,
+  onClose,
+  filters,
+  onApply,
+}: FilterModalProps) => {
   const [localFilters, setLocalFilters] = useState(filters);
 
   if (!isOpen) return null;
@@ -301,11 +309,8 @@ const FilterModal = ({ isOpen, onClose, filters, onApply }: FilterModalProps) =>
   return (
     <>
       {/* Backdrop */}
-      <div 
-        className="fixed inset-0 bg-black/70 z-40"
-        onClick={handleCancel}
-      />
-      
+      <div className="fixed inset-0 bg-black/70 z-40" onClick={handleCancel} />
+
       {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
@@ -329,7 +334,9 @@ const FilterModal = ({ isOpen, onClose, filters, onApply }: FilterModalProps) =>
               </label>
               <div className="flex gap-2">
                 <button
-                  onClick={() => setLocalFilters({ ...localFilters, status: "All" })}
+                  onClick={() =>
+                    setLocalFilters({ ...localFilters, status: "All" })
+                  }
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     localFilters.status === "All"
                       ? "bg-purple-100 text-purple-700 border border-purple-300"
@@ -339,7 +346,9 @@ const FilterModal = ({ isOpen, onClose, filters, onApply }: FilterModalProps) =>
                   All
                 </button>
                 <button
-                  onClick={() => setLocalFilters({ ...localFilters, status: "Active" })}
+                  onClick={() =>
+                    setLocalFilters({ ...localFilters, status: "Active" })
+                  }
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     localFilters.status === "Active"
                       ? "bg-purple-100 text-purple-700 border border-purple-300"
@@ -349,7 +358,9 @@ const FilterModal = ({ isOpen, onClose, filters, onApply }: FilterModalProps) =>
                   Active
                 </button>
                 <button
-                  onClick={() => setLocalFilters({ ...localFilters, status: "Inactive" })}
+                  onClick={() =>
+                    setLocalFilters({ ...localFilters, status: "Inactive" })
+                  }
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     localFilters.status === "Inactive"
                       ? "bg-purple-100 text-purple-700 border border-purple-300"
@@ -368,7 +379,9 @@ const FilterModal = ({ isOpen, onClose, filters, onApply }: FilterModalProps) =>
               </label>
               <div className="flex gap-2">
                 <button
-                  onClick={() => setLocalFilters({ ...localFilters, type: "All" })}
+                  onClick={() =>
+                    setLocalFilters({ ...localFilters, type: "All" })
+                  }
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     localFilters.type === "All"
                       ? "bg-purple-100 text-purple-700 border border-purple-300"
@@ -378,7 +391,9 @@ const FilterModal = ({ isOpen, onClose, filters, onApply }: FilterModalProps) =>
                   All
                 </button>
                 <button
-                  onClick={() => setLocalFilters({ ...localFilters, type: "Freelancer" })}
+                  onClick={() =>
+                    setLocalFilters({ ...localFilters, type: "Freelancer" })
+                  }
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     localFilters.type === "Freelancer"
                       ? "bg-purple-100 text-purple-700 border border-purple-300"
@@ -388,7 +403,9 @@ const FilterModal = ({ isOpen, onClose, filters, onApply }: FilterModalProps) =>
                   Freelancer
                 </button>
                 <button
-                  onClick={() => setLocalFilters({ ...localFilters, type: "Contractor" })}
+                  onClick={() =>
+                    setLocalFilters({ ...localFilters, type: "Contractor" })
+                  }
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     localFilters.type === "Contractor"
                       ? "bg-purple-100 text-purple-700 border border-purple-300"
@@ -473,7 +490,8 @@ type StatsBarProps = {
 };
 
 const StatsBar = ({ totalEmployees, activeEmployees }: StatsBarProps) => {
-  const percentage = totalEmployees > 0 ? (activeEmployees / totalEmployees) * 100 : 0;
+  const percentage =
+    totalEmployees > 0 ? (activeEmployees / totalEmployees) * 100 : 0;
 
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6">
@@ -548,7 +566,7 @@ const SearchFilterBar = ({
 const generateMockEmployees = (count = 32) => {
   const employees = [];
   const types = ["Freelancer", "Contractor"];
-  
+
   for (let i = 1; i <= count; i++) {
     employees.push({
       id: i,
@@ -577,22 +595,22 @@ const TeamManagementDashboard = () => {
   });
 
   const allEmployees = generateMockEmployees();
-  
+
   // Apply filters and search
   const filteredEmployees = allEmployees.filter((employee) => {
     // Search filter
     const matchesSearch = employee.name
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
-    
+
     // Status filter
     const matchesStatus =
       filters.status === "All" || employee.status === filters.status;
-    
+
     // Type filter
     const matchesType =
       filters.type === "All" || employee.type === filters.type;
-    
+
     return matchesSearch && matchesStatus && matchesType;
   });
 
