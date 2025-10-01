@@ -58,7 +58,7 @@ export default function SettingsLayout({
 
   return (
     <div
-      className="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-10"
+      className="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-10 bg-[#F5F6F7]"
       style={themeVars}
     >
       {!showBareLayout && (
