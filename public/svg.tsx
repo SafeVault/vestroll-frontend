@@ -794,3 +794,97 @@ export const ArrowDown = () => (
     />
   </svg>
 );
+export const PdfDocumentIcon = () => (
+  <svg
+    width={48}
+    height={48}
+    viewBox="0 0 48 48"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g filter="url(#filter0_ii_7464_81442)">
+      <path
+        d="M30.2031 4L40.1973 13.9941V40.7998C40.1973 42.5671 38.7643 43.9999 36.9971 44H10.9971C9.22976 44 7.79688 42.5671 7.79688 40.7998V7.2002C7.79688 5.43288 9.22976 4 10.9971 4H30.2031Z"
+        fill="#FA4E4E"
+      />
+    </g>
+    <path
+      d="M30.4963 30.9387C29.1465 30.8384 27.847 30.3372 26.7973 29.4349C24.7478 29.8859 22.798 30.5374 20.8485 31.3397C19.299 34.0964 17.8493 35.4999 16.5995 35.4999C16.3495 35.4999 16.0498 35.4499 15.8498 35.2994C15.2998 35.0489 15 34.4974 15 33.9462C15 33.4949 15.1 32.2419 19.8487 30.1867C20.9487 28.1817 21.7983 26.1267 22.4983 23.9714C21.8983 22.7684 20.5987 19.8109 21.4982 18.3074C21.7982 17.7559 22.3982 17.4552 23.0482 17.5054C23.548 17.5054 24.0477 17.7559 24.3477 18.1569C24.9977 19.0592 24.9477 20.9639 24.0977 23.7709C24.8978 25.2725 25.9456 26.6282 27.197 27.7809C28.247 27.5802 29.2965 27.4299 30.3462 27.4299C32.6957 27.4799 33.0457 28.5827 32.9957 29.2344C32.9957 30.9387 31.346 30.9387 30.4963 30.9387V30.9387ZM16.4997 34.0462L16.6497 33.9962C17.3495 33.7457 17.8992 33.2444 18.2992 32.5927C17.5492 32.8934 16.9495 33.3947 16.4997 34.0464V34.0462ZM23.148 19.0092H22.998C22.948 19.0092 22.848 19.0092 22.798 19.0592C22.598 19.9112 22.748 20.8134 23.098 21.6154C23.398 20.7634 23.398 19.8612 23.148 19.0092V19.0092ZM23.498 26.2772L23.448 26.3772L23.398 26.3272C22.948 27.4802 22.448 28.6329 21.8982 29.7357L21.9982 29.6857V29.7857C23.1099 29.3826 24.2451 29.0479 25.3975 28.7832L25.3475 28.7332H25.4975C24.7475 27.9812 24.0477 27.1292 23.498 26.2772V26.2772ZM30.2963 28.9337C29.8463 28.9337 29.4465 28.9337 28.9965 29.0337C29.4965 29.2844 29.9965 29.3847 30.4963 29.4349C30.8463 29.4849 31.1962 29.4349 31.496 29.3347C31.496 29.1842 31.296 28.9337 30.2963 28.9337Z"
+      fill="white"
+    />
+    <path
+      d="M39.2649 13.0625L31.1406 13.0625L40.2031 22.125V14L39.2649 13.0625Z"
+      fill="url(#paint0_linear_7464_81442)"
+    />
+    <path
+      d="M33.4031 14L40.2031 14L30.2031 4L30.2031 10.8C30.2031 12.5673 31.6358 14 33.4031 14Z"
+      fill="#FDB8B8"
+    />
+    <defs>
+      <filter
+        id="filter0_ii_7464_81442"
+        x="7.79688"
+        y="3.8"
+        width="32.3984"
+        height="40.4"
+        filterUnits="userSpaceOnUse"
+        colorInterpolationFilters="sRGB"
+      >
+        <feFlood floodOpacity={0} result="BackgroundImageFix" />
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="BackgroundImageFix"
+          result="shape"
+        />
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha"
+        />
+        <feOffset dy="-0.4" />
+        <feGaussianBlur stdDeviation="0.1" />
+        <feComposite in2="hardAlpha" operator="arithmetic" k2={-1} k3={1} />
+        <feColorMatrix
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0"
+        />
+        <feBlend
+          mode="normal"
+          in2="shape"
+          result="effect1_innerShadow_7464_81442"
+        />
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha"
+        />
+        <feOffset dy="0.4" />
+        <feGaussianBlur stdDeviation="0.1" />
+        <feComposite in2="hardAlpha" operator="arithmetic" k2={-1} k3={1} />
+        <feColorMatrix
+          type="matrix"
+          values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.3 0"
+        />
+        <feBlend
+          mode="normal"
+          in2="effect1_innerShadow_7464_81442"
+          result="effect2_innerShadow_7464_81442"
+        />
+      </filter>
+      <linearGradient
+        id="paint0_linear_7464_81442"
+        x1="33.1719"
+        y1="11.0313"
+        x2="42.2344"
+        y2="20.0937"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopOpacity="0.2" />
+        <stop offset={1} stopOpacity={0} />
+      </linearGradient>
+    </defs>
+  </svg>
+);

@@ -1,7 +1,8 @@
-'use client'
+"use client";
 
-import { useState } from 'react';
-import { ArrowLeft, ChevronDown, Search, X } from 'lucide-react';
+import { Dispatch, SetStateAction, useState } from "react";
+import { ArrowLeft, ChevronDown, Search, X } from "lucide-react";
+import Stepper from "@/components/auth/Stepper";
 
 interface Client {
   id: string;
@@ -21,7 +22,7 @@ interface ContractTemplate {
 }
 
 interface FormData {
-  hireType: 'Freelancer' | 'Contractor' | '';
+  hireType: "Freelancer" | "Contractor" | "";
   projectTitle: string;
   jobRole: string;
   scopeOfWork: string;
@@ -32,98 +33,126 @@ interface FormData {
   duration: string;
 }
 
-
 const mockTemplates: ContractTemplate[] = [
   {
-    id: '1',
-    name: 'Web Development Contract',
-    category: 'Development',
-    description: 'Standard web development contract for frontend and backend projects',
-    duration: '3-6 months',
-    rate: '$75-150/hour',
-    terms: ['Project scope definition', 'Payment terms', 'Intellectual property rights', 'Confidentiality clause']
+    id: "1",
+    name: "Web Development Contract",
+    category: "Development",
+    description:
+      "Standard web development contract for frontend and backend projects",
+    duration: "3-6 months",
+    rate: "$75-150/hour",
+    terms: [
+      "Project scope definition",
+      "Payment terms",
+      "Intellectual property rights",
+      "Confidentiality clause",
+    ],
   },
   {
-    id: '2',
-    name: 'Design & Branding Contract',
-    category: 'Design',
-    description: 'Comprehensive design contract for branding and UI/UX projects',
-    duration: '2-4 months',
-    rate: '$60-120/hour',
-    terms: ['Design deliverables', 'Revision limits', 'Usage rights', 'Timeline milestones']
+    id: "2",
+    name: "Design & Branding Contract",
+    category: "Design",
+    description:
+      "Comprehensive design contract for branding and UI/UX projects",
+    duration: "2-4 months",
+    rate: "$60-120/hour",
+    terms: [
+      "Design deliverables",
+      "Revision limits",
+      "Usage rights",
+      "Timeline milestones",
+    ],
   },
   {
-    id: '3',
-    name: 'Marketing Consultant Contract',
-    category: 'Marketing',
-    description: 'Marketing strategy and execution contract template',
-    duration: '1-12 months',
-    rate: '$80-200/hour',
-    terms: ['Campaign objectives', 'Performance metrics', 'Reporting schedule', 'Budget allocation']
+    id: "3",
+    name: "Marketing Consultant Contract",
+    category: "Marketing",
+    description: "Marketing strategy and execution contract template",
+    duration: "1-12 months",
+    rate: "$80-200/hour",
+    terms: [
+      "Campaign objectives",
+      "Performance metrics",
+      "Reporting schedule",
+      "Budget allocation",
+    ],
   },
   {
-    id: '4',
-    name: 'Content Writing Contract',
-    category: 'Content',
-    description: 'Content creation and copywriting service contract',
-    duration: '1-6 months',
-    rate: '$40-100/hour',
-    terms: ['Content requirements', 'Publishing rights', 'Editorial process', 'SEO guidelines']
-  }
+    id: "4",
+    name: "Content Writing Contract",
+    category: "Content",
+    description: "Content creation and copywriting service contract",
+    duration: "1-6 months",
+    rate: "$40-100/hour",
+    terms: [
+      "Content requirements",
+      "Publishing rights",
+      "Editorial process",
+      "SEO guidelines",
+    ],
+  },
 ];
 
 const jobRoles = [
-  'Frontend Developer',
-  'Backend Developer',
-  'Full Stack Developer',
-  'UI/UX Designer',
-  'Product Manager',
-  'Marketing Manager',
-  'Content Writer',
-  'Data Analyst',
-  'DevOps Engineer',
-  'Mobile Developer'
+  "Frontend Developer",
+  "Backend Developer",
+  "Full Stack Developer",
+  "UI/UX Designer",
+  "Product Manager",
+  "Marketing Manager",
+  "Content Writer",
+  "Data Analyst",
+  "DevOps Engineer",
+  "Mobile Developer",
 ];
 
-export default function Page() {
+export default function ProjectDetails({
+  setStep,
+}: {
+  setStep: Dispatch<SetStateAction<number>>;
+}) {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
-    hireType: 'Freelancer',
-    projectTitle: '',
-    jobRole: '',
-    scopeOfWork: '',
+    hireType: "Freelancer",
+    projectTitle: "",
+    jobRole: "",
+    scopeOfWork: "",
     client: null,
     template: null,
-    customTerms: '',
-    rate: '',
-    duration: ''
+    customTerms: "",
+    rate: "",
+    duration: "",
   });
 
   const [modals, setModals] = useState({
     templateSelection: false,
     jobRoleDropdown: false,
-    createTemplate: false
+    createTemplate: false,
   });
 
-  const [templateSearch, setTemplateSearch] = useState('');
+  const [templateSearch, setTemplateSearch] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [newTemplateData, setNewTemplateData] = useState({
-    jobRole: '',
-    scopeOfWork: ''
+    jobRole: "",
+    scopeOfWork: "",
   });
 
-  const filteredTemplates = mockTemplates.filter(template =>
-    template.name.toLowerCase().includes(templateSearch.toLowerCase()) ||
-    template.description.toLowerCase().includes(templateSearch.toLowerCase())
+  const filteredTemplates = mockTemplates.filter(
+    (template) =>
+      template.name.toLowerCase().includes(templateSearch.toLowerCase()) ||
+      template.description.toLowerCase().includes(templateSearch.toLowerCase())
   );
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!formData.hireType) newErrors.hireType = 'Please select hire type';
-    if (!formData.projectTitle.trim()) newErrors.projectTitle = 'Project title is required';
-    if (!formData.jobRole) newErrors.jobRole = 'Job role is required';
-    if (!formData.scopeOfWork.trim()) newErrors.scopeOfWork = 'Scope of work is required';
+    if (!formData.hireType) newErrors.hireType = "Please select hire type";
+    if (!formData.projectTitle.trim())
+      newErrors.projectTitle = "Project title is required";
+    if (!formData.jobRole) newErrors.jobRole = "Job role is required";
+    if (!formData.scopeOfWork.trim())
+      newErrors.scopeOfWork = "Scope of work is required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -131,38 +160,41 @@ export default function Page() {
 
   const handleNext = () => {
     if (validateForm() && currentStep < 6) {
-      setCurrentStep(prev => prev + 1);
+      setStep((prev) => prev + 1);
     }
   };
 
   const handlePrev = () => {
-    setCurrentStep(prev => Math.max(1, prev - 1));
+    setStep((prev) => Math.max(1, prev - 1));
   };
 
   const openModal = (modal: keyof typeof modals, value: any = true) => {
-    setModals(prev => ({ ...prev, [modal]: value }));
+    setModals((prev) => ({ ...prev, [modal]: value }));
   };
 
   const closeModal = (modal: keyof typeof modals) => {
-    setModals(prev => ({ ...prev, [modal]: false }));
+    setModals((prev) => ({ ...prev, [modal]: false }));
   };
 
-
   const selectTemplate = (template: ContractTemplate) => {
-    setFormData(prev => ({ ...prev, template, scopeOfWork: template.description }));
-    closeModal('templateSelection');
+    setFormData((prev) => ({
+      ...prev,
+      template,
+      scopeOfWork: template.description,
+    }));
+    closeModal("templateSelection");
   };
 
   const selectJobRole = (role: string) => {
-    setFormData(prev => ({ ...prev, jobRole: role }));
-    closeModal('jobRoleDropdown');
+    setFormData((prev) => ({ ...prev, jobRole: role }));
+    closeModal("jobRoleDropdown");
   };
 
   const saveNewTemplate = () => {
     // Here you could add logic to save the new template
     // For now, just close the modal
-    setNewTemplateData({ jobRole: '', scopeOfWork: '' });
-    closeModal('createTemplate');
+    setNewTemplateData({ jobRole: "", scopeOfWork: "" });
+    closeModal("createTemplate");
   };
 
   const ProgressBar = () => (
@@ -170,14 +202,9 @@ export default function Page() {
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-lg font-medium text-gray-700">Project details</h2>
       </div>
-      <div className="flex items-center space-x-2">
-        {Array.from({ length: 6 }, (_, i) => (
-          <div key={i} className={`h-1 flex-1 ${i < 2 ? 'bg-purple-700' : 'bg-gray-200'} rounded-full`} />
-        ))}
-      </div>
+      <Stepper className="!flex-1 !w-13" totalSteps={6} currentStep={2} />
     </div>
   );
-
 
   const TemplateSelectionModal = () => (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
@@ -185,7 +212,7 @@ export default function Page() {
         <div className="p-6 border-b border-gray-200 relative">
           <h3 className="text-lg font-semibold text-center">Select template</h3>
           <button
-            onClick={() => closeModal('templateSelection')}
+            onClick={() => closeModal("templateSelection")}
             className="absolute left-6 top-6 text-gray-400 hover:text-gray-600 transition-colors"
           >
             <X size={24} />
@@ -193,7 +220,10 @@ export default function Page() {
         </div>
         <div className="p-6">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <Search
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              size={20}
+            />
             <input
               type="text"
               placeholder="Search…"
@@ -216,7 +246,13 @@ export default function Page() {
         </div>
         <div className="p-6 border-t border-gray-200">
           <button
-            onClick={() => setModals(prev => ({ ...prev, templateSelection: false, createTemplate: true }))}
+            onClick={() =>
+              setModals((prev) => ({
+                ...prev,
+                templateSelection: false,
+                createTemplate: true,
+              }))
+            }
             className="w-full py-2 bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition-colors"
           >
             Create new template
@@ -232,7 +268,7 @@ export default function Page() {
         <div className="p-6 border-b border-gray-200 relative">
           <h3 className="text-lg font-semibold text-center">Create template</h3>
           <button
-            onClick={() => closeModal('createTemplate')}
+            onClick={() => closeModal("createTemplate")}
             className="absolute left-6 top-6 text-gray-400 hover:text-gray-600 transition-colors"
           >
             <X size={24} />
@@ -240,21 +276,35 @@ export default function Page() {
         </div>
         <div className="p-6 space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">Job role</label>
+            <label className="block text-sm font-medium text-gray-700 mb-3">
+              Job role
+            </label>
             <input
               type="text"
               placeholder="--"
               value={newTemplateData.jobRole}
-              onChange={(e) => setNewTemplateData(prev => ({ ...prev, jobRole: e.target.value }))}
+              onChange={(e) =>
+                setNewTemplateData((prev) => ({
+                  ...prev,
+                  jobRole: e.target.value,
+                }))
+              }
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">Scope of work</label>
+            <label className="block text-sm font-medium text-gray-700 mb-3">
+              Scope of work
+            </label>
             <textarea
               placeholder="--"
               value={newTemplateData.scopeOfWork}
-              onChange={(e) => setNewTemplateData(prev => ({ ...prev, scopeOfWork: e.target.value }))}
+              onChange={(e) =>
+                setNewTemplateData((prev) => ({
+                  ...prev,
+                  scopeOfWork: e.target.value,
+                }))
+              }
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
               rows={4}
             />
@@ -272,17 +322,16 @@ export default function Page() {
     </div>
   );
 
-
   const JobRoleDropdown = () => (
     <div className="relative">
       <button
-        onClick={() => openModal('jobRoleDropdown')}
+        onClick={() => openModal("jobRoleDropdown")}
         className={`w-full flex items-center justify-between px-4 py-3 border rounded-lg bg-white hover:border-gray-400 transition-colors ${
-          errors.jobRole ? 'border-red-300' : 'border-gray-300'
+          errors.jobRole ? "border-red-300" : "border-gray-300"
         }`}
       >
-        <span className={formData.jobRole ? 'text-gray-900' : 'text-gray-400'}>
-          {formData.jobRole || 'Select--'}
+        <span className={formData.jobRole ? "text-gray-900" : "text-gray-400"}>
+          {formData.jobRole || "Select--"}
         </span>
         <ChevronDown size={20} className="text-gray-400" />
       </button>
@@ -303,112 +352,145 @@ export default function Page() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto px-6 py-8">
-        {/* Header */}
-        <div className="flex items-center mb-2">
-          <button onClick={handlePrev} className="flex items-center text-gray-500 hover:text-gray-700 transition-colors">
-            <ArrowLeft size={16} className="mr-2" />
-            <span className="text-sm">back</span>
-          </button>
-        </div>
-
-        <h1 className="text-2xl font-bold text-gray-900 mb-6 sm:mb-12">Create contract</h1>
-
+    <div className=" bg-white w-full max-w-4xl mx-2 sm:mx-4 mt-2 sm:mt-4 rounded-lg">
+      <div className="max-w-4xl  px-6 py-8">
         {/* Progress Bar */}
         <ProgressBar />
 
         {/* Form */}
-        <div className="bg-white rounded-lg p-8 shadow-sm border border-gray-200">
+        <div className="">
           <div className="space-y-8">
             {/* Hire Type */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-4">Hire type</label>
+              <label className="block text-sm font-medium text-gray-700 mb-4">
+                Hire type
+              </label>
               <div className="flex space-x-3">
-                {['Freelancer', 'Contractor'].map((type) => (
+                {["Freelancer", "Contractor"].map((type) => (
                   <button
                     key={type}
-                    onClick={() => setFormData(prev => ({ ...prev, hireType: type as any }))}
+                    onClick={() =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        hireType: type as any,
+                      }))
+                    }
                     className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
                       formData.hireType === type
-                        ? 'bg-purple-100 text-purple-700 border border-purple-200'
-                        : 'bg-gray-100 text-gray-600 border border-gray-200 hover:bg-gray-200'
+                        ? "bg-purple-100 text-purple-700 border border-purple-200"
+                        : "bg-gray-100 text-gray-600 border border-gray-200 hover:bg-gray-200"
                     }`}
                   >
                     {type}
                   </button>
                 ))}
               </div>
-              {errors.hireType && <p className="text-red-500 text-sm mt-2">{errors.hireType}</p>}
+              {errors.hireType && (
+                <p className="text-red-500 text-sm mt-2">{errors.hireType}</p>
+              )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Project Title */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">Project title</label>
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  Project title
+                </label>
                 <input
                   type="text"
                   placeholder="Placeholder"
                   value={formData.projectTitle}
-                  onChange={(e) => setFormData(prev => ({ ...prev, projectTitle: e.target.value }))}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      projectTitle: e.target.value,
+                    }))
+                  }
                   className={`w-full px-4 py-3 border rounded-lg bg-gray-50 text-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent focus:bg-white ${
-                    errors.projectTitle ? 'border-red-300' : 'border-gray-300'
+                    errors.projectTitle ? "border-red-300" : "border-gray-300"
                   }`}
                 />
-                {errors.projectTitle && <p className="text-red-500 text-sm mt-2">{errors.projectTitle}</p>}
+                {errors.projectTitle && (
+                  <p className="text-red-500 text-sm mt-2">
+                    {errors.projectTitle}
+                  </p>
+                )}
               </div>
 
               {/* Job Role */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">Job role</label>
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  Job role
+                </label>
                 <JobRoleDropdown />
-                {errors.jobRole && <p className="text-red-500 text-sm mt-2">{errors.jobRole}</p>}
+                {errors.jobRole && (
+                  <p className="text-red-500 text-sm mt-2">{errors.jobRole}</p>
+                )}
               </div>
             </div>
 
             {/* Scope of Work */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <label className="block text-sm font-medium text-gray-700">Scope of work</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Scope of work
+                </label>
                 <button
-                  onClick={() => openModal('templateSelection')}
+                  onClick={() => openModal("templateSelection")}
                   className="text-purple-600 text-sm hover:text-purple-700 transition-colors font-medium"
                 >
                   Select
                 </button>
               </div>
-              <div className={`min-h-[120px] p-4 border-2 border-dashed rounded-lg bg-gray-50 flex items-start ${
-                errors.scopeOfWork ? 'border-red-300' : 'border-gray-300'
-              }`}>
+              <div
+                className={`min-h-[120px] p-4 border-2 border-dashed rounded-lg bg-gray-50 flex items-start ${
+                  errors.scopeOfWork ? "border-red-300" : "border-gray-300"
+                }`}
+              >
                 {formData.scopeOfWork ? (
                   <div className="w-full">
                     <textarea
                       value={formData.scopeOfWork}
-                      onChange={(e) => setFormData(prev => ({ ...prev, scopeOfWork: e.target.value }))}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          scopeOfWork: e.target.value,
+                        }))
+                      }
                       className="w-full bg-transparent border-none outline-none resize-none text-gray-700"
                       rows={4}
                     />
                   </div>
                 ) : (
                   <button
-                    onClick={() => openModal('templateSelection')}
+                    onClick={() => openModal("templateSelection")}
                     className="text-gray-400 text-sm"
                   >
                     Select
                   </button>
                 )}
               </div>
-              {errors.scopeOfWork && <p className="text-red-500 text-sm mt-2">{errors.scopeOfWork}</p>}
+              {errors.scopeOfWork && (
+                <p className="text-red-500 text-sm mt-2">
+                  {errors.scopeOfWork}
+                </p>
+              )}
             </div>
 
             {/* Client Selection */}
             {formData.client && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">Selected Client</label>
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  Selected Client
+                </label>
                 <div className="p-4 border border-gray-300 rounded-lg bg-white">
                   <div>
-                    <div className="font-medium text-gray-900">{formData.client.name}</div>
-                    <div className="text-sm text-gray-500">{formData.client.email}</div>
+                    <div className="font-medium text-gray-900">
+                      {formData.client.name}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      {formData.client.email}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -417,14 +499,20 @@ export default function Page() {
             {/* Template Selection */}
             {formData.template && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">Selected Template</label>
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  Selected Template
+                </label>
                 <div className="flex items-center justify-between p-4 border border-gray-300 rounded-lg bg-white">
                   <div>
-                    <div className="font-medium text-gray-900">{formData.template.name}</div>
-                    <div className="text-sm text-gray-500">{formData.template.category}</div>
+                    <div className="font-medium text-gray-900">
+                      {formData.template.name}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      {formData.template.category}
+                    </div>
                   </div>
                   <button
-                    onClick={() => openModal('templateSelection')}
+                    onClick={() => openModal("templateSelection")}
                     className="text-purple-600 text-sm hover:text-purple-700 transition-colors font-medium"
                   >
                     Change
@@ -440,14 +528,14 @@ export default function Page() {
           <button
             onClick={handlePrev}
             disabled={currentStep === 1}
-            className={`flex-1 py-3 border border-black text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium ${currentStep === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`flex-1 py-3 border border-black text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium ${currentStep === 1 ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             Prev
           </button>
           <button
             onClick={handleNext}
             disabled={currentStep === 6}
-            className={`flex-1 py-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition-colors font-medium ${currentStep === 6 ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`flex-1 py-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition-colors font-medium ${currentStep === 6 ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             Next
           </button>
@@ -462,7 +550,7 @@ export default function Page() {
       {modals.jobRoleDropdown && (
         <div
           className="fixed inset-0 z-30"
-          onClick={() => closeModal('jobRoleDropdown')}
+          onClick={() => closeModal("jobRoleDropdown")}
         />
       )}
     </div>
