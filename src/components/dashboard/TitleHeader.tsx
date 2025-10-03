@@ -1,5 +1,5 @@
 import { ArrowLeft, Plus } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ArrowDown, ExportIcon } from "../../../public/svg";
 function TitleHeader({
   title,
@@ -17,9 +17,9 @@ function TitleHeader({
     }
   };
   return (
-    <section className="sticky top-0 bg-white z-5 ">
-      <div className="px-4 ">
-        <div className="pb-1 space-y-1">
+    <section className="sticky top-0 bg-white z-5">
+      <div className="px-4">
+        <div className="pb-4 sm:pb-6 space-y-2">
           {isBackButton ? (
             <button
               onClick={handleBackButton}
@@ -39,22 +39,19 @@ function TitleHeader({
             </h1>
             {isAddButton && (
               <Link
-                to={""}
+                href="/app/contracts"
                 className={
-                  "hidden lg:flex items-center text-white rounded-full cursor-pointer bg-primary-200 h-10 gap-1 px-4 transform-all ease-linear  "
+                  "hidden lg:flex items-center justify-center text-white rounded-full cursor-pointer bg-primary-500 h-10 gap-2 px-5 transition-colors duration-150 "
                 }
+                aria-label="Create new contract"
               >
-                <Plus size={16} />
-                New contract
+                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/20">
+                  <Plus size={16} />
+                </span>
+                <span className="text-sm font-semibold">New contract</span>
               </Link>
             )}
-            {isExportButton && (
-              <button className="bg-primary-500 rounded-xl h-10 text-white text-sm font-medium capitalize px-4 py-2 flex items-center gap-1">
-                <ExportIcon />
-                <span>export</span>
-                <ArrowDown />
-              </button>
-            )}
+            {/* Export button removed per request */}
           </div>
         </div>
       </div>

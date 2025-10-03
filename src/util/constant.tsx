@@ -1,5 +1,13 @@
 import { DocumentIcon, NotebookIcon, Profile } from "../../public/svg";
 
+// Fallback icon components to preserve existing usage and resolve missing default export
+const Icons = {
+  DoneIcon: () => <DocumentIcon />,
+  BriefcaseIcon: () => <DocumentIcon />,
+  DollarIcon: () => <DocumentIcon />,
+  EscrowIcon: () => <DocumentIcon />,
+};
+
 export const invoiceMetricsData = [
   {
     title: "Total invoices",
@@ -24,6 +32,34 @@ export const invoiceMetricsData = [
     value: "$ 1,000.00",
     subValue: "04 Invoices",
     icon: <DocumentIcon />,
+  },
+];
+
+// Contracts page metrics
+export const contractMetricsData = [
+  {
+    title: "Completed contracts",
+    value: "12",
+    subValue: "10 employees",
+    icon: <Icons.DoneIcon />,
+  },
+  {
+    title: "Active contracts",
+    value: "04",
+    subValue: "04 employees",
+    icon: <Icons.BriefcaseIcon />,
+  },
+  {
+    title: "Average Salary per Contract",
+    value: "$ 7,200.00",
+    subValue: "12 contracts",
+    icon: <Icons.DollarIcon />,
+  },
+  {
+    title: "Total Locked in Escrow",
+    value: "$ 20,200.00",
+    subValue: "04 contracts",
+    icon: <Icons.EscrowIcon />,
   },
 ];
 

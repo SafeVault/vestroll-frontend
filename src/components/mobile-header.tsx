@@ -2,8 +2,6 @@
 
 import { Menu } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
-import notificationBell from "../../public/vuesax.svg";
-import miniAvatar from "../../public/avatar/Component 4.svg";
 
 interface MobileHeaderProps {
   user: {
@@ -56,7 +54,7 @@ export default function MobileHeader({ user, onOpenMenu }: MobileHeaderProps) {
           aria-label="Notifications"
         >
           <Image
-            src={notificationBell ?? null}
+            src="/vuesax.svg"
             alt="Notice bell"
             width={20}
             height={20}
@@ -84,7 +82,7 @@ export default function MobileHeader({ user, onOpenMenu }: MobileHeaderProps) {
             )}
           </div>
           <Image
-            src={miniAvatar}
+            src="/avatar/Component 4.svg"
             alt="miniAvatar"
             width={16}
             height={16}

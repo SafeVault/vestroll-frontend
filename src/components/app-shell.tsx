@@ -4,8 +4,8 @@ import { useState } from "react";
 import avatar from "../../public/avatar/avatar.png";
 import Image, { StaticImageData } from "next/image";
 import MobileHeader from "./mobile-header";
-import Sidebar from "./sidebar";
 import DesktopHeader from "./desktop-header";
+import Sidebar from "./sidebar";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 
@@ -40,24 +40,14 @@ export default function AppShell({
       />
 
       <div className="flex-1">
-        <div className="sticky top-0 z-30 flex items-center justify-between border-b border-[#e5e7eb] bg-white px-4 py-3 lg:hidden">
-          <Link
-            href="/"
-            aria-label="VestRoll home"
-            className="flex items-center"
-          >
-            <Image src="/Logo.svg" alt="VestRoll" width={100} height={100} />
-          </Link>
-          <button
-            type="button"
-            aria-label="Open menu"
-            className="rounded-lg p-2 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6d28d9]"
-            onClick={() => setMobileOpen(true)}
-          >
-            <Menu className="h-5 w-5" />
-          </button>
-          <p>homes</p>
-        </div>
+        {/* Use existing MobileHeader on small screens; pages handle their own desktop headers */}
+        <MobileHeader
+          user={{ name: user.name, avatar: user.avatar }}
+          onOpenMenu={() => setMobileOpen(true)}
+        />
+        <DesktopHeader
+          user={{ name: user.name, userType: user.userType, avatar: user.avatar }}
+        />
         <main className="">{children}</main>
       </div>
     </div>
