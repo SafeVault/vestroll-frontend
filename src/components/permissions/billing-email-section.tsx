@@ -80,7 +80,7 @@ export default function BillingEmailSection({
           </div>
         ) : (
           <div className="text-center py-6 px-4 text-xs sm:text-sm text-gray-500 bg-gray-50 rounded-lg">
-            You don't have any billing email addresses set up currently, therefore, invoices will be sent to company administrators by default.
+            You don&apos;t have any billing email addresses set up currently, therefore, invoices will be sent to company administrators by default.
           </div>
         )}
       </div>

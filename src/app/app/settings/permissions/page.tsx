@@ -1,3 +1,7 @@
-// export { default } from "../../../(app)/settings/permissions/page";
+import PermissionsTab from '@/components/permissions/permissions-tab';
+import React from 'react';
 
-export function Permission() {}
+// Server Component - No "use client" needed
+export default function PermissionsPage() {
+  return <PermissionsTab />;
+}
