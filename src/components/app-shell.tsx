@@ -4,6 +4,7 @@ import { useState } from "react";
 import avatar from "../../public/avatar/avatar.png";
 import Image, { StaticImageData } from "next/image";
 import MobileHeader from "./mobile-header";
+import DesktopHeader from "./desktop-header";
 import Sidebar from "./sidebar";
 import Link from "next/link";
 import { Menu } from "lucide-react";
@@ -43,6 +44,9 @@ export default function AppShell({
         <MobileHeader
           user={{ name: user.name, avatar: user.avatar }}
           onOpenMenu={() => setMobileOpen(true)}
+        />
+        <DesktopHeader
+          user={{ name: user.name, userType: user.userType, avatar: user.avatar }}
         />
         <main className="">{children}</main>
       </div>

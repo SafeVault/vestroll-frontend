@@ -1,7 +1,7 @@
-import React from "react";
+"use client";
+import ContractsPage from "../../(app)/contracts/page";
 
-function page() {
-  return <div>page</div>;
+export default function ContractsRoute() {
+  return <ContractsPage />;
 }
 
-export default page;
