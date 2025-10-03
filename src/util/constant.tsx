@@ -1,4 +1,4 @@
-import { DocumentIcon, NotebookIcon, Profile } from "../../public/svg";
+import { DocumentIcon, NotebookIcon, Profile, DoneIcon, BriefcaseIcon, DollarIcon, EscrowIcon } from "../../public/svg";
 
 export const invoiceMetricsData = [
   {
@@ -24,6 +24,34 @@ export const invoiceMetricsData = [
     value: "$ 1,000.00",
     subValue: "04 Invoices",
     icon: <DocumentIcon />,
+  },
+];
+
+// Contracts page metrics
+export const contractMetricsData = [
+  {
+    title: "Completed contracts",
+    value: "12",
+    subValue: "10 employees",
+    icon: <DoneIcon />,
+  },
+  {
+    title: "Active contracts",
+    value: "04",
+    subValue: "04 employees",
+    icon: <BriefcaseIcon />,
+  },
+  {
+    title: "Average Salary per Contract",
+    value: "$ 7,200.00",
+    subValue: "12 contracts",
+    icon: <DollarIcon />,
+  },
+  {
+    title: "Total Locked in Escrow",
+    value: "$ 20,200.00",
+    subValue: "04 contracts",
+    icon: <EscrowIcon />,
   },
 ];
 
