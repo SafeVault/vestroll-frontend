@@ -2,9 +2,7 @@
 
 import { ChevronDown } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
-import notificationBell from "../../public/vuesax.svg"; 
 import avatar from "../../public/avatar/avatar.png";   
-import miniAvatar from "../../public/avatar/Component 4.svg"; 
 
 interface DesktopHeaderProps {
   user: {
@@ -17,7 +15,7 @@ interface DesktopHeaderProps {
 }
 
 export default function DesktopHeader({ 
-  user = { name: "Peter", userType: "Administrator", avatar, miniAvatar },
+  user = { name: "Peter", userType: "Administrator", avatar, miniAvatar: "/avatar/Component 4.svg" },
   onSearch 
 }: DesktopHeaderProps) {
   return (
@@ -47,7 +45,7 @@ export default function DesktopHeader({
         {/* Notification */}
         <button className="relative rounded-full border border-[#DCE0E5] p-2 hover:bg-gray-100 focus:outline-none">
           <Image
-            src={notificationBell}
+            src="/vuesax.svg"
             alt="Notifications"
             width={22}
             height={22}
@@ -77,7 +75,7 @@ export default function DesktopHeader({
             {/* Mini avatar overlay */}
             {user.miniAvatar && (
               <Image
-                src={user.miniAvatar}
+                src={typeof user.miniAvatar === "string" ? user.miniAvatar : "/avatar/Component 4.svg"}
                 alt="miniAvatar"
                 width={16}
                 height={16}
@@ -86,13 +84,6 @@ export default function DesktopHeader({
             )}
           </div>
 
-              <Image
-            src={miniAvatar}
-            alt="miniAvatar"
-            width={16}
-            height={16}
-            className="h-5 w-5 object-cover absolute bottom-[-5px] right-[-5px]"
-          />
          </div>
 
           {/* User info */}

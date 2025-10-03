@@ -4,8 +4,8 @@ import { useState } from "react";
 import avatar from "../../public/avatar/avatar.png";
 import Image, { StaticImageData } from "next/image";
 import MobileHeader from "./mobile-header";
-import Sidebar from "./sidebar";
 import DesktopHeader from "./desktop-header";
+import Sidebar from "./sidebar";
 import Link from "next/link";
 import { Bell, Menu, Search } from "lucide-react";
 

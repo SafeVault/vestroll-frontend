@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import ContractDetails from "@/components/contracts/ContractDetails";
 import ProjectDetails from "@/components/contracts/ProjectDetails";
 import EmployeeDetails from "@/components/contracts/EmployeeDetails";
+import { ComplianceForm } from "@/components/contracts/ComplianceForm";
+import ContractReviewAccordion from "@/components/contracts/Sign&Review";
 
 interface ContractFormData {
   clientName: string;
@@ -46,11 +48,12 @@ interface FormErrors {
 }
 
 const steps = [
-  { id: 1, name: "Project Setup" },
+  { id: 1, name: "Choose contract Type" },
   { id: 2, name: "Project Details" },
   { id: 3, name: "Employee Details" },
   { id: 4, name: "Contract Details" },
-  { id: 5, name: "Review & Submit" },
+  { id: 5, name: "Compliance Details" },
+  { id: 6, name: "Review & Sign" },
 ];
 
 export default function CreateContractPage() {
@@ -88,7 +91,7 @@ export default function CreateContractPage() {
   // Listen to layout buttons
   useEffect(() => {
     const onPrev = () => setCurrentStep((s) => Math.max(1, s - 1));
-    const onNext = () => setCurrentStep((s) => Math.min(5, s + 1));
+    const onNext = () => setCurrentStep((s) => Math.min(6, s + 1));
     window.addEventListener("contracts:prev", onPrev);
     window.addEventListener("contracts:next", onNext);
     return () => {
@@ -146,34 +149,14 @@ export default function CreateContractPage() {
             onFormDataChange={handleFormDataChange}
             errors={errors}
             onErrorsChange={handleErrorsChange}
-            onNext={() => setCurrentStep((s) => Math.min(5, s + 1))}
+            onNext={() => setCurrentStep((s) => Math.min(6, s + 1))}
             onPrev={() => setCurrentStep((s) => Math.max(1, s - 1))}
           />
         );
       case 5:
-        return (
-          <div className="space-y-6">
-            <h3 className="text-lg font-medium text-gray-700">
-              Review Contract Details
-            </h3>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <p className="text-sm text-gray-600">
-                Start Date: {formData.startDate}
-              </p>
-              <p className="text-sm text-gray-600">
-                End Date: {formData.endDate || "No end date"}
-              </p>
-            </div>
-            <div className="flex justify-end">
-              <Button
-                onClick={handleCreateContract}
-                className="bg-purple-700 hover:bg-purple-800 text-white"
-              >
-                Create Contract
-              </Button>
-            </div>
-          </div>
-        );
+        return <ComplianceForm />;
+      case 6:
+        return <ContractReviewAccordion />;
       default:
         return null;
     }

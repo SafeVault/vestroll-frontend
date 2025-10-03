@@ -1,7 +1,10 @@
 import React from "react";
+import OTPVerification from "./page";
 
 function layout() {
-  return <div>layout</div>;
+  return <div>
+<OTPVerification />
+  </div>;
 }
 
 export default layout;

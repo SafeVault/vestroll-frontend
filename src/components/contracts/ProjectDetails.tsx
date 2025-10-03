@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import { useState } from 'react';
-import { ChevronDown, Search, X } from 'lucide-react';
+import { useState } from "react";
+import { ChevronDown, Search, X } from "lucide-react";
 
 interface Client {
   id: string;
@@ -21,7 +21,7 @@ interface ContractTemplate {
 }
 
 interface FormData {
-  hireType: 'Freelancer' | 'Contractor' | '';
+  hireType: "Freelancer" | "Contractor" | "";
   projectTitle: string;
   jobRole: string;
   scopeOfWork: string;
@@ -34,67 +34,67 @@ interface FormData {
 
 const mockTemplates: ContractTemplate[] = [
   {
-    id: '1',
-    name: 'Web Development Contract',
-    category: 'Development',
-    description: 'Standard web development contract for frontend and backend projects',
-    duration: '3-6 months',
-    rate: '$75-150/hour',
-    terms: ['Project scope definition', 'Payment terms', 'Intellectual property rights', 'Confidentiality clause']
+    id: "1",
+    name: "Web Development Contract",
+    category: "Development",
+    description: "Standard web development contract for frontend and backend projects",
+    duration: "3-6 months",
+    rate: "$75-150/hour",
+    terms: ["Project scope definition", "Payment terms", "Intellectual property rights", "Confidentiality clause"]
   },
   {
-    id: '2',
-    name: 'Design & Branding Contract',
-    category: 'Design',
-    description: 'Comprehensive design contract for branding and UI/UX projects',
-    duration: '2-4 months',
-    rate: '$60-120/hour',
-    terms: ['Design deliverables', 'Revision limits', 'Usage rights', 'Timeline milestones']
+    id: "2",
+    name: "Design & Branding Contract",
+    category: "Design",
+    description: "Comprehensive design contract for branding and UI/UX projects",
+    duration: "2-4 months",
+    rate: "$60-120/hour",
+    terms: ["Design deliverables", "Revision limits", "Usage rights", "Timeline milestones"]
   },
   {
-    id: '3',
-    name: 'Marketing Consultant Contract',
-    category: 'Marketing',
-    description: 'Marketing strategy and execution contract template',
-    duration: '1-12 months',
-    rate: '$80-200/hour',
-    terms: ['Campaign objectives', 'Performance metrics', 'Reporting schedule', 'Budget allocation']
+    id: "3",
+    name: "Marketing Consultant Contract",
+    category: "Marketing",
+    description: "Marketing strategy and execution contract template",
+    duration: "1-12 months",
+    rate: "$80-200/hour",
+    terms: ["Campaign objectives", "Performance metrics", "Reporting schedule", "Budget allocation"]
   },
   {
-    id: '4',
-    name: 'Content Writing Contract',
-    category: 'Content',
-    description: 'Content creation and copywriting service contract',
-    duration: '1-6 months',
-    rate: '$40-100/hour',
-    terms: ['Content requirements', 'Publishing rights', 'Editorial process', 'SEO guidelines']
+    id: "4",
+    name: "Content Writing Contract",
+    category: "Content",
+    description: "Content creation and copywriting service contract",
+    duration: "1-6 months",
+    rate: "$40-100/hour",
+    terms: ["Content requirements", "Publishing rights", "Editorial process", "SEO guidelines"]
   }
 ];
 
 const jobRoles = [
-  'Frontend Developer',
-  'Backend Developer',
-  'Full Stack Developer',
-  'UI/UX Designer',
-  'Product Manager',
-  'Marketing Manager',
-  'Content Writer',
-  'Data Analyst',
-  'DevOps Engineer',
-  'Mobile Developer'
+  "Frontend Developer",
+  "Backend Developer",
+  "Full Stack Developer",
+  "UI/UX Designer",
+  "Product Manager",
+  "Marketing Manager",
+  "Content Writer",
+  "Data Analyst",
+  "DevOps Engineer",
+  "Mobile Developer"
 ];
 
 export default function ProjectDetails() {
   const [formData, setFormData] = useState<FormData>({
-    hireType: 'Freelancer',
-    projectTitle: '',
-    jobRole: '',
-    scopeOfWork: '',
+    hireType: "Freelancer",
+    projectTitle: "",
+    jobRole: "",
+    scopeOfWork: "",
     client: null,
     template: null,
-    customTerms: '',
-    rate: '',
-    duration: ''
+    customTerms: "",
+    rate: "",
+    duration: ""
   });
 
   const [modals, setModals] = useState({
@@ -103,11 +103,11 @@ export default function ProjectDetails() {
     createTemplate: false
   });
 
-  const [templateSearch, setTemplateSearch] = useState('');
+  const [templateSearch, setTemplateSearch] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [newTemplateData, setNewTemplateData] = useState({
-    jobRole: '',
-    scopeOfWork: ''
+    jobRole: "",
+    scopeOfWork: ""
   });
 
   const filteredTemplates = mockTemplates.filter(template =>
@@ -118,16 +118,16 @@ export default function ProjectDetails() {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!formData.hireType) newErrors.hireType = 'Please select hire type';
-    if (!formData.projectTitle.trim()) newErrors.projectTitle = 'Project title is required';
-    if (!formData.jobRole) newErrors.jobRole = 'Job role is required';
-    if (!formData.scopeOfWork.trim()) newErrors.scopeOfWork = 'Scope of work is required';
+    if (!formData.hireType) newErrors.hireType = "Please select hire type";
+    if (!formData.projectTitle.trim()) newErrors.projectTitle = "Project title is required";
+    if (!formData.jobRole) newErrors.jobRole = "Job role is required";
+    if (!formData.scopeOfWork.trim()) newErrors.scopeOfWork = "Scope of work is required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const openModal = (modal: keyof typeof modals, value: any = true) => {
+  const openModal = (modal: keyof typeof modals, value: boolean = true) => {
     setModals(prev => ({ ...prev, [modal]: value }));
   };
 
@@ -137,17 +137,17 @@ export default function ProjectDetails() {
 
   const selectTemplate = (template: ContractTemplate) => {
     setFormData(prev => ({ ...prev, template, scopeOfWork: template.description }));
-    closeModal('templateSelection');
+    closeModal("templateSelection");
   };
 
   const selectJobRole = (role: string) => {
     setFormData(prev => ({ ...prev, jobRole: role }));
-    closeModal('jobRoleDropdown');
+    closeModal("jobRoleDropdown");
   };
 
   const saveNewTemplate = () => {
-    setNewTemplateData({ jobRole: '', scopeOfWork: '' });
-    closeModal('createTemplate');
+    setNewTemplateData({ jobRole: "", scopeOfWork: "" });
+    closeModal("createTemplate");
   };
 
   const TemplateSelectionModal = () => (
@@ -156,7 +156,7 @@ export default function ProjectDetails() {
         <div className="p-6 border-b border-gray-200 relative">
           <h3 className="text-lg font-semibold text-center">Select template</h3>
           <button
-            onClick={() => closeModal('templateSelection')}
+            onClick={() => closeModal("templateSelection")}
             className="absolute left-6 top-6 text-gray-400 hover:text-gray-600 transition-colors"
           >
             <X size={24} />
@@ -203,7 +203,7 @@ export default function ProjectDetails() {
         <div className="p-6 border-b border-gray-200 relative">
           <h3 className="text-lg font-semibold text-center">Create template</h3>
           <button
-            onClick={() => closeModal('createTemplate')}
+            onClick={() => closeModal("createTemplate")}
             className="absolute left-6 top-6 text-gray-400 hover:text-gray-600 transition-colors"
           >
             <X size={24} />
@@ -246,13 +246,13 @@ export default function ProjectDetails() {
   const JobRoleDropdown = () => (
     <div className="relative">
       <button
-        onClick={() => openModal('jobRoleDropdown')}
+        onClick={() => openModal("jobRoleDropdown")}
         className={`w-full flex items-center justify-between px-4 py-3 border rounded-lg bg-white hover:border-gray-400 transition-colors ${
-          errors.jobRole ? 'border-red-300' : 'border-gray-300'
+          errors.jobRole ? "border-red-300" : "border-gray-300"
         }`}
       >
-        <span className={formData.jobRole ? 'text-gray-900' : 'text-gray-400'}>
-          {formData.jobRole || 'Select--'}
+        <span className={formData.jobRole ? "text-gray-900" : "text-gray-400"}>
+          {formData.jobRole || "Select--"}
         </span>
         <ChevronDown size={20} className="text-gray-400" />
       </button>
@@ -281,14 +281,14 @@ export default function ProjectDetails() {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-4">Hire type</label>
             <div className="flex space-x-3">
-              {['Freelancer', 'Contractor'].map((type) => (
+              {["Freelancer", "Contractor"].map((type) => (
                 <button
                   key={type}
-                  onClick={() => setFormData(prev => ({ ...prev, hireType: type as 'Freelancer' | 'Contractor' }))}
+                  onClick={() => setFormData(prev => ({ ...prev, hireType: type as "Freelancer" | "Contractor" }))}
                   className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
                     formData.hireType === type
-                      ? 'bg-purple-100 text-purple-700 border border-purple-200'
-                      : 'bg-gray-100 text-gray-600 border border-gray-200 hover:bg-gray-200'
+                      ? "bg-purple-100 text-purple-700 border border-purple-200"
+                      : "bg-gray-100 text-gray-600 border border-gray-200 hover:bg-gray-200"
                   }`}
                 >
                   {type}
@@ -308,7 +308,7 @@ export default function ProjectDetails() {
                 value={formData.projectTitle}
                 onChange={(e) => setFormData(prev => ({ ...prev, projectTitle: e.target.value }))}
                 className={`w-full px-4 py-3 border rounded-lg bg-gray-50 text-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent focus:bg-white ${
-                  errors.projectTitle ? 'border-red-300' : 'border-gray-300'
+                  errors.projectTitle ? "border-red-300" : "border-gray-300"
                 }`}
               />
               {errors.projectTitle && <p className="text-red-500 text-sm mt-2">{errors.projectTitle}</p>}
@@ -327,14 +327,14 @@ export default function ProjectDetails() {
             <div className="flex items-center justify-between mb-3">
               <label className="block text-sm font-medium text-gray-700">Scope of work</label>
               <button
-                onClick={() => openModal('templateSelection')}
+                onClick={() => openModal("templateSelection")}
                 className="text-purple-600 text-sm hover:text-purple-700 transition-colors font-medium"
               >
                 Select
               </button>
             </div>
             <div className={`min-h-[120px] p-4 border-2 border-dashed rounded-lg bg-gray-50 flex items-start ${
-              errors.scopeOfWork ? 'border-red-300' : 'border-gray-300'
+              errors.scopeOfWork ? "border-red-300" : "border-gray-300"
             }`}>
               {formData.scopeOfWork ? (
                 <div className="w-full">
@@ -347,7 +347,7 @@ export default function ProjectDetails() {
                 </div>
               ) : (
                 <button
-                  onClick={() => openModal('templateSelection')}
+                  onClick={() => openModal("templateSelection")}
                   className="text-gray-400 text-sm"
                 >
                   Select
@@ -380,7 +380,7 @@ export default function ProjectDetails() {
                   <div className="text-sm text-gray-500">{formData.template.category}</div>
                 </div>
                 <button
-                  onClick={() => openModal('templateSelection')}
+                  onClick={() => openModal("templateSelection")}
                   className="text-purple-600 text-sm hover:text-purple-700 transition-colors font-medium"
                 >
                   Change
@@ -399,9 +399,10 @@ export default function ProjectDetails() {
       {modals.jobRoleDropdown && (
         <div
           className="fixed inset-0 z-30"
-          onClick={() => closeModal('jobRoleDropdown')}
+          onClick={() => closeModal("jobRoleDropdown")}
         />
       )}
     </div>
   );
 }
+

@@ -8,6 +8,7 @@ import { ResendCodeButton } from "@/components/email-verification/ResendCodeButt
 import { HelperLink } from "@/components/email-verification/HelperLink";
 import { FooterLinks } from "@/components/email-verification/FooterLinks";
 import DidntGetEmailModal from "@/components/DidntGetEmailModal";
+import ProvideOTPModal from "@/components/ProvideOTPModal";
 import Image from "next/image";
 
 const maskEmail = (email: string): string => {
@@ -30,6 +31,7 @@ export default function EmailVerificationPage({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [showOTPModal, setShowOTPModal] = useState(false);
 
   const handleOtpChange = (newOtp: string[]) => {
     setOtp(newOtp);
@@ -51,6 +53,7 @@ export default function EmailVerificationPage({
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
       console.log("Verification code:", code);
+      // On success, you might want to redirect or show success message
     } catch {
       setError("Invalid code. Please try again.");
     } finally {
@@ -74,6 +77,14 @@ export default function EmailVerificationPage({
 
   const handleHelperClick = () => {
     setShowModal(true);
+  };
+
+  const handleOTPSubmit = async (otpCode: string) => {
+    console.log('OTP submitted:', otpCode);
+    // Add your OTP verification logic here
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    // Close modal on success
+    setShowOTPModal(false);
   };
 
   return (
@@ -167,6 +178,17 @@ export default function EmailVerificationPage({
               <div>
                 <HelperLink onClick={handleHelperClick} />
               </div>
+
+              {/* Button to trigger OTP Modal (for testing/demo) */}
+              <div className="pt-4">
+                <button
+                  type="button"
+                  onClick={() => setShowOTPModal(true)}
+                  className="text-sm text-gray-500 hover:text-gray-700 underline"
+                >
+                  Open OTP Modal
+                </button>
+              </div>
             </form>
 
             <div className="mt-8 lg:mt-12">
@@ -176,9 +198,17 @@ export default function EmailVerificationPage({
         </div>
       </div>
 
+      {/* Didn't Get Email Modal */}
       <DidntGetEmailModal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
+      />
+
+      {/* Provide OTP Modal */}
+      <ProvideOTPModal
+        isOpen={showOTPModal}
+        onClose={() => setShowOTPModal(false)}
+        onSubmit={handleOTPSubmit}
       />
     </div>
   );
