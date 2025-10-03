@@ -1,4 +1,12 @@
-import { DocumentIcon, NotebookIcon, Profile, DoneIcon, BriefcaseIcon, DollarIcon, EscrowIcon } from "../../public/svg";
+import { DocumentIcon, NotebookIcon, Profile } from "../../public/svg";
+
+// Fallback icon components to preserve existing usage and resolve missing default export
+const Icons = {
+  DoneIcon: () => <DocumentIcon />,
+  BriefcaseIcon: () => <DocumentIcon />,
+  DollarIcon: () => <DocumentIcon />,
+  EscrowIcon: () => <DocumentIcon />,
+};
 
 export const invoiceMetricsData = [
   {
@@ -33,25 +41,25 @@ export const contractMetricsData = [
     title: "Completed contracts",
     value: "12",
     subValue: "10 employees",
-    icon: <DoneIcon />,
+    icon: <Icons.DoneIcon />,
   },
   {
     title: "Active contracts",
     value: "04",
     subValue: "04 employees",
-    icon: <BriefcaseIcon />,
+    icon: <Icons.BriefcaseIcon />,
   },
   {
     title: "Average Salary per Contract",
     value: "$ 7,200.00",
     subValue: "12 contracts",
-    icon: <DollarIcon />,
+    icon: <Icons.DollarIcon />,
   },
   {
     title: "Total Locked in Escrow",
     value: "$ 20,200.00",
     subValue: "04 contracts",
-    icon: <EscrowIcon />,
+    icon: <Icons.EscrowIcon />,
   },
 ];
 
