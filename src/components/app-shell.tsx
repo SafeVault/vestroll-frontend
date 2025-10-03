@@ -7,7 +7,7 @@ import MobileHeader from "./mobile-header";
 import DesktopHeader from "./desktop-header";
 import Sidebar from "./sidebar";
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { Bell, Menu, Search } from "lucide-react";
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -31,24 +31,65 @@ export default function AppShell({
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#f3f4f6] flex">
-      {/* Mobile top bar */}
+    <div className="min-h-screen bg-[#f3f4f6]">
 
-      <Sidebar
-        mobileOpen={mobileOpen}
-        onCloseMobile={() => setMobileOpen(false)}
-      />
+      {/* Main Layout */}
+      <div className="flex">
+        {/* Sidebar */}
+        <Sidebar
+          mobileOpen={mobileOpen}
+          onCloseMobile={() => setMobileOpen(false)}
+        />
 
-      <div className="flex-1">
-        {/* Use existing MobileHeader on small screens; pages handle their own desktop headers */}
-        <MobileHeader
-          user={{ name: user.name, avatar: user.avatar }}
-          onOpenMenu={() => setMobileOpen(true)}
-        />
-        <DesktopHeader
-          user={{ name: user.name, userType: user.userType, avatar: user.avatar }}
-        />
-        <main className="">{children}</main>
+        <div className="flex-1">
+          {/* Top Navigation Header */}
+          <header className="bg-white border-b border-[#DCE0E5] px-4 sm:px-6 py-2">
+            <div className="flex items-center justify-between">
+              {/* Center - Search bar */}
+              <div className="flex-1 max-w-md">
+                <div className="flex items-center justify-between bg-[#F5F6F7] border border-[#DCE0E5] rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-purple-500 focus-within:border-transparent transition-all">
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    className="flex-1 bg-transparent text-[#7F8C9F] focus:outline-none"
+                  />
+                  <Search className="w-5 h-5 text-[#7F8C9F] ml-2" />
+                </div>
+              </div>
+
+              {/* Right side - User profile */}
+              <div className="flex items-center gap-4 ml-4">
+                <button className="relative p-2 hover:bg-gray-100 bg-white border border-[#DCE0E5] rounded-full transition-colors">
+                  <Bell className="w-6 h-6 text-gray-600" />
+                  <span className="absolute top-1 right-3 w-2 h-2 bg-[#5E2A8C] rounded-full"></span>
+                </button>
+
+                <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                  <div className="relative">
+                    <img
+                      src="/user-avatar.svg"
+                      alt="Peter"
+                      className="w-10 h-10 object-contain"
+                    />
+                  </div>
+                  <div className="hidden sm:block">
+                    <p className="text-[16px] font-semibold text-[#17171C]">
+                      Peter
+                    </p>
+                    <p className="text-[#7F8C9F] text-[10px]">Administrator</p>
+                  </div>
+                  <img
+                    src="/arrow-down.png"
+                    className="w-4 h-4 text-gray-400 hidden sm:block"
+                  />
+                </div>
+              </div>
+            </div>
+          </header>
+
+          {/* Main Content Area */}
+          <main className="min-h-screen bg-[#f3f4f6]">{children}</main>
+        </div>
       </div>
     </div>
   );

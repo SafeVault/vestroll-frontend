@@ -62,7 +62,7 @@ export default function Sidebar({
           className="flex items-center gap-3"
           aria-label="VestRoll home"
         >
-          <Image src="/Logo.svg" alt="VestRoll" width={100} height={100} />
+          <Image src="/logo.svg" alt="VestRoll" width={100} height={100} />
         </Link>
         <button
           type="button"

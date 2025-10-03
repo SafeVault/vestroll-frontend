@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef, Dispatch, SetStateAction } from "react";
-import { ChevronRight, ChevronDown, Search, Bell, X } from "lucide-react";
-import Stepper from "@/components/auth/Stepper";
+import { useState, useEffect, useRef } from "react";
+import { ChevronRight, ChevronDown, Search, X } from "lucide-react";
 
 interface EmployeeFormData {
   firstName: string;
@@ -27,10 +26,6 @@ interface SavedEmployee {
   name: string;
   role: string;
   avatar: string;
-}
-
-interface EmployeeDetailsProps {
-  setStep: Dispatch<SetStateAction<number>>;
 }
 
 const COUNTRIES: Country[] = [
@@ -102,7 +97,7 @@ const SAVED_EMPLOYEES: SavedEmployee[] = [
   { id: "7", name: "James Akinbiola", role: "Front-end developer", avatar: "" },
 ];
 
-export default function EmployeeDetails({ setStep }: EmployeeDetailsProps) {
+export default function EmployeeDetails() {
   const [formData, setFormData] = useState<EmployeeFormData>({
     firstName: "",
     lastName: "",
@@ -169,13 +164,6 @@ export default function EmployeeDetails({ setStep }: EmployeeDetailsProps) {
     setPhoneCodeDropdownOpen(false);
   };
 
-  const handleNext = () => {
-    setStep((prev) => prev + 1);
-    console.log("Form data:", formData);
-  };
-
-  const handlePrev = () => {};
-
   const handleEmployeeSelect = (employee: SavedEmployee) => {
     console.log("Selected employee:", employee);
     setShowSavedEmployees(false);
@@ -195,232 +183,191 @@ export default function EmployeeDetails({ setStep }: EmployeeDetailsProps) {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 ml-4 mt-4">
-      {/* Main Content */}
-      <div className="">
-        <div className="max-w-4xl p-4 sm:p-6 bg-white rounded-2xl">
-          {/* Progress Bar */}
-          <div className="mb-8">
-            <h2 className="text-[#414F62] font-semibold text-[20px] mb-4">
-              Employee details
-            </h2>
-            <Stepper className="!flex-1" totalSteps={6} currentStep={3} />
+    <div className="space-y-8">
+      {/* Form Card */}
+      <div className="bg-white rounded-lg">
+        {/* Select Saved Employee Button */}
+        <button
+          onClick={() => setShowSavedEmployees(!showSavedEmployees)}
+          className="w-full mb-6 p-4 bg-[#F3EBF9] hover:bg-purple-100 rounded-[8px] flex items-center justify-between transition-colors"
+        >
+          <span className="text-[#5A42DE] font-medium">
+            Select saved employee
+          </span>
+          <ChevronRight className="w-5 h-5 text-[#5A42DE]" />
+        </button>
+
+        {/* Form Fields */}
+        <div className="space-y-6">
+          {/* First and Last Name */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-[#17171C] text-[12px] font-medium mb-2">
+                First name
+              </label>
+              <input
+                type="text"
+                value={formData.firstName}
+                onChange={(e) => handleInputChange("firstName", e.target.value)}
+                className="w-full px-4 py-3 bg-[#F5F6F7] rounded-[8px] focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                placeholder=""
+              />
+            </div>
+            <div>
+              <label className="block text-[#17171C] text-[12px] font-medium mb-2">
+                Last name
+              </label>
+              <input
+                type="text"
+                value={formData.lastName}
+                onChange={(e) => handleInputChange("lastName", e.target.value)}
+                className="w-full px-4 py-3 bg-[#F5F6F7] rounded-[8px] focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                placeholder=""
+              />
+            </div>
           </div>
 
-          {/* Form Card */}
-          <div className=" py-6 mb-6">
-            {/* Select Saved Employee Button */}
-            <button
-              onClick={() => setShowSavedEmployees(!showSavedEmployees)}
-              className="w-full mb-6 p-4 bg-[#F3EBF9] hover:bg-purple-100 rounded-[8px] flex items-center justify-between transition-colors"
-            >
-              <span className="text-[#5A42DE] font-medium">
-                Select saved employee
-              </span>
-              <ChevronRight className="w-5 h-5 text-[#5A42DE]" />
-            </button>
+          {/* Email and Phone */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-[#17171C] text-[12px] font-medium mb-2">
+                Email address
+              </label>
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(e) => handleInputChange("email", e.target.value)}
+                className="w-full px-4 py-3 bg-[#F5F6F7] rounded-[8px] focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                placeholder=""
+              />
+            </div>
+            <div>
+              <label className="block text-[#17171C] text-[12px] font-medium mb-2">
+                Phone number
+              </label>
+              <div className="flex gap-2">
+                <div className="relative" ref={phoneCodeDropdownRef}>
+                  <button
+                    onClick={() => setPhoneCodeDropdownOpen(!phoneCodeDropdownOpen)}
+                    className="h-full px-3 py-3 bg-[#F5F6F7] rounded-[8px] flex items-center gap-2 hover:bg-gray-50 transition-colors"
+                  >
+                    <span className="text-xl">{selectedPhoneCode.flag}</span>
+                    <span className="text-sm text-gray-700">
+                      {selectedPhoneCode.dialCode}
+                    </span>
+                    <ChevronDown className="w-4 h-4 text-gray-500" />
+                  </button>
 
-            {/* Form Fields */}
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-[#17171C] text-[12px] font-medium mb-2">
-                    First name
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.firstName}
-                    onChange={(e) =>
-                      handleInputChange("firstName", e.target.value)
-                    }
-                    className="w-full px-4 py-3 bg-[#F5F6F7] rounded-[8px] focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
-                    placeholder=""
-                  />
-                </div>
-                <div>
-                  <label className="block text-[#17171C] text-[12px] font-medium mb-2">
-                    Last name
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.lastName}
-                    onChange={(e) =>
-                      handleInputChange("lastName", e.target.value)
-                    }
-                    className="w-full px-4 py-3 bg-[#F5F6F7] rounded-[8px] focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
-                    placeholder=""
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-[#17171C] text-[12px] font-medium mb-2">
-                    Email address
-                  </label>
-                  <input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange("email", e.target.value)}
-                    className="w-full px-4 py-3 bg-[#F5F6F7] rounded-[8px] focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
-                    placeholder=""
-                  />
-                </div>
-                <div>
-                  <label className="block text-[#17171C] text-[12px] font-medium mb-2">
-                    Phone number
-                  </label>
-                  <div className="flex gap-2">
-                    <div className="relative" ref={phoneCodeDropdownRef}>
-                      <button
-                        onClick={() =>
-                          setPhoneCodeDropdownOpen(!phoneCodeDropdownOpen)
-                        }
-                        className="h-full px-3 py-3 bg-[#F5F6F7] rounded-[8px] flex items-center gap-2 hover:bg-gray-50 transition-colors"
-                      >
-                        <span className="text-xl">
-                          {selectedPhoneCode.flag}
-                        </span>
-                        <span className="text-sm text-gray-700">
-                          {selectedPhoneCode.dialCode}
-                        </span>
-                        <ChevronDown className="w-4 h-4 text-gray-500" />
-                      </button>
-
-                      {phoneCodeDropdownOpen && (
-                        <div className="absolute top-full left-0 mt-1 w-64 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto z-50">
-                          {countries.map((country) => (
-                            <button
-                              key={country.code}
-                              onClick={() => handlePhoneCodeSelect(country)}
-                              className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center gap-2"
-                            >
-                              <span className="text-xl">{country.flag}</span>
-                              <span className="text-sm text-gray-700">
-                                {country.dialCode}
-                              </span>
-                              <span className="text-sm text-gray-500">
-                                {country.name}
-                              </span>
-                            </button>
-                          ))}
-                        </div>
-                      )}
+                  {phoneCodeDropdownOpen && (
+                    <div className="absolute top-full left-0 mt-1 w-64 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto z-50">
+                      {countries.map((country) => (
+                        <button
+                          key={country.code}
+                          onClick={() => handlePhoneCodeSelect(country)}
+                          className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center gap-2"
+                        >
+                          <span className="text-xl">{country.flag}</span>
+                          <span className="text-sm text-gray-700">
+                            {country.dialCode}
+                          </span>
+                          <span className="text-sm text-gray-500">
+                            {country.name}
+                          </span>
+                        </button>
+                      ))}
                     </div>
-                    <input
-                      type="tel"
-                      value={formData.phoneNumber}
-                      onChange={(e) =>
-                        handleInputChange("phoneNumber", e.target.value)
-                      }
-                      className="flex-1 px-4 py-3 bg-[#F5F6F7] rounded-[8px] focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
-                      placeholder=""
-                    />
-                  </div>
+                  )}
                 </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-[#17171C] text-[12px] font-medium mb-2">
-                    Country
-                  </label>
-                  <div className="relative" ref={countryDropdownRef}>
-                    <button
-                      onClick={() =>
-                        setCountryDropdownOpen(!countryDropdownOpen)
-                      }
-                      className="w-full px-4 py-3 bg-[#F5F6F7] rounded-[8px] flex items-center justify-between hover:bg-gray-50 transition-colors text-left"
-                    >
-                      <span
-                        className={
-                          formData.country ? "text-gray-900" : "text-gray-400"
-                        }
-                      >
-                        {formData.country || "--"}
-                      </span>
-                      <ChevronDown className="w-5 h-5 text-gray-400" />
-                    </button>
-
-                    {countryDropdownOpen && (
-                      <div className="absolute top-full left-0 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto z-50">
-                        {countries.map((country) => (
-                          <button
-                            key={country.code}
-                            onClick={() => handleCountrySelect(country.name)}
-                            className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center gap-2"
-                          >
-                            <span className="text-xl">{country.flag}</span>
-                            <span className="text-sm text-gray-700">
-                              {country.name}
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-[#17171C] text-[12px] font-medium mb-2">
-                    Address
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.address}
-                    onChange={(e) =>
-                      handleInputChange("address", e.target.value)
-                    }
-                    className="w-full px-4 py-3 bg-[#F5F6F7] rounded-[8px] focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
-                    placeholder=""
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-[#17171C] text-[12px] font-medium mb-2">
-                    City
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.city}
-                    onChange={(e) => handleInputChange("city", e.target.value)}
-                    className="w-full px-4 py-3 bg-[#F5F6F7] rounded-[8px] focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
-                    placeholder=""
-                  />
-                </div>
-                <div>
-                  <label className="block text-[#17171C] text-[12px] font-medium mb-2">
-                    Postal / zip code
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.postalCode}
-                    onChange={(e) =>
-                      handleInputChange("postalCode", e.target.value)
-                    }
-                    className="w-full px-4 py-3 bg-[#F5F6F7] rounded-[8px] focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
-                    placeholder=""
-                  />
-                </div>
+                <input
+                  type="tel"
+                  value={formData.phoneNumber}
+                  onChange={(e) => handleInputChange("phoneNumber", e.target.value)}
+                  className="flex-1 px-4 py-3 bg-[#F5F6F7] rounded-[8px] focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                  placeholder=""
+                />
               </div>
             </div>
           </div>
 
-          {/* Navigation Buttons */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <button
-              onClick={handlePrev}
-              className="w-full px-6 py-4 bg-white border-[1.5px] border-[#17171C] text-[#17171C] text-[16px] font-semibold rounded-[12px] hover:bg-gray-50 transition-colors"
-            >
-              Prev
-            </button>
-            <button
-              onClick={handleNext}
-              className="w-full px-6 py-4 bg-[#5E2A8C] text-[16px] text-white font-semibold rounded-[12px] hover:bg-purple-700 transition-colors"
-            >
-              Next
-            </button>
+          {/* Country and Address */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-[#17171C] text-[12px] font-medium mb-2">
+                Country
+              </label>
+              <div className="relative" ref={countryDropdownRef}>
+                <button
+                  onClick={() => setCountryDropdownOpen(!countryDropdownOpen)}
+                  className="w-full px-4 py-3 bg-[#F5F6F7] rounded-[8px] flex items-center justify-between hover:bg-gray-50 transition-colors text-left"
+                >
+                  <span
+                    className={
+                      formData.country ? "text-gray-900" : "text-gray-400"
+                    }
+                  >
+                    {formData.country || "--"}
+                  </span>
+                  <ChevronDown className="w-5 h-5 text-gray-400" />
+                </button>
+
+                {countryDropdownOpen && (
+                  <div className="absolute top-full left-0 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto z-50">
+                    {countries.map((country) => (
+                      <button
+                        key={country.code}
+                        onClick={() => handleCountrySelect(country.name)}
+                        className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center gap-2"
+                      >
+                        <span className="text-xl">{country.flag}</span>
+                        <span className="text-sm text-gray-700">
+                          {country.name}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+            <div>
+              <label className="block text-[#17171C] text-[12px] font-medium mb-2">
+                Address
+              </label>
+              <input
+                type="text"
+                value={formData.address}
+                onChange={(e) => handleInputChange("address", e.target.value)}
+                className="w-full px-4 py-3 bg-[#F5F6F7] rounded-[8px] focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                placeholder=""
+              />
+            </div>
+          </div>
+
+          {/* City and Postal Code */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-[#17171C] text-[12px] font-medium mb-2">
+                City
+              </label>
+              <input
+                type="text"
+                value={formData.city}
+                onChange={(e) => handleInputChange("city", e.target.value)}
+                className="w-full px-4 py-3 bg-[#F5F6F7] rounded-[8px] focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                placeholder=""
+              />
+            </div>
+            <div>
+              <label className="block text-[#17171C] text-[12px] font-medium mb-2">
+                Postal / zip code
+              </label>
+              <input
+                type="text"
+                value={formData.postalCode}
+                onChange={(e) => handleInputChange("postalCode", e.target.value)}
+                className="w-full px-4 py-3 bg-[#F5F6F7] rounded-[8px] focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                placeholder=""
+              />
+            </div>
           </div>
         </div>
       </div>
