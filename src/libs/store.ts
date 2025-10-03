@@ -6,6 +6,21 @@ export const Store = () => {
     reducer: {
       modal: modalReducer,
     },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        // We intentionally store React nodes and functions inside modal state
+        // for UI composition, so ignore serializability checks for this slice
+        serializableCheck: {
+          ignoredPaths: [
+            "modal.modalProps",
+          ],
+          ignoredActions: [
+            "modal/openModal",
+            "modal/closeModal",
+            "modal/resetModal",
+          ],
+        },
+      }),
   });
 };
 
