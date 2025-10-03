@@ -57,11 +57,11 @@ const Modal = () => {
       onClick={handleBackdropClick}
     >
       <div
-        className={`relative bg-white rounded-lg shadow-xl w-full ${sizeClasses[size]} max-h-[90vh] overflow-hidden`}
+        className={`relative bg-white rounded-lg shadow-xl w-full ${sizeClasses[size]}`}
       >
         {/* Header */}
         {(title || showCloseButton) && (
-          <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between p-6">
             {title && (
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                 {title}
@@ -91,13 +91,13 @@ const Modal = () => {
         )}
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto max-h-[70vh]">
+        <div className="p-6">
           {customComponent ? customComponent : content}
         </div>
 
         {/* Footer with buttons */}
         {showButtons && (
-          <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-end gap-3 p-6">
             {buttons.length > 0 ? (
               buttons.map((button, index) => (
                 <button
