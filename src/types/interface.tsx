@@ -28,3 +28,8 @@ export interface InvoiceDetailTableProps {
   headers: string[];
   body: [InvoiceTableCell, InvoiceTableCell];
 }
+export type ComplianceDetails = {
+  agreement: File | null;
+  additionalAgreement?: string;
+  agreementType: string;
+};

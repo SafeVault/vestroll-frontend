@@ -1,4 +1,4 @@
-"use client";
+import React from "react";
 
 import AgreementSelector from "@/components/contracts/AgreementSelector";
 import ContractForm from "@/components/contracts/ContractForm";
@@ -14,7 +14,7 @@ import { useState } from "react";
 
 export default function CreateContractPage() {
 
-  const [step, setStep] = useState(5);
+  const [step, setStep] = useState(1);
 
   const stepContents = [
     <ContractOptions key={1} />,
