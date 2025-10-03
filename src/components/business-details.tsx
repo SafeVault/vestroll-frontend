@@ -139,7 +139,7 @@ const BusinessRegistrationForm: React.FC = () => {
   // Calculate progress based on form completion
   useEffect(() => {
     let completedFields = 0;
-    
+
     if (formData.companyName.trim()) completedFields++;
     if (formData.companySize) completedFields++;
     if (formData.companyIndustry) completedFields++;
@@ -229,7 +229,7 @@ const BusinessRegistrationForm: React.FC = () => {
             </div>
           </div>
 
-          {/* Globe visualization placeholder */}
+          {/* Globe visualization */}
           <div className="mb-8 flex justify-center">
             <div className="relative">
               <Image
@@ -260,11 +260,21 @@ const BusinessRegistrationForm: React.FC = () => {
               {/* Progress Indicator - Now Functional */}
               <div className="mb-8">
                 <div className="flex items-center mb-2">
-                  <div className={`flex-1 h-1 rounded-full transition-colors duration-300 ${progress >= 1 ? 'bg-[#5E2A8C]' : 'bg-gray-200'}`}></div>
-                  <div className={`flex-1 h-1 rounded-full ml-2 transition-colors duration-300 ${progress >= 2 ? 'bg-[#5E2A8C]' : 'bg-gray-200'}`}></div>
-                  <div className={`flex-1 h-1 rounded-full ml-2 transition-colors duration-300 ${progress >= 3 ? 'bg-[#5E2A8C]' : 'bg-gray-200'}`}></div>
-                  <div className={`flex-1 h-1 rounded-full ml-2 transition-colors duration-300 ${progress >= 4 ? 'bg-[#5E2A8C]' : 'bg-gray-200'}`}></div>
-                  <div className={`flex-1 h-1 rounded-full ml-2 transition-colors duration-300 ${progress >= 5 ? 'bg-[#5E2A8C]' : 'bg-gray-200'}`}></div>
+                  <div
+                    className={`flex-1 h-1 rounded-full transition-colors duration-300 ${progress >= 1 ? "bg-[#5E2A8C]" : "bg-gray-200"}`}
+                  ></div>
+                  <div
+                    className={`flex-1 h-1 rounded-full ml-2 transition-colors duration-300 ${progress >= 2 ? "bg-[#5E2A8C]" : "bg-gray-200"}`}
+                  ></div>
+                  <div
+                    className={`flex-1 h-1 rounded-full ml-2 transition-colors duration-300 ${progress >= 3 ? "bg-[#5E2A8C]" : "bg-gray-200"}`}
+                  ></div>
+                  <div
+                    className={`flex-1 h-1 rounded-full ml-2 transition-colors duration-300 ${progress >= 4 ? "bg-[#5E2A8C]" : "bg-gray-200"}`}
+                  ></div>
+                  <div
+                    className={`flex-1 h-1 rounded-full ml-2 transition-colors duration-300 ${progress >= 5 ? "bg-[#5E2A8C]" : "bg-gray-200"}`}
+                  ></div>
                 </div>
               </div>
 
@@ -316,7 +326,11 @@ const BusinessRegistrationForm: React.FC = () => {
                     error={errors.companySize}
                     required
                     isOpen={openDropdown === "companySize"}
-                    onToggle={() => setOpenDropdown(openDropdown === "companySize" ? null : "companySize")}
+                    onToggle={() =>
+                      setOpenDropdown(
+                        openDropdown === "companySize" ? null : "companySize"
+                      )
+                    }
                   />
 
                   <Dropdown
@@ -330,7 +344,13 @@ const BusinessRegistrationForm: React.FC = () => {
                     error={errors.companyIndustry}
                     required
                     isOpen={openDropdown === "companyIndustry"}
-                    onToggle={() => setOpenDropdown(openDropdown === "companyIndustry" ? null : "companyIndustry")}
+                    onToggle={() =>
+                      setOpenDropdown(
+                        openDropdown === "companyIndustry"
+                          ? null
+                          : "companyIndustry"
+                      )
+                    }
                   />
                 </div>
 
@@ -346,7 +366,13 @@ const BusinessRegistrationForm: React.FC = () => {
                   error={errors.headquarterCountry}
                   required
                   isOpen={openDropdown === "headquarterCountry"}
-                  onToggle={() => setOpenDropdown(openDropdown === "headquarterCountry" ? null : "headquarterCountry")}
+                  onToggle={() =>
+                    setOpenDropdown(
+                      openDropdown === "headquarterCountry"
+                        ? null
+                        : "headquarterCountry"
+                    )
+                  }
                 />
 
                 {/* Business Description */}
