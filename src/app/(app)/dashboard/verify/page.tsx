@@ -87,6 +87,8 @@ export default function VerifyPage() {
           onFileSelect={(file) => handleFileSelect("incorporationCertificate", file)}
           file={formData.incorporationCertificate}
           maxSize={5}
+          isUploading={false}
+          uploadProgress={0}
         />
 
         <FileUpload
@@ -95,6 +97,8 @@ export default function VerifyPage() {
           onFileSelect={(file) => handleFileSelect("memorandumArticle", file)}
           file={formData.memorandumArticle}
           maxSize={5}
+          isUploading={false}
+          uploadProgress={0}
         />
 
         <FileUpload
@@ -103,6 +107,8 @@ export default function VerifyPage() {
           onFileSelect={(file) => handleFileSelect("formC02C07", file)}
           file={formData.formC02C07}
           maxSize={5}
+          isUploading={false}
+          uploadProgress={0}
         />
 
         {/* Submit Button */}
@@ -111,7 +117,7 @@ export default function VerifyPage() {
             type="submit"
             variant="default"
             size="lg"
-            className="w-full bg-[#5E2A8C] py-6 lg:h-[56px] mt-4 lg:mt-8 hover:bg-[#4A1F6F] text-white rounded-[12px]"
+            className="w-full bg-[#5E2A8C] py-6 lg:h-[56px] mt-4 hover:bg-[#4A1F6F] text-white rounded-[12px]"
           >
             Submit
           </Button>
