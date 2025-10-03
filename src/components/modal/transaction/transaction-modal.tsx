@@ -5,9 +5,8 @@ import { Button } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import CheckIcon from "../../../../public/check.svg";
 import TruncatedAddress from "./truncate-address";
-import { success } from "zod";
 
-type HiringTemplateDeleteDialog = {
+type TransactionModalProps = {
   isLoading?: boolean;
   loadingTitle?: string;
   successTitle?: string;
@@ -26,15 +25,15 @@ export default function TransactionModal({
   amount = "5 usdc",
   recipientAddress = "0xa3B29f5C91e67cF5e42D3d9C9Ab84c1E1724F7c0",
   children,
-}: HiringTemplateDeleteDialog) {
+}: TransactionModalProps) {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/70 z-40" />
-        <Dialog.Title className="sr-only">Delete Hiring Template</Dialog.Title>
+        <Dialog.Title className="sr-only">Transaction Modal</Dialog.Title>
         <Dialog.Description className="sr-only">
-          Dialog to delete hiring template
+          Modal representing a transaction
         </Dialog.Description>
         <Dialog.Content className="fixed left-1/2 top-1/2 z-50 rounded-xl translate-x-[-50%] translate-y-[-50%] bg-gray-50 shadow-lg focus:outline-none p-6 min-w-[342px] min-h-[438px] md:max-w-[480px] md:max-h-[480px] md:aspect-square">
           <Dialog.Close asChild>
@@ -47,11 +46,7 @@ export default function TransactionModal({
             <div className="grid place-items-center">
               <figure className="size-24 rounded-full bg-[#3216CE] flex items-center justify-center border-8 border-purple-100/80 mb-8">
                 {isSuccess && <CheckIcon className=" stroke-white" />}
-                {isLoading && (
-                  <>
-                    <Spinner />
-                  </>
-                )}
+                {isLoading && <Spinner />}
               </figure>
 
               {/* Title */}
@@ -68,18 +63,16 @@ export default function TransactionModal({
                       <span className="text-[#5E2A8C] uppercase">{amount}</span>{" "}
                       was sent successfully
                     </p>
-                    <p className="">
+                    <p>
                       sent to <TruncatedAddress address={recipientAddress} />
                     </p>
                   </>
                 )}
                 {isLoading && (
-                  <>
-                    <p className="">
+                    <p>
                       <span className="text-[#5E2A8C] uppercase">{amount}</span>{" "}
                       to <TruncatedAddress address={recipientAddress} />
                     </p>
-                  </>
                 )}
               </div>
             </div>
@@ -92,8 +85,8 @@ export default function TransactionModal({
                       View details
                     </Button>
                   </Dialog.Close>
-                  <Dialog.Close asChild className="order-5 md:order-1">
-                    <Button className="border-[#17171C]  border-2 py-4 px-11 rounded-2xl cursor-pointer text-black">
+                  <Dialog.Close asChild>
+                    <Button className="border-[#17171C] border-2 py-4 px-11 rounded-2xl cursor-pointer text-black w-full">
                       Back to home
                     </Button>
                   </Dialog.Close>
@@ -101,13 +94,11 @@ export default function TransactionModal({
               )}
 
               {isLoading && (
-                <>
-                  <Dialog.Close asChild className="order-1 md:order-5">
+                  <Dialog.Close asChild>
                     <Button className=" py-4 px-11 cursor-pointer bg-[#5E2A8C] text-white rounded-2xl order-1 md:order-5">
                       Go to dashboard
                     </Button>
                   </Dialog.Close>
-                </>
               )}
             </div>
           </article>
