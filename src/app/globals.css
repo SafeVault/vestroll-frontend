@@ -257,3 +257,29 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .spinner-wrapper {
+    animation: border-spin 1s ease-in-out infinite;
+    @apply relative overflow-hidden rounded-full
+  }
+
+  .spinner-wrapper::before {
+    background: conic-gradient(
+      white 0deg,
+      transparent 360deg
+    );
+
+    @apply absolute left-[-25%] top-[-25%] h-[150%] w-[150%] content-[''];
+  }
+
+  .spinner-child {
+    @apply absolute left-[8px] top-[8px] h-[calc(100%-16px)] w-[calc(100%-16px)] rounded-full bg-[#3216CE];
+  }
+}
+
+@keyframes border-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
