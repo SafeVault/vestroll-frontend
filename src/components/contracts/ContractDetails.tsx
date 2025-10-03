@@ -3,8 +3,8 @@
 import { useState, useMemo } from "react";
 import { Upload, X } from "lucide-react";
 import InputField from "@/components/InputField";
+import Dropdown from "@/components/ui/dropdown";
 import { z } from "zod";
-import Image from "next/image";
 
 interface ContractFormData {
   // Contact details
@@ -153,9 +153,6 @@ export default function ContractDetails({
   onNext,
   onPrev,
 }: ContractDetailsProps) {
-  const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>(
-    {}
-  );
   const [dragOver, setDragOver] = useState(false);
 
   const validateForm = (): boolean => {
@@ -195,12 +192,6 @@ export default function ContractDetails({
     }
   };
 
-  const toggleDropdown = (dropdown: string) => {
-    setOpenDropdowns((prev) => ({
-      ...prev,
-      [dropdown]: !prev[dropdown],
-    }));
-  };
 
   const addMilestone = () => {
     const newMilestone = {
@@ -278,115 +269,6 @@ export default function ContractDetails({
     }
   };
 
-  const Dropdown = ({
-    label,
-    value,
-    options,
-    onChange,
-    dropdownKey,
-    error,
-    placeholder = "--",
-    icon,
-  }: {
-    label: string;
-    value: string;
-    options: Array<{ label: string; icon?: string }> | string[];
-    onChange: (value: string) => void;
-    dropdownKey: string;
-    error?: string;
-    placeholder?: string;
-    icon?: string;
-  }) => {
-    // Get the selected option for display
-    const selectedOption =
-      Array.isArray(options) &&
-      options.length > 0 &&
-      typeof options[0] === "object"
-        ? options.find(
-            (opt): opt is { label: string; icon?: string } =>
-              typeof opt === "object" && opt.label === value
-          )
-        : null;
-
-    return (
-      <div className="relative min-w-fit">
-        <label className="block text-sm font-medium text-[#414F62] mb-2">
-          {label}
-        </label>
-        <button
-          type="button"
-          onClick={() => toggleDropdown(dropdownKey)}
-          className={`w-full min-w-fit flex items-center justify-between px-4 py-3 rounded-lg bg-[#F5F6F7] transition-colors text-[#414F62] ${
-            error ? "border-red-300" : "border-gray-300"
-          }`}
-        >
-          <div className="flex items-center gap-x-2">
-            {(selectedOption?.icon || icon) && (
-              <Image
-                src={selectedOption?.icon || icon || ""}
-                alt="option-icon"
-                width={24}
-                height={24}
-                className="w-[24px] h-[24px]"
-              />
-            )}
-              <span className={value ? "text-[#414F62]" : "text-[#BDC5D1]"}>
-              {value || placeholder}
-            </span>
-          </div>
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            className="ml-1"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M13.2788 5.9668L8.93208 10.3135C8.41875 10.8268 7.57875 10.8268 7.06542 10.3135L2.71875 5.9668"
-              stroke="#414F62"
-              strokeMiterlimit="10"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-        {openDropdowns[dropdownKey] && (
-          <div className="absolute top-full left-0 right-0 mt-1 text-[#414F62] bg-white border border-gray-300 rounded-lg shadow-lg z-40 max-h-48 overflow-y-auto">
-            {options.map((option) => {
-              const optionLabel =
-                typeof option === "string" ? option : option.label;
-              const optionIcon =
-                typeof option === "object" ? option.icon : undefined;
-
-              return (
-                <button
-                  key={optionLabel}
-                  onClick={() => {
-                    onChange(optionLabel);
-                    toggleDropdown(dropdownKey);
-                  }}
-                  className="w-full text-left px-4 py-2 hover:bg-gray-50 transition-colors flex items-center gap-x-2"
-                >
-                  {optionIcon && (
-                    <Image
-                      src={optionIcon}
-                      alt={`${optionLabel}-icon`}
-                      width={20}
-                      height={20}
-                      className="w-[20px] h-[20px]"
-                    />
-                  )}
-                  <span>{optionLabel}</span>
-                </button>
-              );
-            })}
-          </div>
-        )}
-        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-      </div>
-    );
-  };
 
   const DatePicker = ({
     label,
@@ -581,7 +463,6 @@ export default function ContractDetails({
             value={formData.network}
             options={networks}
             onChange={(value) => handleInputChange("network", value)}
-            dropdownKey="network"
             error={errors.network}
           />
           <div className="flex items-end gap-x-2 w-full relative">
@@ -590,7 +471,6 @@ export default function ContractDetails({
               value={formData.asset}
               options={assets}
               onChange={(value) => handleInputChange("asset", value)}
-              dropdownKey="asset"
               error={errors.asset}
             />
             <div className="w-full relative">
@@ -634,7 +514,6 @@ export default function ContractDetails({
             value={formData.invoiceFrequency}
             options={invoiceFrequencies}
             onChange={(value) => handleInputChange("invoiceFrequency", value)}
-            dropdownKey="invoiceFrequency"
             error={errors.invoiceFrequency}
           />
           <Dropdown
@@ -647,7 +526,6 @@ export default function ContractDetails({
               "Custom",
             ]}
             onChange={(value) => handleInputChange("issueInvoiceOn", value)}
-            dropdownKey="issueInvoiceOn"
             error={errors.issueInvoiceOn}
           />
           <Dropdown
@@ -655,7 +533,6 @@ export default function ContractDetails({
             value={formData.paymentDue}
             options={paymentDueOptions}
             onChange={(value) => handleInputChange("paymentDue", value)}
-            dropdownKey="paymentDue"
             error={errors.paymentDue}
           />
         </div>
@@ -754,7 +631,6 @@ export default function ContractDetails({
             value={formData.taxType}
             options={["VAT", "GST", "HST", "PST", "Sales Tax"]}
             onChange={(value) => handleInputChange("taxType", value)}
-            dropdownKey="taxType"
             error={errors.taxType}
             placeholder="e.g VAT, GST, HST, PST"
           />
@@ -763,7 +639,6 @@ export default function ContractDetails({
             value={formData.taxId}
             options={[]}
             onChange={(value) => handleInputChange("taxId", value)}
-            dropdownKey="taxId"
             error={errors.taxId}
           />
           <Dropdown
@@ -771,19 +646,11 @@ export default function ContractDetails({
             value={formData.taxRate}
             options={[]}
             onChange={(value) => handleInputChange("taxRate", value)}
-            dropdownKey="taxRate"
             error={errors.taxRate}
           />
         </div>
       </div>
 
-      {/* Backdrop for dropdowns */}
-      {Object.values(openDropdowns).some(Boolean) && (
-        <div
-          className="fixed inset-0 z-30"
-          onClick={() => setOpenDropdowns({})}
-        />
-      )}
     </div>
   );
 }
