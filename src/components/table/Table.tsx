@@ -80,7 +80,7 @@ const Table = <T extends Record<string, any>>({
           </div>
         )}
       </div>
-      <div className="md:overflow-x-auto bg-white p-4 rounded-lg shadow-sm custom-scrollbar">
+      <div className="md:overflow-x-auto bg-white p-4 rounded-lg custom-scrollbar">
         <TableHeader
           columns={columns}
           showCheckbox={showCheckbox}

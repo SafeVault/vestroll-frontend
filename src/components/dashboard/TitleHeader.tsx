@@ -39,7 +39,7 @@ function TitleHeader({
             </h1>
             {isAddButton && (
               <Link
-                href="/app/contracts"
+                href="/app/contracts/create"
                 className={
                   "hidden lg:flex items-center justify-center text-white rounded-full cursor-pointer bg-primary-500 h-10 gap-2 px-5 transition-colors duration-150 "
                 }

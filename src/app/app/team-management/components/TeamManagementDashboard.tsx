@@ -13,6 +13,7 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 // ============================================
 // COMPONENT: EmptyState
@@ -456,14 +457,14 @@ const NavigationTabs = ({ activeTab, onTabChange }: NavigationTabsProps) => {
   ];
 
   return (
-    <div className="relative">
-      <div className="overflow-x-auto scrollbar-hide -mx-4 sm:mx-0">
-        <div className="flex gap-6 border-b border-gray-200 mb-6 px-4 sm:px-0 min-w-max sm:min-w-0">
+    <div className="w-full -mx-4 sm:mx-0 max-sm:w-sm">
+      <div className="overflow-x-auto scrollbar-hide">
+        <div className="flex gap-6 mt-4 px-4 sm:px-0 min-w-max">
           {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => onTabChange(tab)}
-              className={`pb-3 px-1 relative transition-colors whitespace-nowrap ${
+              className={`pb-2 px-1 relative transition-colors whitespace-nowrap ${
                 activeTab === tab
                   ? "text-purple-600 font-medium"
                   : "text-gray-600 hover:text-gray-800"
@@ -524,6 +525,31 @@ const StatsBar = ({ totalEmployees, activeEmployees }: StatsBarProps) => {
   );
 };
 
+// ==========================================
+// COMPONENT: CreateFirstContact (For Empty State)
+// ==========================================
+
+const CreateFirstContact = () => {
+  return (
+    <div className="bg-[url('/purple-bg.png')] bg-no-repeat bg-cover rounded-lg p-6 text-white flex flex-col gap-6 mb-3">
+      <div className="flex flex-col gap-2">
+        <p className="text-xl md:text-[28px] font-bold">
+          Create your first contract
+        </p>
+        <p className="font-medium text-sm text-[#E8E5FA]">
+          You're one step away! Set up your first contract and start managing
+          payroll.
+        </p>
+      </div>
+      <div className="flex flex-1">
+        <button className="bg-white text-primary-500 px-4 py-2 rounded-full font-medium hover:bg-gray-100 transition-colors cursor-pointer">
+          New Contract
+        </button>
+      </div>
+    </div>
+  );
+};
+
 // ============================================
 // COMPONENT: SearchFilterBar
 // ============================================
@@ -537,7 +563,7 @@ const SearchFilterBar = ({
   onSearchChange,
   onFilterClick,
 }: SearchFilterBarProps) => (
-  <div className="flex flex-col sm:flex-row gap-3">
+  <div className="flex gap-3">
     <div className="flex-1 relative">
       <Search
         className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
@@ -620,19 +646,19 @@ const TeamManagementDashboard = () => {
     (emp) => emp.status === "Active"
   ).length;
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
     }
   };
 
-  const handleFilterApply = (newFilters) => {
+  const handleFilterApply = (newFilters: { status: string; type: string }) => {
     setFilters(newFilters);
     setCurrentPage(1); // Reset to first page when filters change
   };
 
   // Reset to first page when search changes
-  const handleSearchChange = (query) => {
+  const handleSearchChange = (query: string) => {
     setSearchQuery(query);
     setCurrentPage(1);
   };
@@ -641,7 +667,7 @@ const TeamManagementDashboard = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white border-b border-gray-200">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between mb-4">
             <div>
               <p className="text-sm text-gray-500 mb-1">Overview</p>
@@ -660,10 +686,14 @@ const TeamManagementDashboard = () => {
 
       {/* Main Content */}
       <div className="mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <StatsBar
-          totalEmployees={allEmployees.length}
-          activeEmployees={activeEmployees}
-        />
+        {allEmployees.length === 0 ? (
+          <CreateFirstContact />
+        ) : (
+          <StatsBar
+            totalEmployees={allEmployees.length}
+            activeEmployees={activeEmployees}
+          />
+        )}
 
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-4">
           <div>
@@ -684,12 +714,17 @@ const TeamManagementDashboard = () => {
         <div className="bg-white rounded-lg border border-gray-200 min-h-96">
           {filteredEmployees.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 px-4">
-              <Search size={48} className="text-gray-400 mb-4" />
+              <Image
+                src="/search-paper.svg"
+                alt="No records"
+                width={200}
+                height={200}
+              />
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
                 No employees found
               </h3>
               <p className="text-gray-500 text-center max-w-sm">
-                Try adjusting your search or filters
+                Employees you have contracts with will be displayed here{" "}
               </p>
             </div>
           ) : (

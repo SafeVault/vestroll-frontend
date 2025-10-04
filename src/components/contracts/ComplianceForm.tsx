@@ -1,38 +1,15 @@
 import { useForm } from "react-hook-form";
-import { PdfDocumentIcon } from "../../../../../public/svg";
-import FormNavigation from "./FormNavigation";
+import { PdfDocumentIcon } from "../../../public/svg";
 import { ComplianceDetails } from "@/types/interface";
 import { FC } from "react";
-import Stepper from "@/components/auth/Stepper";
 
-interface ComplianceFormProps {
-  setStepper: (step: number) => void;
-}
-export const ComplianceForm: FC<ComplianceFormProps> = ({ setStepper }) => {
+export const ComplianceForm: FC = () => {
   const { register, handleSubmit } = useForm<ComplianceDetails>();
 
-  const handlePrev = () => {
-    setStepper(4);
-  };
-
-  const next = () => {
-    setStepper(6);
-  };
-
   return (
-    <div className=" bg-gray-50 mx-2 sm:mx-4 mt-4">
-      {/* Main Content */}
-      <div className="">
-        <div className="max-w-4xl p-4 sm:p-6 bg-white rounded-2xl">
-          {/* Progress Bar */}
-          <div className="mb-8">
-            <h2 className="text-[#414F62] font-semibold text-[20px] mb-4">
-              Compliance{" "}
-            </h2>
-            <Stepper className="!flex-1 !w-13" totalSteps={6} currentStep={5} />
-          </div>
-          <form className="space-y-8 ">
-            <div className="space-y-6 mb-20">
+    <div className="space-y-8">
+      <form className="space-y-8">
+        <div className="space-y-6">
               <div className="space-y-2">
                 <div className="flex items-center gap-2 form-control--checkbox">
                   <div className="relative flex-shrink-0 size-4">
@@ -47,7 +24,7 @@ export const ComplianceForm: FC<ComplianceFormProps> = ({ setStepper }) => {
                   </div>
                   <label
                     htmlFor="standardServiceAgreement"
-                    className="pt-2 text-xs font-medium leading-4 text-gray-600 dark:text-gray-200"
+                    className="pt-2 text-xs font-medium leading-4 text-[#414F62]"
                   >
                     Use our standard service agreement
                   </label>
@@ -66,7 +43,7 @@ export const ComplianceForm: FC<ComplianceFormProps> = ({ setStepper }) => {
                   </div>
                   <label
                     htmlFor="customAgreement"
-                    className="text-xs font-medium leading-4 text-gray-600 sm:pt-2 dark:text-gray-200"
+                    className="text-xs font-medium leading-4 text-[#414F62] sm:pt-2"
                   >
                     Use your own custom agreement
                   </label>
@@ -76,7 +53,7 @@ export const ComplianceForm: FC<ComplianceFormProps> = ({ setStepper }) => {
               <div className="space-y-2">
                 <label
                   htmlFor="agreement"
-                  className="text-xs font-medium leading-4 text-gray-600 dark:text-gray-200"
+                  className="text-xs font-medium leading-4 text-[#414F62]"
                 >
                   Agreement file
                 </label>
@@ -85,7 +62,7 @@ export const ComplianceForm: FC<ComplianceFormProps> = ({ setStepper }) => {
                   <div className="flex items-center gap-2">
                     <PdfDocumentIcon />
                     <div className="space-y-1">
-                      <p className="text-base font-semibold text-gray-600 dark:text-gray-150">
+                      <p className="text-base font-semibold text-[#414F62] dark:text-gray-150">
                         Standard Agreement
                       </p>
                       <div className="flex items-center gap-1.5 text-xs font-medium text-text-subtext">
@@ -105,7 +82,7 @@ export const ComplianceForm: FC<ComplianceFormProps> = ({ setStepper }) => {
               </div>
 
               <div className="space-y-4">
-                <p className="text-sm font-semibold text-gray-600 dark:text-gray-150">
+                <p className="text-sm font-semibold text-[#414F62] dark:text-gray-150">
                   Additional terms (optional)
                 </p>
                 <div className="form-control">
@@ -127,16 +104,8 @@ export const ComplianceForm: FC<ComplianceFormProps> = ({ setStepper }) => {
                   </p>
                 </div>
               </div>
-            </div>
-
-            <FormNavigation
-              isNextDisable={false}
-              handlePrev={handlePrev}
-              handleNext={handleSubmit(next)}
-            />
-          </form>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
