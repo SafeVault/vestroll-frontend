@@ -1,3 +1,5 @@
-export { default } from "../../(app)/payroll/page";
+import TeamManagementDashboard from "./components/TeamManagementDashboard";
 
-
+export default function TeamManagementPage() {
+  return <TeamManagementDashboard />;
+}
