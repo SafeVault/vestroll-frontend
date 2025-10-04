@@ -888,3 +888,280 @@ export const PdfDocumentIcon = () => (
     </defs>
   </svg>
 );
+export const CheckCircleIcon = () => (
+  <svg
+    width={20}
+    height={20}
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M0 10C0 4.47715 4.47715 0 10 0C15.5228 0 20 4.47715 20 10C20 15.5228 15.5228 20 10 20C4.47715 20 0 15.5228 0 10Z"
+      fill="white"
+    />
+    <path
+      d="M6.66602 10.0003L9.47852 13.3337L14.166 6.66699"
+      stroke="#5A42DE"
+      strokeWidth="1.66667"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+export const ArrowRightIcon = () => (
+  <svg
+    width={20}
+    height={20}
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M12.0273 4.94141L17.0857 9.99974L12.0273 15.0581"
+      stroke="white"
+      strokeWidth="1.25"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M2.91797 10H16.943"
+      stroke="white"
+      strokeWidth="1.25"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+export const NotePadIcon = () => (
+  <svg
+    width={18}
+    height={19}
+    viewBox="0 0 18 19"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M6 2V4.25"
+      stroke="#5E2A8C"
+      strokeWidth="1.125"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M12 2V4.25"
+      stroke="#5E2A8C"
+      strokeWidth="1.125"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M5.25 10.25H11.25"
+      stroke="#5E2A8C"
+      strokeWidth="1.125"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M5.25 13.25H9"
+      stroke="#5E2A8C"
+      strokeWidth="1.125"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M15.75 9.875V7.7375C15.75 4.2125 14.4975 3.26 12 3.125H6C3.5025 3.2675 2.25 4.2125 2.25 7.7375V12.3725C2.25 15.4625 3 17.0075 6.75 17.0075H9"
+      stroke="#5E2A8C"
+      strokeWidth="1.125"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M14.4083 12.3048L11.7532 14.9598C11.6482 15.0648 11.5508 15.2598 11.5283 15.4023L11.3858 16.4148C11.3333 16.7823 11.5883 17.0373 11.9558 16.9848L12.9682 16.8423C13.1107 16.8198 13.3133 16.7223 13.4108 16.6173L16.0657 13.9623C16.5232 13.5048 16.7407 12.9723 16.0657 12.2973C15.3982 11.6298 14.8658 11.8473 14.4083 12.3048Z"
+      stroke="#5E2A8C"
+      strokeWidth="1.125"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M14.0254 12.6875C14.2504 13.4975 14.8804 14.1275 15.6904 14.3525"
+      stroke="#5E2A8C"
+      strokeWidth="1.125"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const HeadPhoneIcon = () => (
+  <svg
+    width={32}
+    height={32}
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M3.66642 24.8667C3.11976 24.8667 2.66642 24.4134 2.66642 23.8667V16.2667C2.59976 12.6534 3.94642 9.24007 6.45309 6.68007C8.95976 4.1334 12.3198 2.7334 15.9331 2.7334C23.3198 2.7334 29.3331 8.74673 29.3331 16.1334V23.7334C29.3331 24.2801 28.8798 24.7334 28.3331 24.7334C27.7864 24.7334 27.3331 24.2801 27.3331 23.7334V16.1334C27.3331 9.8534 22.2264 4.7334 15.9331 4.7334C12.8531 4.7334 9.99976 5.92007 7.87976 8.08007C5.74642 10.2534 4.61309 13.1467 4.66642 16.2401V23.8534C4.66642 24.4134 4.22642 24.8667 3.66642 24.8667Z"
+      fill="white"
+    />
+    <path
+      d="M7.91935 16.5996H7.74602C4.94602 16.5996 2.66602 18.8796 2.66602 21.6796V24.1863C2.66602 26.9863 4.94602 29.2663 7.74602 29.2663H7.91935C10.7193 29.2663 12.9993 26.9863 12.9993 24.1863V21.6796C12.9993 18.8796 10.7193 16.5996 7.91935 16.5996Z"
+      fill="white"
+    />
+    <path
+      d="M24.2533 16.5996H24.08C21.28 16.5996 19 18.8796 19 21.6796V24.1863C19 26.9863 21.28 29.2663 24.08 29.2663H24.2533C27.0533 29.2663 29.3333 26.9863 29.3333 24.1863V21.6796C29.3333 18.8796 27.0533 16.5996 24.2533 16.5996Z"
+      fill="white"
+    />
+  </svg>
+);
+export const CalenderIcon = () => (
+  <svg
+    width={18}
+    height={19}
+    viewBox="0 0 18 19"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M6 2V4.25"
+      stroke="#5E2A8C"
+      strokeWidth="1.125"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M12 2V4.25"
+      stroke="#5E2A8C"
+      strokeWidth="1.125"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M2.625 7.31738H15.375"
+      stroke="#5E2A8C"
+      strokeWidth="1.125"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M14.4083 12.3272L11.7533 14.9822C11.6483 15.0872 11.5508 15.2822 11.5283 15.4247L11.3858 16.4372C11.3333 16.8047 11.5883 17.0597 11.9558 17.0072L12.9683 16.8647C13.1108 16.8422 13.3133 16.7447 13.4108 16.6397L16.0658 13.9847C16.5233 13.5272 16.7408 12.9947 16.0658 12.3197C15.3983 11.6522 14.8658 11.8697 14.4083 12.3272Z"
+      stroke="#5E2A8C"
+      strokeWidth="1.125"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M14.0254 12.71C14.2504 13.52 14.8804 14.15 15.6904 14.375"
+      stroke="#5E2A8C"
+      strokeWidth="1.125"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M9 17H6C3.375 17 2.25 15.5 2.25 13.25V6.875C2.25 4.625 3.375 3.125 6 3.125H12C14.625 3.125 15.75 4.625 15.75 6.875V9.5"
+      stroke="#5E2A8C"
+      strokeWidth="1.125"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M8.99588 10.7754H9.00262"
+      stroke="#5E2A8C"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M6.22049 10.7754H6.22723"
+      stroke="#5E2A8C"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M6.22049 13.0254H6.22723"
+      stroke="#5E2A8C"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+export const SendIcon = () => (
+  <svg
+    width={16}
+    height={17}
+    viewBox="0 0 16 17"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M2.33398 15.167H13.6673"
+      stroke="#5E2A8C"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M3.33398 2.83301L12.6673 12.1663"
+      stroke="#5E2A8C"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M3.33398 9.67967V2.83301H10.1807"
+      stroke="#5E2A8C"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+export const ReceiveIcon = () => (
+  <svg
+    width={16}
+    height={17}
+    viewBox="0 0 16 17"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M3.33398 12.1663L12.6673 2.83301"
+      stroke="#5E2A8C"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M3.33398 5.31934V12.166H10.1807"
+      stroke="#5E2A8C"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M2.33398 15.167H13.6673"
+      stroke="#5E2A8C"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
