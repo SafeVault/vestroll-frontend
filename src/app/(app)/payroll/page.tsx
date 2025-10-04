@@ -1,10 +1,9 @@
-import EmptyState from "@/app/app/team-management/components/TeamManagementDashboard";
-import React from "react";
+import TeamManagementDashboard from "@/app/app/team-management/components/TeamManagementDashboard";
 
 export default function PayrollPage() {
   return (
     <div>
-      <EmptyState />
+      <TeamManagementDashboard />
     </div>
   );
 }
