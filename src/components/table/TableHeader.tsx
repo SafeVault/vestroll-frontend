@@ -34,7 +34,7 @@ const TableHeader: React.FC<TableHeaderProps> = ({
   };
 
   return (
-    <div className="hidden bg-gray-100 md:block">
+    <div className="hidden bg-gray-100 lg:block">
       <div className="flex items-center px-4 py-3 text-sm font-medium text-gray-400">
         {showCheckbox && (
           <div className="w-6 h-4 mr-4">

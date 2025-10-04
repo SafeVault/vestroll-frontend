@@ -88,7 +88,7 @@ const TableContent = <T extends Record<string, any>>({
   return (
     <div className="bg-white rounded-b-lg">
       {/* Desktop table view */}
-      <div className="hidden md:block">
+      <div className="hidden lg:block">
         {data.map((item, index) => {
           const itemId = getItemId(item);
           const isSelected = selectedItems.includes(itemId);
@@ -143,7 +143,7 @@ const TableContent = <T extends Record<string, any>>({
       </div>
 
       {/* Mobile card view */}
-      <div className="md:hidden">
+      <div className="lg:hidden">
         {data.map((item, index) => {
           const itemId = getItemId(item);
           // const isSelected = selectedItems.includes(itemId);
@@ -151,7 +151,7 @@ const TableContent = <T extends Record<string, any>>({
           return (
             <div
               key={itemId}
-              className={`py-4 px-2 ${
+              className={`p-2 px-2 ${
                 index !== data.length - 1 ? "border-b border-gray-150" : ""
               } ${onRowClick ? "cursor-pointer" : ""} hover:bg-gray-50`}
               onClick={() => onRowClick?.(item)}
