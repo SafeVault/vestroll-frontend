@@ -16,6 +16,7 @@ interface CustomModalOptions {
   buttons?: ModalButton[];
   showCloseButton?: boolean;
   onCancel?: () => void;
+  fullScreen?: boolean;
 }
 
 const useModal = () => {
@@ -138,6 +139,7 @@ const useModal = () => {
       size: options.size || "md",
       showButtons: false,
       showCloseButton: options.showCloseButton ?? true,
+      fullScreen: options.fullScreen ?? false,
       onCancel: options.onCancel,
       type: "custom",
     });

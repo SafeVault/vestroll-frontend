@@ -18,6 +18,7 @@ export interface ModalProps {
   type?: "success" | "warning" | "error" | "confirm" | "info" | "custom";
   customComponent?: React.ReactNode;
   size?: "sm" | "md" | "lg" | "xl" | "2xl" | "full";
+  fullScreen?: boolean;
 
   // New properties for dynamic modals
   showButtons?: boolean;
