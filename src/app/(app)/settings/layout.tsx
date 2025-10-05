@@ -1,88 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import React from "react";
-import { classNames } from "@/utils/classNames";
 
-const violet = {
-  base: "#6d28d9",
-  hover: "#5b21b6",
-  active: "#4c1d95",
-};
-
-function Tab({ label, href }: { label: string; href: string }) {
-  const pathname = usePathname();
-  const active = pathname === href;
+export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <Link
-      href={href}
-      className={classNames(
-        "-mb-px whitespace-nowrap border-b-2 px-3 sm:px-4 py-3 text-sm sm:text-base transition-colors",
-        active ? "font-semibold" : "text-[#6b7280] hover:text-[#4b5563]"
-      )}
-      style={{
-        borderColor: active ? violet.base : "transparent",
-        color: active ? violet.base : undefined,
-      }}
-      aria-current={active ? "page" : undefined}
-    >
-      {label}
-    </Link>
-  );
-}
+    <div className="flex min-h-screen">
+      {/* Sidebar */}
+      <aside className="w-64 bg-gray-900 text-white p-6">
+        <h2 className="text-xl font-bold mb-6">Vestroll</h2>
+        <nav className="flex flex-col space-y-4">
+          <Link href="/dashboard" className="hover:text-gray-300">Dashboard</Link>
+          <Link href="/transactions" className="hover:text-gray-300">Transactions</Link>
+          <Link href="/invoices" className="hover:text-gray-300">Invoices</Link>
+        </nav>
+      </aside>
 
-export default function SettingsLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const themeVars = {
-    "--violet-base": violet.base,
-    "--violet-hover": violet.hover,
-    "--violet-active": violet.active,
-  } as React.CSSProperties;
-
-  const pathname = usePathname() || "";
-  const hiringTemplateRegex = /^\/settings\/hiring-templates\/.+/;
-  const showBareLayout = hiringTemplateRegex.test(pathname);
-  const isAddressNestedPage = pathname.includes("address");
-
-  if (isAddressNestedPage) {
-    return (
-      <div className="" style={themeVars}>
-        {children}
-      </div>
-    );
-  }
-
-  return (
-    <div
-      className="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-10 bg-[#F5F6F7]"
-      style={themeVars}
-    >
-      {!showBareLayout && (
-        <>
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl sm:text-3xl font-semibold text-[#111827]">
-              Settings
-            </h1>
-          </div>
-
-          <nav
-            className="mt-6 flex items-center gap-2 border-b border-[#e5e7eb] overflow-x-auto overflow-y-hidden flex-nowrap whitespace-nowrap"
-            role="navigation"
-            aria-label="Settings navigation"
-          >
-            <Tab label="Company" href="/settings" />
-            <Tab label="Permissions" href="/settings/permissions" />
-            <Tab label="Hiring templates" href="/settings/hiring-templates" />
-            <Tab label="Address book" href="/settings/address-book" />
-          </nav>
-        </>
-      )}
-
-      <div className="mt-6">{children}</div>
+      {/* Main Content */}
+      <main className="flex-1 bg-gray-50 p-8">{children}</main>
     </div>
   );
 }

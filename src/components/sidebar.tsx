@@ -23,6 +23,7 @@ const navItems: NavItem[] = [
   },
   { name: "Finance", href: "/app/finance", iconSrc: "/wallet.svg" },
   { name: "Payroll", href: "/app/payroll", iconSrc: "/payroll.svg" },
+  { name: "Transactions", href: "/app/transactions", iconSrc: "/usdc.svg" },
   { name: "Invoices", href: "/app/invoices", iconSrc: "/invoice.svg" },
   { name: "Settings", href: "/app/settings", Icon: Settings },
 ];
