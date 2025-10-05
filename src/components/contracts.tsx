@@ -6,13 +6,14 @@ import { ProjectDetails } from "./contracts/project-details";
 import { ContractType } from "./contracts/contract-type";
 import { EmployeeDetails } from "./contracts/employee-details";
 import ContractDetails from "./contracts/contract-details";
+import Compliance from "./contracts/compliance";
 
 const steps = [
   { id: 1, title: "Choose Contract type", content: <ContractType /> },
   { id: 2, title: "Project Details", content: <ProjectDetails /> },
   { id: 3, title: "Employee Details", content: <EmployeeDetails /> },
   { id: 4, title: "Contract Details", content: <ContractDetails /> },
-  { id: 5, title: "Compliance", content: <EmployeeDetails /> },
+  { id: 5, title: "Compliance", content: <Compliance /> },
   { id: 6, title: "Review & Sign", content: <EmployeeDetails /> },
 ];
 
