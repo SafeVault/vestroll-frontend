@@ -6,7 +6,6 @@ import Table from "@/components/table/Table";
 import { TableColumn } from "../../../components/table/TableHeader";
 import { invoiceMetricsData } from "@/util/constant";
 import { useRouter } from "next/navigation";
-import { RoutePaths } from "../../routes/routesPath";
 import { UsdtIcon } from "../../../../public/svg";
 import TitleHeader from "@/components/dashboard/TitleHeader";
 import InvoiceDetailsModal from "@/components/modal/InvoiceDetailsModal";

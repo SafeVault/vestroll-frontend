@@ -3,9 +3,10 @@
 import { useEffect } from "react";
 import useModal from "@/hooks/useModal";
 import AddAddressModal from "@/components/finance/add-address-modal";
+import TransactionDetailsModal from "@/components/finance/transaction-details-modal";
 
 export default function FinancePage() {
-  const { showCustomModal } = useModal();
+  const { showCustomModal, showContentOnlyModal } = useModal();
 
   useEffect(() => {
     // Auto-open via query ?openAddAddress=true
@@ -27,6 +28,20 @@ export default function FinancePage() {
         </button>
       </div>
       <p className="mt-2 text-[#6b7280]">Placeholder page.</p>
+
+      <button
+        onClick={() =>
+          showContentOnlyModal(<TransactionDetailsModal />, {
+            title: "Deposit",
+            size: "md",
+            showButtons: false,
+            fullScreen: true,
+          })
+        }
+        className="px-4 py-2 rounded-lg bg-[#5E2A8C] text-white hover:bg-[#4C1D95]"
+      >
+        Show Transaction.
+      </button>
     </div>
   );
 }
