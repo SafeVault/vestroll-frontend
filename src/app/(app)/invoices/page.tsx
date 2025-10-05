@@ -6,9 +6,9 @@ import Table from "@/components/table/Table";
 import { TableColumn } from "../../../components/table/TableHeader";
 import { invoiceMetricsData } from "@/util/constant";
 import { useRouter } from "next/navigation";
-import { RoutePaths } from "../../routes/routesPath";
 import { UsdtIcon } from "../../../../public/svg";
 import TitleHeader from "@/components/dashboard/TitleHeader";
+import InvoiceDetailsModal from "@/components/modal/InvoiceDetailsModal";
 
 interface Invoice {
   id: string;
@@ -21,56 +21,33 @@ interface Invoice {
   name?: string;
   number?: string;
   company?: string;
-  [key: string]: string | number | undefined; // Add index signature for dynamic property access
+  [key: string]: string | number | undefined;
 }
 
 const Invoices: React.FC = () => {
-  // Sample data - replace with your actual data fetching
   const [invoices] = useState<Invoice[]>([
     {
       id: "1",
-      invoiceNo: "#INV-2025-010",
-      title: "For Mar 31st - Apr 6th 2025",
-      amount: 1200,
-      paidIn: "USDT",
-      status: "Pending",
-      issueDate: "25th Oct 2025",
-      name: "March April Invoice",
-      number: "#INV-2025-010",
-      company: "Sample Company",
-    },
-    {
-      id: "2",
-      invoiceNo: "#INV-2025-011",
-      title: "For Mar 31st - Apr 6th 2025",
-      amount: 1200,
-      paidIn: "USDT",
-      status: "Overdue",
-      issueDate: "25th Oct 2025",
-      name: "March April Invoice",
-      number: "#INV-2025-011",
-      company: "Sample Company",
-    },
-    {
-      id: "3",
-      invoiceNo: "#INV-2025-012",
-      title: "For Mar 31st - Apr 6th 2025",
-      amount: 1200,
+      invoiceNo: "#INV-2025-001",
+      title: "Brightfolk Payment for co...",
+      amount: 581,
       paidIn: "USDT",
       status: "Paid",
       issueDate: "25th Oct 2025",
-      name: "March April Invoice",
-      number: "#INV-2025-012",
-      company: "Sample Company",
+      name: "Adegboyega Oluwagbemiro",
+      number: "#INV-2025-001",
+      company: "Employee",
     },
+    // Add other samples if needed
   ]);
 
   const [search, setSearch] = useState<string>("");
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
 
   const router = useRouter();
 
-  // Filter invoices based on search query
   const filteredInvoices = invoices.filter(
     (invoice) =>
       invoice.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -81,11 +58,9 @@ const Invoices: React.FC = () => {
   );
 
   const showModal = () => {
-    // Add your filter modal logic here
     console.log("Show filter modal");
   };
 
-  // Define table columns
   const invoiceColumns: TableColumn[] = [
     { key: "invoiceNo", header: "Invoice No." },
     { key: "title", header: "Title" },
@@ -108,7 +83,6 @@ const Invoices: React.FC = () => {
     }
   };
 
-  // Custom cell renderer for invoice-specific formatting
   const renderInvoiceCell = (item: Invoice, column: TableColumn) => {
     switch (column.key) {
       case "title":
@@ -184,7 +158,6 @@ const Invoices: React.FC = () => {
     </div>
   );
 
-  // Handle item selection
   const handleSelectItem = (id: string, checked: boolean) => {
     if (checked) {
       setSelectedItems([...selectedItems, id]);
@@ -193,21 +166,53 @@ const Invoices: React.FC = () => {
     }
   };
 
-  // Handle select all
   const handleSelectAll = (checked: boolean) => {
     setSelectedItems(
       checked ? filteredInvoices.map((invoice) => invoice.id) : []
     );
   };
 
-  // Handle row click (optional)
   const handleRowClick = (invoice: Invoice) => {
-    // Add navigation or modal logic here
-    router.push(`${RoutePaths.INVOICES}/${invoice.invoiceNo.replace("#", "")}`);
+    setSelectedInvoice(invoice);
+    setIsModalOpen(true);
+  };
+
+  const getInvoiceModalData = (invoice: Invoice | null) => {
+    if (!invoice) return null;
+
+    return {
+      invoiceNo: invoice.invoiceNo,
+      amount: invoice.amount,
+      currency: invoice.paidIn,
+      fiatAmount: 476.19,
+      status: "Successful",
+      network: "Ethereum",
+      to: "0x6b885afa...6f23b3",
+      fee: "0.0005 ETH ($1.31)",
+      transactionId: "0x6b885afa...6f23b3",
+      timestamp: "25th Oct 2025 | 2:00pm",
+      contract: "Brightfolk Payment for co...",
+      contractType: "Fixed rate",
+      employee: "Adegboyega Oluwagbemiro",
+      availablePayments: [],
+      transactionIds: [],
+      paymentHashes: [],
+    };
   };
 
   return (
     <div className="flex flex-col flex-1 bg-gray-100 w-full min-h-full">
+      {/* Invoice Details Modal */}
+      {selectedInvoice && (
+        <InvoiceDetailsModal
+          isOpen={isModalOpen}
+          onClose={() => {
+            setIsModalOpen(false);
+            setSelectedInvoice(null);
+          }}
+          invoiceData={getInvoiceModalData(selectedInvoice)!}
+        />
+      )}
       <div className="bg-white py-6 border-b border-[#DCE0E5]">
         <TitleHeader title="Invoices" isBackButton={false} isExportButton />
       </div>
