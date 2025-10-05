@@ -171,11 +171,9 @@ export default function InvoiceDetailsModal({
                     {invoiceData.transactionId}
                   </span>
                   <button
-                    onClick={() =>
-                      handleCopy(invoiceData.transactionId, "tx-id")
-                    }
+                    onClick={() => handleCopy(invoiceData.invoiceNo, "invoice")}
                     className="ml-2 text-gray-500 hover:text-gray-700"
-                    aria-label="Copy transaction ID"
+                    aria-label="Copy invoice number"
                   >
                     <DocumentDuplicateIcon className="w-4 h-4 text-[#5A42DE]" />
                   </button>
@@ -194,11 +192,9 @@ export default function InvoiceDetailsModal({
                     {invoiceData.contract}
                   </span>
                   <button
-                    onClick={() =>
-                      handleCopy(invoiceData.transactionId, "tx-id")
-                    }
-                    className="ml-2 text-gray-100 hover:text-gray-700"
-                    aria-label="Copy transaction ID"
+                    onClick={() => handleCopy(invoiceData.contract, "contract")}
+                    className="ml-2 text-gray-500 hover:text-gray-700"
+                    aria-label="Copy contract address"
                   >
                     <svg
                       width="15px"
