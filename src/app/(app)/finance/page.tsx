@@ -84,7 +84,7 @@ const DUMMY_TRANSACTIONS: Transaction[] = [
     transactionId: "0x1c34abc...7a9f",
     description: "Withdrawal to external wallet",
     amount: 50.0,
-    asset: "ETH",
+    asset: "USDT",
     status: "Pending",
     timestamp: "24th Oct 2025 | 1:30pm",
   },
@@ -93,7 +93,7 @@ const DUMMY_TRANSACTIONS: Transaction[] = [
     transactionId: "0x2d56def...8b0g",
     description: "Exchange fee deduction",
     amount: 5.0,
-    asset: "BTC",
+    asset: "USDT",
     status: "Successful",
     timestamp: "24th Oct 2025 | 10:00am",
   },
@@ -102,7 +102,7 @@ const DUMMY_TRANSACTIONS: Transaction[] = [
     transactionId: "0x1c34abc...7a9f",
     description: "Withdrawal to external wallet",
     amount: 50.0,
-    asset: "ETH",
+    asset: "USDT",
     status: "Pending",
     timestamp: "24th Oct 2025 | 1:30pm",
   },
@@ -111,7 +111,7 @@ const DUMMY_TRANSACTIONS: Transaction[] = [
     transactionId: "0x2d56def...8b0g",
     description: "Exchange fee deduction",
     amount: 5.0,
-    asset: "BTC",
+    asset: "USDT",
     status: "Successful",
     timestamp: "24th Oct 2025 | 10:00am",
   },
@@ -121,7 +121,7 @@ const ITEMS_PER_PAGE = 10;
 
 const TransactionsPage: React.FC = () => {
   // To test the empty state, you can change the initial state to:
-  useState<Transaction[]>([]);
+  // useState<Transaction[]>([]);
   const [allTransactions, setAllTransactions] =
     useState<Transaction[]>(DUMMY_TRANSACTIONS);
   const [currentPage, setCurrentPage] = useState(1);
