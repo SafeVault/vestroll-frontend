@@ -1,42 +1,6 @@
-import { Mail, Phone, MapPin, CalendarPlus } from "lucide-react";
+import { MapPin,  } from "lucide-react";
 import Image from "next/image";
 
-
-interface Employee {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  image: string;
-  bio: string;
-  employeeType: "Employee" | "Completed" | "Fixed rate";
-}
-
-const employeeData: Employee = {
-  id: "1",
-  name: "James Akinbiola",
-  bio: "Frontend Developer",
-  email: "mailjames@gmail.com",
-  phone: "+234 904 364 2019",
-  address:
-    "No 5 James Robertson Stedu/Oguntana Drive, Surulere, Nigeria | 145241",
-  image: "/profileImage.png",
-  employeeType: "Employee",
-};
-
-  const getStatusStyles = (status: Employee["employeeType"]) => {
-    switch (status) {
-      case "Employee":
-        return "text-[#5A42DE] border-[#5A42DE] bg-[#E8E5FA] ";
-      case "Completed":
-        return "bg-blue-fill text-blue-default border-blue-stroke";
-      case "Fixed rate":
-        return "bg-yellow-fill text-yellow-default border-yellow-stroke";
-      default:
-        return "bg-fill-secondary text-text-secondary border-stroke-secondary";
-    }
-  };
 
 const QuickDash = () => {
   return (
