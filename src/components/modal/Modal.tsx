@@ -23,6 +23,7 @@ const Modal = () => {
     confirmText = "Confirm",
     cancelText = "Cancel",
     type,
+    fullScreen = false,
   } = modalProps;
 
   const sizeClasses = {
@@ -53,20 +54,17 @@ const Modal = () => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#000000bf] "
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-[#000000bf] ${
+        !fullScreen && "p-4"
+      }`}
       onClick={handleBackdropClick}
     >
       <div
-        className={`relative bg-white rounded-lg shadow-xl w-full ${sizeClasses[size]}`}
+        className={`relative bg-white md:rounded-lg shadow-xl w-full ${sizeClasses[size]} ${!fullScreen && "rounded-lg"}`}
       >
         {/* Header */}
         {(title || showCloseButton) && (
           <div className="flex items-center justify-between p-6">
-            {title && (
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                {title}
-              </h3>
-            )}
             {showCloseButton && (
               <button
                 onClick={handleClose}
@@ -87,13 +85,16 @@ const Modal = () => {
                 </svg>
               </button>
             )}
+            {title && (
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mx-auto">
+                {title}
+              </h3>
+            )}
           </div>
         )}
 
         {/* Content */}
-        <div className="p-6">
-          {customComponent ? customComponent : content}
-        </div>
+        <div className="p-6">{customComponent ? customComponent : content}</div>
 
         {/* Footer with buttons */}
         {showButtons && (
