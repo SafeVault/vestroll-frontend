@@ -2,77 +2,23 @@
 
 import React, { useState } from "react";
 import Stepper from "./ui/stepper";
+import { ProjectDetails } from "./contracts/project-details";
+import { ContractType } from "./contracts/contract-type";
+import { EmployeeDetails } from "./contracts/employee-details";
+import ContractDetails from "./contracts/contract-details";
 
 const steps = [
   { id: 1, title: "Choose Contract type", content: <ContractType /> },
-  { id: 2, title: "Project Details", content: null },
-  { id: 3, title: "Buf Title", content: null },
+  { id: 2, title: "Project Details", content: <ProjectDetails /> },
+  { id: 3, title: "Employee Details", content: <EmployeeDetails /> },
+  { id: 4, title: "Contract Details", content: <ContractDetails /> },
+  { id: 5, title: "Compliance", content: <EmployeeDetails /> },
+  { id: 6, title: "Review & Sign", content: <EmployeeDetails /> },
 ];
-
-function ContractType() {
-  return (
-    <ul className="grid w-full gap-6 md:grid-cols-2">
-      <li>
-        <input
-          type="radio"
-          id="hosting-small"
-          name="hosting"
-          value="hosting-small"
-          className="hidden peer"
-          required
-        />
-        <label
-          htmlFor="hosting-small"
-          className="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 dark:peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
-        >
-          <div className="block">
-            <div className="w-full text-lg font-semibold">0-50 MB</div>
-            <div className="w-full">Good for small websites</div>
-          </div>
-        </label>
-      </li>
-      <li>
-        <input
-          type="radio"
-          id="hosting-big"
-          name="hosting"
-          value="hosting-big"
-          className="hidden peer"
-        />
-        <label
-          htmlFor="hosting-big"
-          className="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 dark:peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
-        >
-          <div className="block">
-            <div className="w-full text-lg font-semibold">500-1000 MB</div>
-            <div className="w-full">Good for large websites</div>
-          </div>
-        </label>
-      </li>
-      <li>
-        <input
-          type="radio"
-          id="hosting-medium"
-          name="hosting"
-          value="hosting-medium"
-          className="hidden peer"
-        />
-        <label
-          htmlFor="hosting-medium"
-          className="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 dark:peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
-        >
-          <div className="block">
-            <div className="w-full text-lg font-semibold">500-1000 MB</div>
-            <div className="w-full">Good for large websites</div>
-          </div>
-        </label>
-      </li>
-    </ul>
-  );
-}
 
 function Contracts() {
   const [activeStep, setActiveStep] = useState(0);
+  const onSubmit = (data) => console.log(data);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -81,8 +27,11 @@ function Contracts() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
   return (
-    <section className="min-h-[50vh] rounded-xl border border-[#e5e7eb] bg-white p-6 shadow-sm">
-      <div className="space-y-20">
+    <form
+      onSubmit={(e) => e.preventDefault()}
+      className="min-h-[50vh] rounded-xl border border-[#e5e7eb] bg-white p-6 shadow-sm"
+    >
+      <div className="space-y-5">
         <div className="space-y-2">
           <h2 className="font-semibold text-xl text-gray-900">
             {steps[activeStep].title}
@@ -101,13 +50,13 @@ function Contracts() {
           handleNext={handleNext}
         />
       </div>
-    </section>
+    </form>
   );
 }
 
 function StepContent({ steps, activeStep }) {
   if (!steps[activeStep]) return;
-  return <div>{steps[activeStep].content}</div>;
+  return <div className="py-10">{steps[activeStep].content}</div>;
 }
 
 function StepControls({ steps, activeStep, handleBack, handleNext }) {
