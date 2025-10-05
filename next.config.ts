@@ -1,8 +1,18 @@
 import type { NextConfig } from "next";
+import { join } from "path";
 
 const nextConfig: NextConfig = {
   /* config options here */
-   images: {
+  turbopack: {
+    root: join(__dirname), // Set the root to the current directory dynamically
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
+  },
+  images: {
     remotePatterns: [
       {
         protocol: 'https',
@@ -11,14 +21,6 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
-  },
-  turbopack: {
-    rules: {
-      '*.svg': {
-        loaders: ['@svgr/webpack'],
-        as: '*.js',
-      },
-    },
   },
 };
 
