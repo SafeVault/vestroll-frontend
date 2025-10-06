@@ -92,15 +92,15 @@ const handleMaxClick = () => {
     <div>
       <div className="rounded-xl border border-[#e5e7eb] bg-white p-6 shadow-sm">
         <div className= "flex gap-2">
-        <Image 
+        <Image
         src= "/images\vuesax (1).svg"
         alt="Back"
         width={15}
         height={15}
-        /> 
+        />
         <span className="flex text-[#7F8C9F]">Back</span>
         </div>
-        
+
 
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold text-[#111827]">Withdraw</h1>
@@ -113,7 +113,7 @@ const handleMaxClick = () => {
         </div>
       </div>
 
-   
+
           <div className="min-h-screen bg-gray-50 ">
       <div className="max-w-md mx-auto bg-white rounded-2xl shadow-sm p-6 mt-2 h-[600px] flex flex-col justify-between">
         {/* Asset */}
@@ -129,7 +129,7 @@ const handleMaxClick = () => {
               height={20}
               />
               <span className="text-[#111827]">{values.asset}</span>
-              
+
             </div>
             <select
               className="appearance-none w-full rounded-md bg-[#F3F4F6] pr-10 pl-14 py-4 text-transparent"
@@ -188,7 +188,7 @@ const handleMaxClick = () => {
             <div className="relative">
               <div className="items-center gap-2 w-full bg-gray-100 rounded-xl p-4">
                 <div className="flex text-2xl font-semibold text-black-900">$
-                <input  
+                <input
                   type="number"
                    className="flex-1 text-2xl font-semibold text-black-900 outline-none placeholder:text-black"
                   placeholder=" 0.00"
@@ -202,45 +202,45 @@ const handleMaxClick = () => {
                    width={15}
                    height={15}/>
 
-                </div> 
+                </div>
                 <div className="flex justify-between text-[#7F8C9F] items-center">
                   <span className=" text-xs">0 USDC</span>
                   <button
-                  type="button" 
+                  type="button"
                   onClick={handleMaxClick}
                   className="bg-[#E8E5FA] px-3 py-1 rounded-lg text-sm font-medium text-purple-600 bg-purple-50 transition-colors"
                 > Max </button>
                 </div>
-                
-                
+
+
               </div>
-             
+
             </div>
           </div>
-          
+
 
            {/* Wallet address */}
           <div className="flex flex-col gap-2">
             <div className="items-center flex justify-between ">
               <label className="text-sm font-medium text-gray-900">Send to</label>
               <div className="flex justify-end items-center items-center">
-                  <Image 
+                  <Image
                 src= "/images\vuesax.svg"
-                alt="Address book" 
+                alt="Address book"
                 className="w-4 h-4 mr-2"
                 width={4}
                 height={4}
                 />
-              <button 
+              <button
               onClick={() => setShowModal(true)}
               className="text-sm text-purple-600 cursor-pointer">
-                Address book 
+                Address book
               </button>
               </div>
-             
-               {showModal && ( 
-                <AddressBookModal 
-                onClose={() => setShowModal(false)} 
+
+               {showModal && (
+                <AddressBookModal
+                onClose={() => setShowModal(false)}
                 onAddAddress={() => {setShowModal(false);
           }} />
       )}
@@ -268,9 +268,9 @@ const handleMaxClick = () => {
                   aria-label="Scan address"
                 >
                  <Image
-                  src="/images\scan.svg" 
-                  alt="Scan" 
-                  className="h-5 w-5" 
+                  src="/images\scan.svg"
+                  alt="Scan"
+                  className="h-5 w-5"
                   width={4}
                   height={4}
                   />
@@ -323,7 +323,7 @@ export default function FinancePage() {
       </div>
     </div>
     </div>
-  
+
   );
 }
 
