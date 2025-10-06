@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Fasthand&display=swap");
 @import "tailwindcss";
 @import "./styles/colors.css";
 @import "tw-animate-css";
@@ -125,6 +126,10 @@
 
 body {
   font-family: "HK Grotesk", sans-serif;
+}
+.fasthand {
+  font-family: "Fasthand", cursive;
+  font-style: normal;
 }
 
 .display {
@@ -261,14 +266,11 @@ body {
 @layer utilities {
   .spinner-wrapper {
     animation: border-spin 1s ease-in-out infinite;
-    @apply relative overflow-hidden rounded-full
+    @apply relative overflow-hidden rounded-full;
   }
 
   .spinner-wrapper::before {
-    background: conic-gradient(
-      white 0deg,
-      transparent 360deg
-    );
+    background: conic-gradient(white 0deg, transparent 360deg);
 
     @apply absolute left-[-25%] top-[-25%] h-[150%] w-[150%] content-[''];
   }
