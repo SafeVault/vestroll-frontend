@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
-import useModal from "@/hooks/useModal";
 import AddAddressModal from "@/components/finance/add-address-modal";
 import TransactionDetailsModal from "@/components/finance/transaction-details-modal";
+import AddressBookEmptyModal from "@/components/modal/address-book/AddressBookEmptyModal";
+import useModal from "@/hooks/useModal";
+import { useEffect } from "react";
 
 export default function FinancePage() {
   const { showCustomModal, showContentOnlyModal } = useModal();
@@ -42,8 +43,7 @@ export default function FinancePage() {
       >
         Show Transaction.
       </button>
+      <AddressBookEmptyModal isOpen={true} onClose={() => {}} />
     </div>
   );
 }
-
-
