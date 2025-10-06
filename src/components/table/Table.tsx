@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React from "react";
+import React, { useState, useMemo } from "react";
 import TableContent from "./TableContent";
 import TableFilterHeader from "./TableFilterHeader";
 import TableHeader, { TableColumn } from "./TableHeader";
+import Pagination from "../ui/Pagination";
 
 interface TableProps<T = any> {
   data: T[];
@@ -18,6 +19,10 @@ interface TableProps<T = any> {
   searchPlaceholder?: string;
   showCheckbox?: boolean;
   showFilterHeader?: boolean;
+
+  // Pagination
+  showPagination?: boolean;
+  itemsPerPage?: number;
 
   // Selection functionality
   selectedItems?: string[];
@@ -49,6 +54,8 @@ const Table = <T extends Record<string, any>>({
   searchPlaceholder = "Search...",
   showCheckbox = true,
   showFilterHeader = true,
+  showPagination = false,
+  itemsPerPage = 10,
   selectedItems = [],
   onSelectItem,
   onSelectAll,
@@ -61,7 +68,49 @@ const Table = <T extends Record<string, any>>({
   SearchIcon,
   FilterIcon,
 }: TableProps<T>) => {
-  const allSelected = data.length > 0 && selectedItems.length === data.length;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Calculate pagination values
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedData = useMemo(() => data.slice(startIndex, endIndex), [data, startIndex, endIndex]);
+
+  const allSelected = paginatedData.length > 0 && paginatedData.every(item => {
+    const itemId = getItemId ? getItemId(item) : item.id || item._id || String(Math.random());
+    return selectedItems.includes(itemId);
+  });
+  const isAllDataSelected = data.length > 0 && selectedItems.length === data.length;
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handleSelectAll = (checked: boolean) => {
+    if (showPagination) {
+      // For paginated tables, select all items on current page
+      const currentPageIds = paginatedData.map(item => getItemId ? getItemId(item) : item.id || item._id || String(Math.random()));
+
+      if (checked) {
+        // Add current page items to selection
+        currentPageIds.forEach(id => {
+          if (!selectedItems.includes(id)) {
+            onSelectItem?.(id, true);
+          }
+        });
+      } else {
+        // Remove current page items from selection
+        currentPageIds.forEach(id => {
+          if (selectedItems.includes(id)) {
+            onSelectItem?.(id, false);
+          }
+        });
+      }
+    } else {
+      // For non-paginated tables, select all items
+      onSelectAll?.(checked);
+    }
+  };
 
   return (
     <div>
@@ -84,11 +133,11 @@ const Table = <T extends Record<string, any>>({
         <TableHeader
           columns={columns}
           showCheckbox={showCheckbox}
-          onSelectAll={onSelectAll}
-          allSelected={allSelected}
+          onSelectAll={handleSelectAll}
+          allSelected={showPagination ? allSelected : isAllDataSelected}
         />
         <TableContent
-          data={data}
+          data={paginatedData}
           columns={columns}
           search={search}
           showCheckbox={showCheckbox}
@@ -102,6 +151,17 @@ const Table = <T extends Record<string, any>>({
           renderMobileCell={renderMobileCell}
         />
       </div>
+
+      {showPagination && totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+          itemsPerPage={itemsPerPage}
+          totalItems={data.length}
+          showInfo={true}
+        />
+      )}
     </div>
   );
 };
