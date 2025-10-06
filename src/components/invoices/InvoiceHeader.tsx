@@ -79,7 +79,7 @@ export default function InvoiceHeader({
       <div
         className="
           md:hidden fixed inset-x-0 bottom-0 z-40
-          border-t border-gray-200 bg-white/95 backdrop-blur
+           border-gray-200 backdrop-blur
           px-4 py-3
           pb-[calc(env(safe-area-inset-bottom)+12px)]
           shadow-[0_-8px_16px_rgba(0,0,0,0.06)]
@@ -124,7 +124,7 @@ export default function InvoiceHeader({
     <>
       <div className="w-full bg-white border-b border-gray-200">
         <div className="flex items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col items-start gap-4">
             <button onClick={onBack} className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700">
               <ArrowLeft className="h-4 w-4" /> Back
             </button>
@@ -135,7 +135,7 @@ export default function InvoiceHeader({
       </div>
 
       {mobileActions}
-      {needsMobileSpacer && <div className="md:hidden h-16" />}
+      {needsMobileSpacer && <div className="md:hidden sm:h-10" />}
     </>
   );
 }

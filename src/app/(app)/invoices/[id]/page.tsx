@@ -39,8 +39,10 @@ export default function InvoiceDetailPage() {
         onMakePayment={() => console.log("Make Payment", invoice.id)}
       />
 
-      <main className="flex flex-col items-center py-10">
+      <main className="flex flex-col items-center py-2 sm:py-5">
         <InvoiceSummary
+          invoice={invoice}
+          id={invoice.id}
           amount={invoice.amount}
           currency={invoice.paidIn}
           convertedValue={convertedValue}
