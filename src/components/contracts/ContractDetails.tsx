@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Upload, X } from "lucide-react";
+import Image from "next/image";
 import InputField from "@/components/InputField";
 import Dropdown from "@/components/ui/dropdown";
 import { z } from "zod";
 
 interface ContractFormData {
-  // Contact details
   clientName: string;
   clientEmail: string;
   clientPhone: string;
@@ -15,8 +15,6 @@ interface ContractFormData {
   startDate: string;
   endDate: string;
   terminationNotice: string;
-
-  // Payment details
   network: string;
   asset: string;
   amount: string;
@@ -27,16 +25,10 @@ interface ContractFormData {
   firstInvoiceType: "full" | "custom";
   firstInvoiceDate: string;
   firstInvoiceAmount: string;
-
-  // Contract wallet
   walletAddress: string;
   walletType: string;
-
-  // End Period
   contractDuration: string;
   renewalTerms: string;
-
-  // Milestone/Deliverable
   milestones: Array<{
     id: string;
     title: string;
@@ -44,14 +36,11 @@ interface ContractFormData {
     dueDate: string;
     amount: string;
   }>;
-
-  // Tax details
   taxType: string;
   taxId: string;
   taxRate: string;
-
-  // Files
   uploadedFiles: File[];
+  paymentFrequency?: "Hourly" | "Daily" | "Weekly" | "Per Deliverable";
 }
 
 interface FormErrors {
@@ -68,19 +57,43 @@ interface ContractDetailsProps {
 }
 
 const networks = [
-  { label: "Ethereum", icon: "/icons/eth.svg" },
-  { label: "Polygon", icon: "/icons/eth.svg" },
-  { label: "BSC", icon: "/icons/eth.svg" },
-  { label: "Arbitrum", icon: "/icons/eth.svg" },
+  { label: "Ethereum", icon: "/eth.svg" },
+  { label: "Polygon", icon: "/eth.svg" },
+  { label: "Binance Smart Chain", icon: "/eth.svg" },
+  { label: "Arbitrum", icon: "/eth.svg" },
 ];
+
 const assets = [
-  { label: "USDT", icon: "/icons/usdt.svg" },
-  { label: "USDC", icon: "/icons/usdt.svg" },
-  { label: "ETH", icon: "/icons/eth.svg" },
-  { label: "DAI", icon: "/icons/usdt.svg" },
+  { label: "USDT", icon: "/Tether.svg" },
+  { label: "USDC", icon: "/usdc.svg" },
+  { label: "BTC", icon: "/bitcoin.svg" },
+  { label: "Stellar", icon: "/stellar.svg" },
 ];
-const invoiceFrequencies = ["Weekly", "Bi-weekly", "Monthly", "Quarterly"];
-const paymentDueOptions = ["Net 15", "Net 30", "Net 45", "Due on receipt"];
+
+const invoiceFrequencies = ["Weekly", "Bi-weekly", "Monthly", "Quarterly", "Annually"];
+const issueInvoiceOptions = [
+  "1st of the month",
+  "15th of the month",
+  "Last day of the month",
+  "Start of contract period",
+  "End of contract period",
+];
+const paymentDueOptions = [
+  "Immediately",
+  "Within 7 days",
+  "Within 14 days",
+  "Within 30 days",
+  "Within 60 days",
+  "Within 90 days",
+];
+const taxTypes = [
+  "VAT - Value Added Tax",
+  "GST - Goods and Services Tax",
+  "HST - Harmonized Sales Tax",
+  "PST - Provincial Sales Tax",
+  "SST - State Sales Tax",
+];
+const taxRates = ["5%", "7.5%", "10%", "13%", "15%", "18%", "20%", "25%"];
 
 // Zod schema for validation
 const milestoneSchema = z.object({
@@ -98,16 +111,9 @@ const milestoneSchema = z.object({
 });
 
 const contractSchema = z.object({
-  // Contact details
-  clientName: z.string().min(1, "Client name is required"),
-  clientEmail: z.string().email("Invalid email address"),
-  clientPhone: z.string().optional(),
-  clientAddress: z.string().optional(),
   startDate: z.string().min(1, "Start date is required"),
   endDate: z.string().optional(),
   terminationNotice: z.string().optional(),
-
-  // Payment details
   network: z.string().min(1, "Network is required"),
   asset: z.string().min(1, "Asset is required"),
   amount: z
@@ -124,24 +130,14 @@ const contractSchema = z.object({
   firstInvoiceType: z.enum(["full", "custom"]),
   firstInvoiceDate: z.string().optional(),
   firstInvoiceAmount: z.string().optional(),
-
-  // Contract wallet
-  walletAddress: z.string().min(1, "Wallet address is required"),
+  walletAddress: z.string().optional(),
   walletType: z.string().optional(),
-
-  // End Period
   contractDuration: z.string().optional(),
   renewalTerms: z.string().optional(),
-
-  // Milestone/Deliverable
   milestones: z.array(milestoneSchema).optional(),
-
-  // Tax details
   taxType: z.string().optional(),
   taxId: z.string().optional(),
   taxRate: z.string().optional(),
-
-  // Files
   uploadedFiles: z.array(z.any()).optional(),
 });
 
@@ -154,6 +150,15 @@ export default function ContractDetails({
   onPrev,
 }: ContractDetailsProps) {
   const [dragOver, setDragOver] = useState(false);
+  // ✅ FIXED: Proper useState syntax on single line
+  const [paymentFrequency, setPaymentFrequency] = useState<"Hourly" | "Daily" | "Weekly" | "Per Deliverable">("Hourly");
+
+  // Sync payment frequency with formData
+  useEffect(() => {
+    if (formData.paymentFrequency) {
+      setPaymentFrequency(formData.paymentFrequency);
+    }
+  }, [formData.paymentFrequency]);
 
   const validateForm = (): boolean => {
     try {
@@ -186,12 +191,10 @@ export default function ContractDetails({
 
   const handleInputChange = (field: keyof ContractFormData, value: string) => {
     onFormDataChange({ ...formData, [field]: value });
-    // Clear error when user starts typing
     if (errors[field]) {
       onErrorsChange({ ...errors, [field]: "" });
     }
   };
-
 
   const addMilestone = () => {
     const newMilestone = {
@@ -222,7 +225,6 @@ export default function ContractDetails({
       ),
     });
 
-    // Clear error in a separate effect to avoid stale closure
     const milestoneIndex = formData.milestones.findIndex((m) => m.id === id);
     const milestoneErrorKey = `milestones.${milestoneIndex}.${field}`;
     if (errors[milestoneErrorKey]) {
@@ -269,6 +271,16 @@ export default function ContractDetails({
     }
   };
 
+  const calculateGasFee = () => {
+    const amt = Number(formData.amount);
+    if (amt < 10) return 0.5;
+    if (amt < 20) return 2.99;
+    if (amt > 100) return 10.12;
+    return 1.87;
+  };
+
+  const gasFee = calculateGasFee();
+  const netAmount = Number(formData.amount) - gasFee;
 
   const DatePicker = ({
     label,
@@ -281,77 +293,25 @@ export default function ContractDetails({
     onChange: (value: string) => void;
     error?: string;
   }) => (
-    <div className="">
+    <div>
       <label className="block text-sm font-medium text-[#414F62] mb-2">
         {label}
       </label>
-      <div className="relative bg[#F5F6F7]">
+      <div className="relative">
         <input
           type="date"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className={`w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-[#414F62] bg-[#F5F6F7] ${
-            error ? "border-red-300" : "border-gray-300"
-          }`}
+          className={`w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#5E2A8C] focus:border-transparent text-[#414F62] bg-[#F5F6F7] border-0 ${error ? "ring-2 ring-red-500" : ""
+            }`}
         />
-        <svg
-          width="16"
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#414F62]"
-          height="17"
-          viewBox="0 0 16 17"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M5.33203 1.83301V3.83301"
-            stroke="#7F8C9F"
-            strokeMiterlimit="10"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M10.668 1.83301V3.83301"
-            stroke="#7F8C9F"
-            strokeMiterlimit="10"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M2.33203 6.55957H13.6654"
-            stroke="#7F8C9F"
-            strokeMiterlimit="10"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M14 6.16634V11.833C14 13.833 13 15.1663 10.6667 15.1663H5.33333C3 15.1663 2 13.833 2 11.833V6.16634C2 4.16634 3 2.83301 5.33333 2.83301H10.6667C13 2.83301 14 4.16634 14 6.16634Z"
-            stroke="#7F8C9F"
-            strokeMiterlimit="10"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M7.99764 9.63314H8.00363"
-            stroke="#7F8C9F"
-            strokeWidth="1.33333"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M5.52889 9.63314H5.53488"
-            stroke="#7F8C9F"
-            strokeWidth="1.33333"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M5.52889 11.6331H5.53488"
-            stroke="#7F8C9F"
-            strokeWidth="1.33333"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <Image
+          src="/calander.svg"
+          alt="calendar"
+          width={16}
+          height={17}
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none"
+        />
       </div>
       {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
     </div>
@@ -359,22 +319,21 @@ export default function ContractDetails({
 
   const FileUpload = () => (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-2">
+      <label className="block text-sm font-medium text-[#414F62] mb-2">
         Contract Documents
       </label>
       <div
-        className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
-          dragOver ? "border-purple-400 bg-purple-50" : "border-gray-300"
-        }`}
+        className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${dragOver ? "border-[#5E2A8C] bg-[#F3EBF9]" : "border-[#E5E7EB] bg-[#F5F6F7]"
+          }`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
-        <Upload className="mx-auto text-gray-400 mb-2" size={24} />
-        <p className="text-gray-600 mb-2">
+        <Upload className="mx-auto text-[#7F8C9F] mb-2" size={24} />
+        <p className="text-[#414F62] mb-2">
           Drag and drop files here, or click to select
         </p>
-        <p className="text-sm text-gray-400">PDF, DOC, DOCX up to 10MB</p>
+        <p className="text-sm text-[#7F8C9F]">PDF, DOC, DOCX up to 10MB</p>
         <input
           type="file"
           multiple
@@ -385,7 +344,7 @@ export default function ContractDetails({
         />
         <label
           htmlFor="file-upload"
-          className="mt-2 inline-block px-4 py-2 bg-purple-700 text-white rounded-lg hover:bg-purple-800 cursor-pointer"
+          className="mt-2 inline-block px-4 py-2 bg-[#5E2A8C] text-white rounded-lg hover:bg-[#4A2270] cursor-pointer transition-colors"
         >
           Choose Files
         </label>
@@ -395,12 +354,12 @@ export default function ContractDetails({
           {formData.uploadedFiles.map((file, index) => (
             <div
               key={index}
-              className="flex items-center justify-between p-2 bg-gray-50 rounded"
+              className="flex items-center justify-between p-3 bg-[#F5F6F7] rounded-lg"
             >
-              <span className="text-sm text-gray-700">{file.name}</span>
+              <span className="text-sm text-[#414F62]">{file.name}</span>
               <button
                 onClick={() => removeFile(index)}
-                className="text-red-500 hover:text-red-700"
+                className="text-red-500 hover:text-red-700 transition-colors"
               >
                 <X size={16} />
               </button>
@@ -417,47 +376,43 @@ export default function ContractDetails({
       <div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <DatePicker
-            label="End date (optional)"
-            value={formData.endDate}
-            onChange={(value) => handleInputChange("endDate", value)}
-            error={errors.endDate}
-          />
-          <DatePicker
             label="Start date"
             value={formData.startDate}
             onChange={(value) => handleInputChange("startDate", value)}
             error={errors.startDate}
           />
+          <DatePicker
+            label="End date (optional)"
+            value={formData.endDate}
+            onChange={(value) => handleInputChange("endDate", value)}
+            error={errors.endDate}
+          />
         </div>
 
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <InputField
-              id="terminationNotice"
-              label="Termination notice period (days)"
-              value={formData.terminationNotice}
-              onChange={(e) =>
-                handleInputChange("terminationNotice", e.target.value)
-              }
-              error={errors.terminationNotice}
-            />
-            <p className="text-xs mt-1 text-[#414F62]">
-              Either party may terminate this contract by the specified notice,
-              after which the contract will end.
-            </p>
-          </div>
+        <div className="mt-6">
+          <InputField
+            id="terminationNotice"
+            label="Termination notice period (days)"
+            value={formData.terminationNotice}
+            onChange={(e) =>
+              handleInputChange("terminationNotice", e.target.value)
+            }
+            error={errors.terminationNotice}
+            placeholder="Enter number of days"
+          />
+          <p className="text-sm mt-2 text-[#7F8C9F]">
+            Either party may terminate this contract by the specified notice,
+            after which the contract will end.
+          </p>
         </div>
       </div>
 
       {/* Payment Details */}
       <div>
-        <div className="flex items-center mb-4 gap-x-4">
-          <h3 className="text-lg font-medium text-gray-700 min-w-fit ">
-            Payment details
-          </h3>
-          <div className="h-px bg-[#DCE0E5] w-full"></div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <h3 className="text-lg font-semibold text-[#17171C] mb-6">
+          Payment details
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <Dropdown
             label="Network"
             value={formData.network}
@@ -487,27 +442,79 @@ export default function ContractDetails({
                     errors.amount ? "border-red-300" : "border-gray-300"
                   }`}
                   placeholder="0.00"
+          <div>
+            <label className="block text-sm font-medium text-[#414F62] mb-2">
+              Asset
+              <span className="float-right text-[#17171C]">
+                +{netAmount.toFixed(3)}
+              </span>
+            </label>
+            <div className="flex items-center w-full px-4 py-3 bg-[#F5F6F7] rounded-lg">
+              <div className="flex items-center gap-2 flex-1">
+                <Image
+                  src={assets.find((a) => a.label === formData.asset)?.icon || "/Tether.svg"}
+                  alt={formData.asset}
+                  width={24}
+                  height={24}
                 />
+                <select
+                  value={formData.asset}
+                  onChange={(e) => handleInputChange("asset", e.target.value)}
+                  className="bg-transparent border-0 focus:outline-none text-[#414F62] cursor-pointer appearance-none"
+                >
+                  {assets.map((a) => (
+                    <option key={a.label} value={a.label}>
+                      {a.label}
+                    </option>
+                  ))}
+                </select>
+                <svg className="w-4 h-4 text-[#414F62]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
               </div>
-              {errors.amount && (
-                <p className="text-red-500 text-sm mt-2">{errors.amount}</p>
-              )}
+              <input
+                type="text"
+                value={`$ ${formData.amount}`}
+                onChange={(e) => handleInputChange("amount", e.target.value.replace("$ ", ""))}
+                className="text-right bg-transparent border-0 focus:outline-none text-[#414F62] w-32"
+              />
             </div>
-            <p className="text-sm text-[#414F62] absolute top-0 right-2">
-              = <span className="font-medium">{formData.calculatedAmount}</span>
-            </p>
+            {errors.asset && <p className="text-red-500 text-sm mt-1">{errors.asset}</p>}
+            {errors.amount && <p className="text-red-500 text-sm mt-1">{errors.amount}</p>}
+          </div>
+        </div>
+
+        {/* Payment Frequency - NEW ADDITION FROM FIGMA */}
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-[#414F62] mb-3">
+            Rate unit (Payment is based on the exact number of units submitted.)
+          </label>
+          <div className="flex flex-wrap gap-3">
+            {(["Hourly", "Daily", "Weekly", "Per Deliverable"] as const).map((freq) => (
+              <button
+                key={freq}
+                type="button"
+                onClick={() => {
+                  setPaymentFrequency(freq);
+                  onFormDataChange({ ...formData, paymentFrequency: freq });
+                }}
+                className={`px-6 py-2 rounded-lg text-sm font-medium transition-colors ${paymentFrequency === freq
+                  ? "bg-[#5E2A8C] text-white"
+                  : "bg-white border border-[#E5E7EB] text-[#414F62] hover:border-[#5E2A8C]"
+                  }`}
+              >
+                {freq}
+              </button>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Invoice Details */}
       <div>
-        <div className="flex items-center mb-4 gap-x-4">
-          <h3 className="text-lg font-medium text-gray-700 min-w-fit ">
-            Invoice details
-          </h3>
-          <div className="h-px bg-[#DCE0E5] w-full"></div>
-        </div>
+        <h3 className="text-lg font-semibold text-[#17171C] mb-6">
+          Invoice details
+        </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Dropdown
             label="Invoice frequency"
@@ -515,37 +522,33 @@ export default function ContractDetails({
             options={invoiceFrequencies}
             onChange={(value) => handleInputChange("invoiceFrequency", value)}
             error={errors.invoiceFrequency}
+            placeholder="--"
           />
           <Dropdown
             label="Issue Invoice on"
             value={formData.issueInvoiceOn}
-            options={[
-              "1st of month",
-              "15th of month",
-              "Last day of month",
-              "Custom",
-            ]}
+            options={issueInvoiceOptions}
             onChange={(value) => handleInputChange("issueInvoiceOn", value)}
-            error={errors.issueInvoiceOn}
+            placeholder="--"
           />
+        </div>
+        <div className="mt-6">
           <Dropdown
             label="Payment due"
             value={formData.paymentDue}
             options={paymentDueOptions}
             onChange={(value) => handleInputChange("paymentDue", value)}
             error={errors.paymentDue}
+            placeholder="--"
           />
         </div>
       </div>
 
       {/* First Invoice */}
       <div>
-        <div className="flex items-center mb-4 gap-x-4">
-          <h3 className="text-lg font-medium text-gray-700 min-w-fit ">
-            First Invoice
-          </h3>
-          <div className="h-px bg-[#DCE0E5] w-full"></div>
-        </div>
+        <h3 className="text-lg font-semibold text-[#17171C] mb-6">
+          First Invoice
+        </h3>
         <div className="space-y-4">
           <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-8">
             <label className="flex items-center cursor-pointer">
@@ -559,16 +562,19 @@ export default function ContractDetails({
                 }
                 className="sr-only"
               />
-              <div className={`w-4 h-4 rounded-full border-2 mr-3 flex items-center justify-center ${
-                formData.firstInvoiceType === "full" 
-                  ? "border-purple-600 bg-purple-600" 
-                  : "border-gray-300 bg-white"
-              }`}>
+              <div
+                className={`w-5 h-5 rounded-full border-2 mr-3 flex items-center justify-center transition-colors ${formData.firstInvoiceType === "full"
+                  ? "border-[#5E2A8C] bg-[#5E2A8C]"
+                  : "border-[#E5E7EB] bg-white"
+                  }`}
+              >
                 {formData.firstInvoiceType === "full" && (
-                  <div className="w-2 h-2 rounded-full bg-white"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-white"></div>
                 )}
               </div>
-              <span className="text-sm font-medium text-gray-900">Full amount</span>
+              <span className="text-sm font-medium text-[#414F62]">
+                Full amount
+              </span>
             </label>
             <label className="flex items-center cursor-pointer">
               <input
@@ -581,32 +587,37 @@ export default function ContractDetails({
                 }
                 className="sr-only"
               />
-              <div className={`w-4 h-4 rounded-full border-2 mr-3 flex items-center justify-center ${
-                formData.firstInvoiceType === "custom" 
-                  ? "border-purple-600 bg-purple-600" 
-                  : "border-gray-300 bg-white"
-              }`}>
+              <div
+                className={`w-5 h-5 rounded-full border-2 mr-3 flex items-center justify-center transition-colors ${formData.firstInvoiceType === "custom"
+                  ? "border-[#5E2A8C] bg-[#5E2A8C]"
+                  : "border-[#E5E7EB] bg-white"
+                  }`}
+              >
                 {formData.firstInvoiceType === "custom" && (
-                  <div className="w-2 h-2 rounded-full bg-white"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-white"></div>
                 )}
               </div>
-              <span className="text-sm font-medium text-gray-900">Custom amount</span>
+              <span className="text-sm font-medium text-[#414F62]">
+                Custom amount
+              </span>
             </label>
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-[#7F8C9F]">
             You would receive the full monthly amount for your first payment.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <DatePicker
               label="Date"
               value={formData.firstInvoiceDate}
-              onChange={(value) => handleInputChange("firstInvoiceDate", value)}
+              onChange={(value) =>
+                handleInputChange("firstInvoiceDate", value)
+              }
               error={errors.firstInvoiceDate}
             />
             <InputField
               id="firstInvoiceAmount"
               label="Amount"
-              placeholder="Enter amount"
+              placeholder="0.00"
               value={formData.firstInvoiceAmount}
               onChange={(e) =>
                 handleInputChange("firstInvoiceAmount", e.target.value)
@@ -619,38 +630,178 @@ export default function ContractDetails({
 
       {/* Add inclusive tax (optional) */}
       <div>
-        <div className="flex items-center mb-4 gap-x-4">
-          <h3 className="text-lg font-medium text-gray-700 min-w-fit ">
-            Add inclusive tax (optional)
-          </h3>
-          <div className="h-px bg-[#DCE0E5] w-full"></div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <h3 className="text-lg font-semibold text-[#17171C] mb-6">
+          Add inclusive tax (optional)
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <Dropdown
             label="Tax type"
             value={formData.taxType}
-            options={["VAT", "GST", "HST", "PST", "Sales Tax"]}
+            options={taxTypes}
             onChange={(value) => handleInputChange("taxType", value)}
             error={errors.taxType}
             placeholder="e.g VAT, GST, HST, PST"
           />
-          <Dropdown
+          <InputField
+            id="taxId"
             label="ID / account number"
+            placeholder="Enter tax ID or account number"
             value={formData.taxId}
-            options={[]}
-            onChange={(value) => handleInputChange("taxId", value)}
+            onChange={(e) => handleInputChange("taxId", e.target.value)}
             error={errors.taxId}
           />
-          <Dropdown
-            label="Tax rate"
-            value={formData.taxRate}
-            options={[]}
-            onChange={(value) => handleInputChange("taxRate", value)}
-            error={errors.taxRate}
+        </div>
+        <Dropdown
+          label="Tax rate"
+          value={formData.taxRate}
+          options={taxRates}
+          onChange={(value) => handleInputChange("taxRate", value)}
+          placeholder="--"
+        />
+      </div>
+
+      {/* Contract Wallet - PRESERVED */}
+      <div>
+        <h3 className="text-lg font-semibold text-[#17171C] mb-6">
+          Contract Wallet
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <InputField
+            id="walletAddress"
+            label="Wallet Address"
+            placeholder="Enter wallet address"
+            value={formData.walletAddress}
+            onChange={(e) => handleInputChange("walletAddress", e.target.value)}
+            error={errors.walletAddress}
+          />
+          <InputField
+            id="walletType"
+            label="Wallet Type"
+            placeholder="e.g., MetaMask, Trust Wallet"
+            value={formData.walletType}
+            onChange={(e) => handleInputChange("walletType", e.target.value)}
+            error={errors.walletType}
           />
         </div>
       </div>
 
+      {/* End Period - PRESERVED */}
+      <div>
+        <h3 className="text-lg font-semibold text-[#17171C] mb-6">
+          Contract Period
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <InputField
+            id="contractDuration"
+            label="Contract Duration"
+            placeholder="e.g., 6 months"
+            value={formData.contractDuration}
+            onChange={(e) =>
+              handleInputChange("contractDuration", e.target.value)
+            }
+            error={errors.contractDuration}
+          />
+          <InputField
+            id="renewalTerms"
+            label="Renewal Terms"
+            placeholder="e.g., Auto-renew"
+            value={formData.renewalTerms}
+            onChange={(e) => handleInputChange("renewalTerms", e.target.value)}
+            error={errors.renewalTerms}
+          />
+        </div>
+      </div>
+
+      {/* Milestones/Deliverables - PRESERVED */}
+      <div>
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-lg font-semibold text-[#17171C]">
+            Milestones / Deliverables
+          </h3>
+          <button
+            type="button"
+            onClick={addMilestone}
+            className="px-4 py-2 bg-[#5E2A8C] text-white rounded-lg hover:bg-[#4A2270] transition-colors text-sm font-medium"
+          >
+            + Add Milestone
+          </button>
+        </div>
+        {formData.milestones.length === 0 ? (
+          <p className="text-[#7F8C9F] text-center py-8">
+            No milestones added yet. Click "Add Milestone" to create one.
+          </p>
+        ) : (
+          <div className="space-y-4">
+            {formData.milestones.map((milestone, index) => (
+              <div
+                key={milestone.id}
+                className="p-4 border border-[#E5E7EB] rounded-lg bg-[#F5F6F7]"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <h4 className="font-medium text-[#17171C]">
+                    Milestone {index + 1}
+                  </h4>
+                  <button
+                    onClick={() => removeMilestone(milestone.id)}
+                    className="text-red-500 hover:text-red-700 transition-colors"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <InputField
+                    id={`milestone-title-${milestone.id}`}
+                    label="Title"
+                    placeholder="Milestone title"
+                    value={milestone.title}
+                    onChange={(e) =>
+                      updateMilestone(milestone.id, "title", e.target.value)
+                    }
+                    error={errors[`milestones.${index}.title`]}
+                  />
+                  <InputField
+                    id={`milestone-amount-${milestone.id}`}
+                    label="Amount"
+                    placeholder="0.00"
+                    value={milestone.amount}
+                    onChange={(e) =>
+                      updateMilestone(milestone.id, "amount", e.target.value)
+                    }
+                    error={errors[`milestones.${index}.amount`]}
+                  />
+                  <div className="md:col-span-2">
+                    <InputField
+                      id={`milestone-description-${milestone.id}`}
+                      label="Description"
+                      placeholder="Describe the milestone"
+                      value={milestone.description}
+                      onChange={(e) =>
+                        updateMilestone(
+                          milestone.id,
+                          "description",
+                          e.target.value
+                        )
+                      }
+                      error={errors[`milestones.${index}.description`]}
+                    />
+                  </div>
+                  <DatePicker
+                    label="Due Date"
+                    value={milestone.dueDate}
+                    onChange={(value) =>
+                      updateMilestone(milestone.id, "dueDate", value)
+                    }
+                    error={errors[`milestones.${index}.dueDate`]}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* File Upload - PRESERVED */}
+      <FileUpload />
     </div>
   );
 }
