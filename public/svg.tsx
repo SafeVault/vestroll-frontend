@@ -593,6 +593,101 @@ export const Mail = () => {
     </svg>
   );
 };
+export const ProfileIcon = () => (
+  <svg
+    width={28}
+    height={28}
+    viewBox="0 0 28 28"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M14.187 12.6823C14.0703 12.6707 13.9303 12.6707 13.802 12.6823C11.0253 12.589 8.82031 10.314 8.82031 7.51398C8.82031 4.65565 11.1303 2.33398 14.0003 2.33398C16.8586 2.33398 19.1803 4.65565 19.1803 7.51398C19.1686 10.314 16.9636 12.589 14.187 12.6823Z"
+      stroke="#C2BAF3"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M8.35187 16.986C5.52854 18.876 5.52854 21.956 8.35187 23.8343C11.5602 25.981 16.8219 25.981 20.0302 23.8343C22.8535 21.9443 22.8535 18.8643 20.0302 16.986C16.8335 14.851 11.5719 14.851 8.35187 16.986Z"
+      stroke="#C2BAF3"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+export const CheckMarkIcon = () => (
+  <svg
+    width={16}
+    height={17}
+    viewBox="0 0 16 17"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M3.32617 8.30708L6.49925 11.4801L13.3262 5.16602"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const CalendarCheckIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="40"
+    height="41"
+    fill="none"
+    viewBox="0 0 40 41"
+  >
+    <path
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeMiterlimit="10"
+      strokeWidth="2.5"
+      d="M13.333 3.833v5M26.667 3.833v5M11.667 22.167H25M11.667 28.833h6.4M36.667 32.167c0 1.25-.35 2.433-.967 3.433a6.62 6.62 0 0 1-5.7 3.233 6.5 6.5 0 0 1-4.383-1.666A6 6 0 0 1 24.3 35.6a6.54 6.54 0 0 1-.967-3.433A6.665 6.665 0 0 1 30 25.5c2 0 3.783.883 5 2.267a6.67 6.67 0 0 1 1.667 4.4"
+    ></path>
+    <path
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2.5"
+      d="m27.4 32.167 1.65 1.65 3.55-3.284"
+    ></path>
+    <path
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeMiterlimit="10"
+      strokeWidth="2.5"
+      d="M35 27.166V16.583c0-7.833-2.783-9.95-8.333-10.25H13.333C7.783 6.65 5 8.75 5 16.583v10.3c0 6.867 1.667 10.3 10 10.3h10"
+    ></path>
+  </svg>
+);
+
+export const ArrowDownIcon = () => (
+  <svg
+    width={20}
+    height={20}
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M16.6004 7.45898L11.1671 12.8923C10.5254 13.534 9.47539 13.534 8.83372 12.8923L3.40039 7.45898"
+      stroke="#7F8C9F"
+      strokeWidth="1.25"
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 export const Phone = () => {
   return (
     <svg

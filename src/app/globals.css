@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Fasthand&display=swap");
 @import "tailwindcss";
 @import "./styles/colors.css";
 @import "tw-animate-css";
@@ -125,6 +126,10 @@
 
 body {
   font-family: "HK Grotesk", sans-serif;
+}
+.fasthand {
+  font-family: "Fasthand", cursive;
+  font-style: normal;
 }
 
 .display {
