@@ -11,26 +11,26 @@ const Icons = {
 export const invoiceMetricsData = [
   {
     title: "Total invoices",
-    value: "$ 7,200.00",
-    subValue: "20 Invoices",
-    icon: <DocumentIcon />,
-  },
-  {
-    title: "Unpaid invoices",
-    value: "$ 1,200.00",
-    subValue: "04 Invoices",
-    icon: <DocumentIcon />,
-  },
-  {
-    title: "Paid invoices",
-    value: "$ 5,000.00",
+    value: "$ 21,600.00",
     subValue: "12 Invoices",
     icon: <DocumentIcon />,
   },
   {
-    title: "Overdue invoices",
-    value: "$ 1,000.00",
+    title: "Successful invoices",
+    value: "$ 10,100.00",
+    subValue: "05 Invoices",
+    icon: <DocumentIcon />,
+  },
+  {
+    title: "Pending invoices",
+    value: "$ 6,100.00",
     subValue: "04 Invoices",
+    icon: <DocumentIcon />,
+  },
+  {
+    title: "Failed invoices",
+    value: "$ 5,400.00",
+    subValue: "03 Invoices",
     icon: <DocumentIcon />,
   },
 ];

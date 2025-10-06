@@ -420,6 +420,28 @@ export default function ContractDetails({
             onChange={(value) => handleInputChange("network", value)}
             error={errors.network}
           />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 w-full relative">
+            <Dropdown
+              label="Asset"
+              value={formData.asset}
+              options={assets}
+              onChange={(value) => handleInputChange("asset", value)}
+              error={errors.asset}
+            />
+            <div className="w-full relative">
+              <div className="">
+                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#414F62]">
+                  $
+                </span>
+                <input
+                  type="number"
+                  step="0.01"
+                  value={formData.amount}
+                  onChange={(e) => handleInputChange("amount", e.target.value)}
+                  className={`w-full pl-8 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-[#414F62] bg-[#F5F6F7] ${
+                    errors.amount ? "border-red-300" : "border-gray-300"
+                  }`}
+                  placeholder="0.00"
           <div>
             <label className="block text-sm font-medium text-[#414F62] mb-2">
               Asset
@@ -528,7 +550,7 @@ export default function ContractDetails({
           First Invoice
         </h3>
         <div className="space-y-4">
-          <div className="flex space-x-8">
+          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-8">
             <label className="flex items-center cursor-pointer">
               <input
                 type="radio"
