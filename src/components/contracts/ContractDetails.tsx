@@ -465,7 +465,7 @@ export default function ContractDetails({
             onChange={(value) => handleInputChange("network", value)}
             error={errors.network}
           />
-          <div className="flex items-end gap-x-2 w-full relative">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 w-full relative">
             <Dropdown
               label="Asset"
               value={formData.asset}
@@ -547,7 +547,7 @@ export default function ContractDetails({
           <div className="h-px bg-[#DCE0E5] w-full"></div>
         </div>
         <div className="space-y-4">
-          <div className="flex space-x-8">
+          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-8">
             <label className="flex items-center cursor-pointer">
               <input
                 type="radio"
