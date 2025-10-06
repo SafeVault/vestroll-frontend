@@ -43,7 +43,6 @@ export default function FinancePage() {
       >
         Show Transaction.
       </button>
-      <AddressBookEmptyModal isOpen={true} onClose={() => {}} />
     </div>
   );
 }
