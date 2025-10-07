@@ -1,3 +1,3 @@
-export { default } from "../../(auth)/invoices/page";
+export { default } from "../../(app)/invoices/page";
 
 
