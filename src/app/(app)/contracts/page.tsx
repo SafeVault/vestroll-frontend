@@ -1,5 +1,5 @@
-import Contracts from "@/components/contracts";
 import PageHeader from "@/components/contracts/header";
+import Contracts from "@/components/contracts";
 
 export default function ContractsPage() {
   return (
