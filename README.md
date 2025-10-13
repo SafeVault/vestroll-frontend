@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VestRoll Payroll System - Web Application
 
-## Getting Started
+Enterprise Payroll management web platform built with React, TypeScript and Next.js featuring real-time analytics, cryptocurrency integration, and AI insights.
 
-First, run the development server:
+## Technology Stack
+
+- **Framework**: Next.js 14+ (App Router)
+- **Language**: TypeScript 5+
+- **UI Library**: React 18+
+- **Styling**: Tailwind CSS 3+
+- **State Management**: Zustand / Redux Toolkit
+- **Data Fetching**: React Query (TanStack Query)
+- **Forms**: React Hook Form + Zod validation
+- **Charts**: Recharts / Chart.js
+- **Blockchain**: ethers.js / web3.js
+- **Authentication**: NextAuth.js
+- **Testing**: Jest + React Testing Library + Playwright
+
+
+
+## Installation
 
 ```bash
+# Clone repository
+git clone https://github.com/SafeVault/vestroll-frontend.git
+cd vestroll-frontend
+
+# Install dependencies
+npm install
+# or
+yarn install
+# or
+pnpm install
+
+# Copy environment variables
+cp .env.example .env.local
+# Edit .env.local with your values
+
+# Run development server
 npm run dev
 # or
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Development
+npm run dev              # Start dev server (hot reload enabled)
+npm run build            # Build production bundle
+npm run start            # Start production server
+npm run lint             # Run ESLint
+npm run lint:fix         # Fix linting issues
+npm run type-check       # Run TypeScript type checking
 
-## Learn More
+# Testing
+npm run test             # Run all tests
+npm run test:watch       # Run tests in watch mode
+npm run test:coverage    # Generate coverage report
+npm run test:e2e         # Run end-to-end tests
+npm run test:unit        # Run unit tests only
 
-To learn more about Next.js, take a look at the following resources:
+# Code Quality
+npm run format           # Format code with Prettier
+npm run format:check     # Check code formatting
+npm run analyze          # Analyze bundle size
+npm run prepare          # Setup Husky git hooks
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Database (if using Prisma)
+npm run db:generate      # Generate Prisma client
+npm run db:push          # Push schema changes
+npm run db:migrate       # Run migrations
+npm run db:studio        # Open Prisma Studio
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
